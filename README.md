@@ -25,22 +25,37 @@ button.addControlEvent(.TouchUpInside) { self.button.setTitle("Button was tapped
 ```swift
 - addControlEvent(controlEvents: UIControlEvents, closure: () -> ())
 ```
+#### Example
+```swift
+```
 
 ```swift
 - removeControlEvent(controlEvents: UIControlEvents)
 ```
+#### Example
+```swift
+```
 
 ### UIGestureRecognizer
 ```swift
-- init(closure: () -> ())
+- init(actionClosure: () -> ())
+```
+#### Example
+```swift
 ```
 
 ```swift
-- addClosure(closure: () -> ())
+- addActionClosure(actionClosure: () -> ())
+```
+#### Example
+```swift
 ```
 
 ```swift
-- removeClosure()
+- removeActionClosure()
+```
+#### Example
+```swift
 ```
 
 ## How it works
