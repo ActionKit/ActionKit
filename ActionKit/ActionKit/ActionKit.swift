@@ -35,7 +35,7 @@ let runClosureAllEvents = "runClosureAllEvents:"
 
 class ActionKitSingleton {
     var controlAndEventsDict: Dictionary<UIControl, Dictionary<ActionKitUIControlEventsStruct, () -> Void>> = Dictionary()
-    var gestureDict: Dictionary<UIGestureRecognizer, ()->Void> = Dictionary()
+    var gestureDict: Dictionary<UIGestureRecognizer, [(String,()->Void)]> = Dictionary()
 
     class var sharedInstance : ActionKitSingleton {
     struct ActionKit {
@@ -48,18 +48,54 @@ class ActionKitSingleton {
 //  GESTURE ACTIONS
 //
     
-    func addGestureClosure(gesture: UIGestureRecognizer, closure: () -> ()) {
-        gestureDict[gesture] = closure
+    func addGestureClosure(gesture: UIGestureRecognizer, name: String, closure: () -> ()) {
+//        gestureDict[gesture] = closure
+        if var gestureArr = gestureDict[gesture] {
+            gestureArr.append(name,closure)
+            gestureDict[gesture] = gestureArr
+        } else {
+            var newGestureArr = Array<(String, ()->Void)>()
+            newGestureArr.append(name, closure)
+            gestureDict[gesture] = newGestureArr
+        }
+        
+        
     }
     
-    func removeGesture(gesture: UIGestureRecognizer) {
-        gestureDict.removeValueForKey(gesture)
+    func canRemoveGesture(gesture: UIGestureRecognizer) -> Bool {
+        if let gestureArray = gestureDict[gesture] {
+            if gestureArray.count == 1 {
+                return true
+            } else {
+                return false
+            }
+        }
+        return false
+    }
+    
+    func removeGesture(gesture: UIGestureRecognizer, name: String) {
+//        gestureDict.removeValueForKey(gesture)
+        if var gestureArray = gestureDict[gesture] {
+            var x: Int = 0
+            for (index, gestureTuple) in enumerate(gestureArray) {
+                if gestureTuple.0 == name {
+                    x = index
+                }
+            }
+            gestureArray.removeAtIndex(x)
+            gestureDict[gesture] = gestureArray
+        } else {
+            gestureDict.removeValueForKey(gesture)
+        }
     }
     
     @objc(runGesture:)
     func runGesture(gesture: UIGestureRecognizer) {
-        if let possibleClosure = gestureDict[gesture] {
-            possibleClosure()
+        if let gestureArray = gestureDict[gesture] {
+            for possibleClosureTuple in gestureArray {
+                println("running closure named: \(possibleClosureTuple.0)")
+                (possibleClosureTuple.1)()
+            }
         }
     }
     

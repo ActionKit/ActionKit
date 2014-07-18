@@ -34,22 +34,23 @@ class ViewController: UIViewController {
         
         oldTestButton.addTarget(self, action: Selector("tappedSelector:"), forControlEvents: .TouchUpInside)
 
-        var tgr = UITapGestureRecognizer() {
+        var tgr = UITapGestureRecognizer(name: "setRed") {
             self.view.backgroundColor = UIColor.redColor()
         }
         // The following three lines will replace the action for the red color gesture recognizer to just change the text of the first test button only. Only one action per gesture recognizer (or a control event for that matter)
         // More actions per gesture recognizer and for control events are in the works.
-//        tgr.addClosure() {
-//            self.testButton.setTitle("tapped once on the screen!", forState: .Normal)
-//        }
+        tgr.addClosure("setButton1") {
+            self.testButton.setTitle("tapped once on the screen!", forState: .Normal)
+        }
         
-        var dtgr = UITapGestureRecognizer() {
+        var dtgr = UITapGestureRecognizer(name: "setYellow") {
             self.view.backgroundColor = UIColor.yellowColor()
         }
         
         
         dtgr.numberOfTapsRequired = 2
         // These two gesture recognizers will change the background color of the screen. dtgr will make it yellow on a double tap, tgr makes it red on a single tap. 
+//        tgr.removeClosure("setButton1")
         view.addGestureRecognizer(dtgr)
         view.addGestureRecognizer(tgr)
         

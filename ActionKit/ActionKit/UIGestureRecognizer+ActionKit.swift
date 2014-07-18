@@ -11,18 +11,23 @@ import UIKit
 
 extension UIGestureRecognizer {
     
-    convenience init(closure: () -> ()) {
+    convenience init(name: String, closure: () -> ()) {
         self.init(target: ActionKitSingleton.sharedInstance, action: Selector("runGesture:"))
-        ActionKitSingleton.sharedInstance.addGestureClosure(self, closure: closure)
+        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: closure)
     }
     
-    func addClosure(closure: () -> ()) {
-        self.addTarget(ActionKitSingleton.sharedInstance, action: Selector("runGesture:"))
-        ActionKitSingleton.sharedInstance.addGestureClosure(self, closure: closure)
+    func addClosure(name: String, closure: () -> ()) {
+//        self.addTarget(ActionKitSingleton.sharedInstance, action: Selector("runGesture:"))
+        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: closure)
     }
     
-    func removeClosure() {
-        self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector("runGesture:"))
-        ActionKitSingleton.sharedInstance.removeGesture(self)
+    func removeClosure(name: String) {
+        if !ActionKitSingleton.sharedInstance.canRemoveGesture(self) {
+            println("can remove a gesture closure")
+            ActionKitSingleton.sharedInstance.removeGesture(self, name: name)
+        } else {
+            ActionKitSingleton.sharedInstance.removeGesture(self, name: name)
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector("runGesture:"))
+        }
     }
 }
