@@ -22,47 +22,55 @@ button.addControlEvent(.TouchUpInside) { self.button.setTitle("Button was tapped
 
 ## Methods
 ### UIControl
+#### Adding an action closure for a control event
 ```swift
 - addControlEvent(controlEvents: UIControlEvents, closure: () -> ())
 ```
-#### Example
+##### Example
 ```swift
+button.addControlEvent(.TouchUpInside) { self.button.setTitle("Button was tapped!", forState: .Normal) }
 ```
-
+#### Removing an action closure for a control event
 ```swift
 - removeControlEvent(controlEvents: UIControlEvents)
 ```
-#### Example
+##### Example
 ```swift
+button.removeControlEvent(.TouchUpInside)
 ```
-
 ### UIGestureRecognizer
+#### Initializing a gesture recognizer with an action closure
 ```swift
 - init(actionClosure: () -> ())
 ```
-#### Example
+##### Example
 ```swift
+var singleTapGestureRecognizer = UITapGestureRecognizer() { self.view.backgroundColor = UIColor.redColor() }
 ```
-
+#### Adding an action closure to a gesture recognizer
 ```swift
 - addActionClosure(actionClosure: () -> ())
 ```
-#### Example
+##### Example
 ```swift
+singleTapGestureRecognizer.addActionClosure() { self.view.backgroundColor = UIColor.blueColor() }
 ```
-
+#### Removing an action closure for a control event
 ```swift
 - removeActionClosure()
 ```
-#### Example
+##### Example
 ```swift
+singleTapGestureRecognizer.removeActionClosure()
 ```
 
 ## How it works
 ActionKit extends target-action functionality by providing easy to use methods that take closures instead of a selector. ActionKit uses a singleton which stores the closures and acts as the target. Closures capture and store references to any constants and variables from their context, so the user is free to use variables from the context in which the closure was defined in.
 
 ## Supported
+- Adding and removing an action to concrete gesture-recognizer objects, eg. UITapGestureRecognizer, UISwipeGestureRecognizer
+- Adding and removing an action for UIControl objects, eg. UIButton, UIView
 
 ## In the pipeline
-- Adding multiple actions for a single UIGestureRecognizer
-- Adding multiple actions for a single UIControl
+- Adding and removing multiple actions for a single UIGestureRecognizer
+- Adding and removing multiple actions for a single UIControl
