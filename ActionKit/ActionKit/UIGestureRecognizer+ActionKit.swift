@@ -22,6 +22,7 @@ extension UIGestureRecognizer {
     }
     
     func removeClosure() {
+        self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector("runGesture:"))
         ActionKitSingleton.sharedInstance.removeGesture(self)
     }
 }
