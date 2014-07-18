@@ -64,7 +64,8 @@ struct ActionKitUIControlEventsStruct : Hashable {
 
 extension UIControl {
     func addControlEvent(controlEvents: UIControlEvents, closure: () -> ()) {
-        self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosure), forControlEvents: controlEvents)
-        ActionKitSingleton.sharedInstance.addClosure(self, closure)
+        self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchUpInside), forControlEvents: controlEvents)
+//        ActionKitSingleton.sharedInstance.addClosure(self, closure)
+        ActionKitSingleton.sharedInstance.addAction(self, controlEvent: controlEvents, closure: closure)
     }
 }

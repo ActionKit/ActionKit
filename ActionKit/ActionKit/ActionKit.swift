@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 let runClosure = "runClosure:"
+let runClosureTouchUpInside = "runClosureTouchUpInside:"
 
 
 
@@ -40,6 +41,18 @@ class ActionKitSingleton {
             var newDict = Dictionary<ActionKitUIControlEventsStruct, () -> Void>()
             newDict[controlStruct] = closure
             dict2[control] = newDict
+        }
+    }
+    
+    
+    @objc(runClosureTouchUpInside:)
+    func runClosureTouchUpInside(control: UIControl)
+    {
+        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.TouchUpInside)
+        if let innerDict = dict2[control] {
+            if let possibleClosure = innerDict[controlStruct] {
+                possibleClosure()
+            }
         }
     }
     
