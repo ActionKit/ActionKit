@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 
 extension UIControl {
-    func addControlEvent(controlEvents: UIControlEvents, forAction closure: () -> ()) {
-        self.addTarget(ActionKitSingleton.sharedInstance(), action: Selector("runClosure:"), forControlEvents: .TouchUpInside)
-        ActionKitSingleton.sharedInstance().addAction(self, closure)
+    func addControlEvent(controlEvents: UIControlEvents, closure: () -> ()) {
+        self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosure), forControlEvents: controlEvents)
+        ActionKitSingleton.sharedInstance.addClosure(self, closure)
     }
 }
