@@ -56,6 +56,11 @@ class ActionKitSingleton {
     func addGestureClosure(gesture: UIGestureRecognizer, closure: () -> ()) {
         gestureDict[gesture] = closure
     }
+    
+    func removeGesture(gesture: UIGestureRecognizer) {
+        gestureDict.removeValueForKey(gesture)
+    }
+    
     @objc(runGesture:)
     func runGesture(gesture: UIGestureRecognizer) {
         if let possibleClosure = gestureDict[gesture] {

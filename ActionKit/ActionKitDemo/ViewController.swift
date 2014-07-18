@@ -25,11 +25,15 @@ class ViewController: UIViewController {
         var tgr = UITapGestureRecognizer() {
             self.view.backgroundColor = UIColor.redColor()
         }
-        view.addGestureRecognizer(tgr)
+        tgr.addClosure() {
+            self.testButton2.setTitle("tapped once on the screen!", forState: .Normal)
+        }
         
         var dtgr = UITapGestureRecognizer() {
             self.view.backgroundColor = UIColor.yellowColor()
         }
+        
+        
         dtgr.numberOfTapsRequired = 2
         view.addGestureRecognizer(dtgr)
         

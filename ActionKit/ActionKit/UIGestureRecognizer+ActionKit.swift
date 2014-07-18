@@ -16,8 +16,12 @@ extension UIGestureRecognizer {
         ActionKitSingleton.sharedInstance.addGestureClosure(self, closure: closure)
     }
     
-    func addGestureRecognizer(closure: () -> ()) {
+    func addClosure(closure: () -> ()) {
         self.addTarget(ActionKitSingleton.sharedInstance, action: Selector("runGesture:"))
         ActionKitSingleton.sharedInstance.addGestureClosure(self, closure: closure)
+    }
+    
+    func removeClosure() {
+        ActionKitSingleton.sharedInstance.removeGesture(self)
     }
 }
