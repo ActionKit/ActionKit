@@ -2,7 +2,7 @@
 //  UIControl+ActionKit.swift
 //  ActionKit
 //
-//  Created by Kevin Choi on 7/17/14.
+//  Created by Kevin Choi, Benjamin Hendricks on 7/17/14.
 //  Copyright (c) 2014 ActionKit. All rights reserved.
 //
 
@@ -107,10 +107,7 @@ extension UIControl {
         default:
             self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchUpInside), forControlEvents: controlEvents)
         }
-        
-        // legacy code
-        //        ActionKitSingleton.sharedInstance.addClosure(self, closure)
-        
+
         ActionKitSingleton.sharedInstance.removeAction(self, controlEvent: controlEvents)
 
     }
@@ -158,9 +155,6 @@ extension UIControl {
         default:
             self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchUpInside), forControlEvents: controlEvents)
         }
-        
-        // legacy code
-//        ActionKitSingleton.sharedInstance.addClosure(self, closure)
         
         ActionKitSingleton.sharedInstance.addAction(self, controlEvent: controlEvents, closure: closure)
     }

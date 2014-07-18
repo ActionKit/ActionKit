@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  ActionKit
 //
-//  Created by Kevin Choi on 7/17/14.
+//  Created by Kevin Choi, Benjamin Hendricks on 7/17/14.
 //  Copyright (c) 2014 ActionKit. All rights reserved.
 //
 

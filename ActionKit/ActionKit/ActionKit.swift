@@ -2,15 +2,12 @@
 //  ActionKit.swift
 //  ActionKit
 //
-//  Created by Kevin Choi on 7/17/14.
+//  Created by Kevin Choi, Benjamin Hendricks on 7/17/14.
 //  Copyright (c) 2014 ActionKit. All rights reserved.
 //
 
 import Foundation
 import UIKit
-
-// legacy
-let runClosure = "runClosure:"
 
 // All 19 UIControlEvents
 let runClosureTouchDown = "runClosureTouchDown:"
@@ -37,8 +34,6 @@ let runClosureAllEvents = "runClosureAllEvents:"
 
 
 class ActionKitSingleton {
-    // legacy code (1 line)
-    var controlDict: Dictionary<UIControl, ()->Void> = Dictionary()
     var controlAndEventsDict: Dictionary<UIControl, Dictionary<ActionKitUIControlEventsStruct, () -> Void>> = Dictionary()
     var gestureDict: Dictionary<UIGestureRecognizer, ()->Void> = Dictionary()
 
@@ -71,22 +66,6 @@ class ActionKitSingleton {
 //
 // CLOSURE ACTIONS
 //
-    
-    // legacy code
-    
-    func addClosure(control: UIControl, closure: () -> ())
-    {
-        controlDict[control] = closure
-    }
-    
-    @objc(runClosure:)
-    func runClosure(control: UIControl)
-    {
-        if let possibleClosure = controlDict[control] {
-            possibleClosure()
-        }
-    }
-    // end legacy code
     
     func removeAction(control: UIControl, controlEvent: UIControlEvents) {
         let controlStruct = ActionKitUIControlEventsStruct(value: controlEvent)
