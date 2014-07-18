@@ -17,15 +17,33 @@ let runClosureTouchUpInside = "runClosureTouchUpInside:"
 class ActionKitSingleton {
     var controlDict: Dictionary<UIControl, ()->Void> = Dictionary()
     var controlAndEventsDict: Dictionary<UIControl, Dictionary<ActionKitUIControlEventsStruct, () -> Void>> = Dictionary()
+    var gestureDict: Dictionary<UIGestureRecognizer, ()->Void> = Dictionary()
 
-    
     class var sharedInstance : ActionKitSingleton {
     struct ActionKit {
         static let instance : ActionKitSingleton = ActionKitSingleton()
         }
         return ActionKit.instance
     }
-
+    
+//
+//  GESTURE ACTIONS
+//
+    
+    func addGestureClosure(gesture: UIGestureRecognizer, closure: () -> ()) {
+        gestureDict[gesture] = closure
+    }
+    @objc(runGesture:)
+    func runGesture(gesture: UIGestureRecognizer) {
+        if let possibleClosure = gestureDict[gesture] {
+            possibleClosure()
+        }
+    }
+    
+//
+// CLOSURE ACTIONS
+//
+    
     func addClosure(control: UIControl, closure: () -> ())
     {
         controlDict[control] = closure
@@ -55,6 +73,7 @@ class ActionKitSingleton {
             }
         }
     }
+    
     
     @objc(runClosure:)
     func runClosure(control: UIControl)

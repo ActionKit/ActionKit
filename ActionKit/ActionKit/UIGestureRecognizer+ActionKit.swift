@@ -7,3 +7,17 @@
 //
 
 import Foundation
+import UIKit
+
+extension UIGestureRecognizer {
+    
+    convenience init(closure: () -> ()) {
+        self.init(target: ActionKitSingleton.sharedInstance, action: Selector("runGesture:"))
+        ActionKitSingleton.sharedInstance.addGestureClosure(self, closure: closure)
+    }
+    
+    func addGestureRecognizer(closure: () -> ()) {
+        self.addTarget(ActionKitSingleton.sharedInstance, action: Selector("runGesture:"))
+        ActionKitSingleton.sharedInstance.addGestureClosure(self, closure: closure)
+    }
+}

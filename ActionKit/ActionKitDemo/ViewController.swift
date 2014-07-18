@@ -23,6 +23,19 @@ class ViewController: UIViewController {
 //        testButton.addControlEvent(.TouchDown) {
 //            self.testButton.setTitle("Already tapped...", forState: .Normal)
 //        }
+
+        var tgr = UITapGestureRecognizer() {
+            self.view.backgroundColor = UIColor.redColor()
+        }
+        view.addGestureRecognizer(tgr)
+        
+        var dtgr = UITapGestureRecognizer() {
+            self.view.backgroundColor = UIColor.yellowColor()
+        }
+        dtgr.numberOfTapsRequired = 2
+        view.addGestureRecognizer(dtgr)
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
