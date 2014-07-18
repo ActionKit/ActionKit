@@ -12,6 +12,8 @@ class ViewController: UIViewController {
                             
     @IBOutlet var testButton: UIButton
     
+    @IBOutlet var testButton2: UIButton
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -19,10 +21,10 @@ class ViewController: UIViewController {
         testButton.addControlEvent(.TouchUpInside) {
             self.testButton.setTitle("Tapped!", forState: .Normal)
         }
-        
-//        testButton.addControlEvent(.TouchDown) {
-//            self.testButton.setTitle("Already tapped...", forState: .Normal)
-//        }
+
+        testButton.addControlEvent(.TouchUpInside, closure: {
+            self.testButton2.setTitle("Tapped2!", forState: .Normal)
+            })
     }
 
     override func didReceiveMemoryWarning() {

@@ -64,8 +64,53 @@ struct ActionKitUIControlEventsStruct : Hashable {
 
 extension UIControl {
     func addControlEvent(controlEvents: UIControlEvents, closure: () -> ()) {
-        self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchUpInside), forControlEvents: controlEvents)
+        
+        switch controlEvents {
+        case UIControlEvents.TouchDown:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchDown), forControlEvents: controlEvents)
+        case UIControlEvents.TouchDownRepeat:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchDownRepeat), forControlEvents: controlEvents)
+        case UIControlEvents.TouchDragInside:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchDragInside), forControlEvents: controlEvents)
+        case UIControlEvents.TouchDragOutside:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchDragOutside), forControlEvents: controlEvents)
+        case UIControlEvents.TouchDragEnter:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchDragEnter), forControlEvents: controlEvents)
+        case UIControlEvents.TouchDragExit:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchDragExit), forControlEvents: controlEvents)
+        case UIControlEvents.TouchUpInside:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchUpInside), forControlEvents: controlEvents)
+        case UIControlEvents.TouchUpOutside:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchUpOutside), forControlEvents: controlEvents)
+        case UIControlEvents.TouchCancel:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchCancel), forControlEvents: controlEvents)
+        case UIControlEvents.ValueChanged:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureValueChanged), forControlEvents: controlEvents)
+        case UIControlEvents.EditingDidBegin:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureEditingDidBegin), forControlEvents: controlEvents)
+        case UIControlEvents.EditingChanged:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureEditingChanged), forControlEvents: controlEvents)
+        case UIControlEvents.EditingDidEnd:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureEditingDidEnd), forControlEvents: controlEvents)
+        case UIControlEvents.EditingDidEndOnExit:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureEditingDidEndOnExit), forControlEvents: controlEvents)
+        case UIControlEvents.AllTouchEvents:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureAllTouchEvents), forControlEvents: controlEvents)
+        case UIControlEvents.AllEditingEvents:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureAllEditingEvents), forControlEvents: controlEvents)
+        case UIControlEvents.ApplicationReserved:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureApplicationReserved), forControlEvents: controlEvents)
+        case UIControlEvents.SystemReserved:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureSystemReserved), forControlEvents: controlEvents)
+        case UIControlEvents.AllEvents:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureAllEvents), forControlEvents: controlEvents)
+        default:
+            self.addTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchUpInside), forControlEvents: controlEvents)
+        }
+        
+        // legacy code
 //        ActionKitSingleton.sharedInstance.addClosure(self, closure)
+        
         ActionKitSingleton.sharedInstance.addAction(self, controlEvent: controlEvents, closure: closure)
     }
 }
