@@ -88,6 +88,13 @@ class ActionKitSingleton {
     }
     // end legacy code
     
+    func removeAction(control: UIControl, controlEvent: UIControlEvents) {
+        let controlStruct = ActionKitUIControlEventsStruct(value: controlEvent)
+        if var innerDict = controlAndEventsDict[control] {
+            innerDict.removeValueForKey(controlStruct);
+        }
+    }
+    
     func addAction(control: UIControl, controlEvent: UIControlEvents, closure: () -> ())
     {
         let controlStruct = ActionKitUIControlEventsStruct(value: controlEvent)

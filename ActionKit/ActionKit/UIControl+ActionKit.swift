@@ -63,6 +63,57 @@ struct ActionKitUIControlEventsStruct : Hashable {
 }
 
 extension UIControl {
+    
+    func removeControlEvent(controlEvents: UIControlEvents) {
+        switch controlEvents {
+        case UIControlEvents.TouchDown:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchDown), forControlEvents: controlEvents)
+        case UIControlEvents.TouchDownRepeat:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchDownRepeat), forControlEvents: controlEvents)
+        case UIControlEvents.TouchDragInside:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchDragInside), forControlEvents: controlEvents)
+        case UIControlEvents.TouchDragOutside:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchDragOutside), forControlEvents: controlEvents)
+        case UIControlEvents.TouchDragEnter:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchDragEnter), forControlEvents: controlEvents)
+        case UIControlEvents.TouchDragExit:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchDragExit), forControlEvents: controlEvents)
+        case UIControlEvents.TouchUpInside:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchUpInside), forControlEvents: controlEvents)
+        case UIControlEvents.TouchUpOutside:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchUpOutside), forControlEvents: controlEvents)
+        case UIControlEvents.TouchCancel:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchCancel), forControlEvents: controlEvents)
+        case UIControlEvents.ValueChanged:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureValueChanged), forControlEvents: controlEvents)
+        case UIControlEvents.EditingDidBegin:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureEditingDidBegin), forControlEvents: controlEvents)
+        case UIControlEvents.EditingChanged:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureEditingChanged), forControlEvents: controlEvents)
+        case UIControlEvents.EditingDidEnd:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureEditingDidEnd), forControlEvents: controlEvents)
+        case UIControlEvents.EditingDidEndOnExit:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureEditingDidEndOnExit), forControlEvents: controlEvents)
+        case UIControlEvents.AllTouchEvents:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureAllTouchEvents), forControlEvents: controlEvents)
+        case UIControlEvents.AllEditingEvents:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureAllEditingEvents), forControlEvents: controlEvents)
+        case UIControlEvents.ApplicationReserved:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureApplicationReserved), forControlEvents: controlEvents)
+        case UIControlEvents.SystemReserved:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureSystemReserved), forControlEvents: controlEvents)
+        case UIControlEvents.AllEvents:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureAllEvents), forControlEvents: controlEvents)
+        default:
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector(runClosureTouchUpInside), forControlEvents: controlEvents)
+        }
+        
+        // legacy code
+        //        ActionKitSingleton.sharedInstance.addClosure(self, closure)
+        
+        ActionKitSingleton.sharedInstance.removeAction(self, controlEvent: controlEvents)
+
+    }
     func addControlEvent(controlEvents: UIControlEvents, closure: () -> ()) {
         
         switch controlEvents {
