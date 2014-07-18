@@ -17,11 +17,7 @@ func buttonWasTapped(sender: UIButton!) {
 
 ## Target-action example with ActionKit
 ```swift
-button.addControlEvent(.TouchUpInside) {
-
-    self.button.setTitle("Button was tapped!", forState: .Normal)
-    
-}
+button.addControlEvent(.TouchUpInside) { self.button.setTitle("Button was tapped!", forState: .Normal) }
 ```
 
 ## Methods
