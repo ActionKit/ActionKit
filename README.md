@@ -23,12 +23,22 @@ button.addControlEvent(.TouchUpInside) { self.button.setTitle("Button was tapped
 ## Methods
 ### UIControl
 - addControlEvent(controlEvents: UIControlEvents, closure: () -> ())
+```swift
+```
 - removeControlEvent(controlEvents: UIControlEvents)
-- 
+```swift
+```
+
 ### UIGestureRecognizer
 - init(closure: () -> ())
+```swift
+```
 - addClosure(closure: () -> ())
+```swift
+```
 - removeClosure()
+```swift
+```
 
 ## How it works
 ActionKit extends target-action functionality by providing easy to use methods that take closures instead of a selector. ActionKit uses a singleton which stores the closures and acts as the target. Closures capture and store references to any constants and variables from their context, so the user is free to use variables from the context in which the closure was defined in.
