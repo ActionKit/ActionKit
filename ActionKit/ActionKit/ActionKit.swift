@@ -15,8 +15,8 @@ let runClosureTouchUpInside = "runClosureTouchUpInside:"
 
 
 class ActionKitSingleton {
-    var dict: Dictionary<UIControl, ()->Void> = Dictionary()
-    var dict2: Dictionary<UIControl, Dictionary<ActionKitUIControlEventsStruct, () -> Void>> = Dictionary()
+    var controlDict: Dictionary<UIControl, ()->Void> = Dictionary()
+    var controlAndEventsDict: Dictionary<UIControl, Dictionary<ActionKitUIControlEventsStruct, () -> Void>> = Dictionary()
 
     
     class var sharedInstance : ActionKitSingleton {
@@ -28,19 +28,19 @@ class ActionKitSingleton {
 
     func addClosure(control: UIControl, closure: () -> ())
     {
-        dict[control] = closure
+        controlDict[control] = closure
     }
     
     func addAction(control: UIControl, controlEvent: UIControlEvents, closure: () -> ())
     {
         let controlStruct = ActionKitUIControlEventsStruct(value: controlEvent)
-        if var innerDict = dict2[control] {
+        if var innerDict = controlAndEventsDict[control] {
             innerDict[controlStruct] = closure
         }
         else {
             var newDict = Dictionary<ActionKitUIControlEventsStruct, () -> Void>()
             newDict[controlStruct] = closure
-            dict2[control] = newDict
+            controlAndEventsDict[control] = newDict
         }
     }
     
@@ -49,7 +49,7 @@ class ActionKitSingleton {
     func runClosureTouchUpInside(control: UIControl)
     {
         let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.TouchUpInside)
-        if let innerDict = dict2[control] {
+        if let innerDict = controlAndEventsDict[control] {
             if let possibleClosure = innerDict[controlStruct] {
                 possibleClosure()
             }
@@ -59,7 +59,7 @@ class ActionKitSingleton {
     @objc(runClosure:)
     func runClosure(control: UIControl)
     {
-        if let possibleClosure = dict[control] {
+        if let possibleClosure = controlDict[control] {
             possibleClosure()
         }
     }
