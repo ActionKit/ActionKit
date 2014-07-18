@@ -1,5 +1,5 @@
 # ActionKit
-ActionKit is a light-weight, easy to use framework that wraps the target-action design paradigm into a less verbose, cleaner format. It shortens target-action method calls by removing the target and replacing the selector with a closure.
+ActionKit is a experimental, light-weight, easy to use framework that wraps the target-action design paradigm into a less verbose, cleaner format. It shortens target-action method calls by removing the target and replacing the selector with a closure.
 
 ## Target-action example without ActionKit
 ```swift
@@ -74,3 +74,4 @@ ActionKit extends target-action functionality by providing easy to use methods t
 ## In the pipeline
 - Adding and removing multiple actions for a single UIGestureRecognizer
 - Adding and removing multiple actions for a single UIControl
+- Better manage stored closures
