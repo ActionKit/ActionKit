@@ -21,6 +21,9 @@ class ViewController: UIViewController {
         testButton.addControlEvent(.TouchUpInside) {
             self.testButton.setTitle("Tapped!", forState: .Normal)
         }
+        
+//        testButton.removeTarget(self, action: Sel(""), forControlEvents: .TouchUpInside)
+        
 
         var tgr = UITapGestureRecognizer() {
             self.view.backgroundColor = UIColor.redColor()
@@ -33,9 +36,10 @@ class ViewController: UIViewController {
         dtgr.numberOfTapsRequired = 2
         view.addGestureRecognizer(dtgr)
         
-        testButton.addControlEvent(.TouchUpInside, closure: {
+        testButton2.addControlEvent(.TouchUpInside, closure: {
             self.testButton2.setTitle("Tapped2!", forState: .Normal)
             })
+        testButton.removeControlEvent(.TouchUpInside);
     }
 
     override func didReceiveMemoryWarning() {
