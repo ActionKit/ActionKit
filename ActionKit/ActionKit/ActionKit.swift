@@ -51,7 +51,7 @@ class ActionKitSingleton {
     func addGestureClosure(gesture: UIGestureRecognizer, name: String, closure: () -> ()) {
 //        gestureDict[gesture] = closure
         if var gestureArr = gestureDict[gesture] {
-            gestureArr.append(name,closure)
+            gestureArr.append(name, closure)
             gestureDict[gesture] = gestureArr
         } else {
             var newGestureArr = Array<(String, ()->Void)>()
@@ -93,7 +93,7 @@ class ActionKitSingleton {
     func runGesture(gesture: UIGestureRecognizer) {
         if let gestureArray = gestureDict[gesture] {
             for possibleClosureTuple in gestureArray {
-                println("running closure named: \(possibleClosureTuple.0)")
+                // println("running closure named: \(possibleClosureTuple.0)")
                 (possibleClosureTuple.1)()
             }
         }
