@@ -62,7 +62,7 @@ struct ActionKitUIControlEventsStruct : Hashable {
     }
 }
 
-extension UIControl {
+public extension UIControl {
     
     func removeControlEvent(controlEvents: UIControlEvents) {
         switch controlEvents {

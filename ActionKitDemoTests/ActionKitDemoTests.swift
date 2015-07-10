@@ -1,15 +1,15 @@
 //
-//  ActionKitTests.swift
-//  ActionKitTests
+//  ActionKitDemoTests.swift
+//  ActionKitDemoTests
 //
-//  Created by Kevin Choi on 7/17/14.
-//  Copyright (c) 2014 ActionKit. All rights reserved.
+//  Created by Dirk van Oosterbosch on 10/07/15.
+//  Copyright (c) 2015 ActionKit. All rights reserved.
 //
 
 import UIKit
 import XCTest
 
-class ActionKitTests: XCTestCase {
+class ActionKitDemoTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

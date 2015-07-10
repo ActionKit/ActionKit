@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D13A844A1978D6EA0068CA2B"
-               BuildableName = "ActionKitDemo.app"
-               BlueprintName = "ActionKitDemo"
-               ReferencedContainer = "container:ActionKitDemo.xcodeproj">
+               BlueprintIdentifier = "438CAE521B50060D00EA8B00"
+               BuildableName = "ActionKit.framework"
+               BlueprintName = "ActionKit"
+               ReferencedContainer = "container:ActionKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -28,24 +28,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D13A845C1978D6EA0068CA2B"
+               BlueprintIdentifier = "438CAE5D1B50060D00EA8B00"
                BuildableName = "ActionKitTests.xctest"
                BlueprintName = "ActionKitTests"
-               ReferencedContainer = "container:ActionKitDemo.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "438CAE7B1B50198F00EA8B00"
-               BuildableName = "ActionKitDemoTests.xctest"
-               BlueprintName = "ActionKitDemoTests"
-               ReferencedContainer = "container:ActionKitDemo.xcodeproj">
+               ReferencedContainer = "container:ActionKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -60,30 +46,20 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D13A845C1978D6EA0068CA2B"
+               BlueprintIdentifier = "438CAE5D1B50060D00EA8B00"
                BuildableName = "ActionKitTests.xctest"
                BlueprintName = "ActionKitTests"
-               ReferencedContainer = "container:ActionKitDemo.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "438CAE7B1B50198F00EA8B00"
-               BuildableName = "ActionKitDemoTests.xctest"
-               BlueprintName = "ActionKitDemoTests"
-               ReferencedContainer = "container:ActionKitDemo.xcodeproj">
+               ReferencedContainer = "container:ActionKit.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D13A844A1978D6EA0068CA2B"
-            BuildableName = "ActionKitDemo.app"
-            BlueprintName = "ActionKitDemo"
-            ReferencedContainer = "container:ActionKitDemo.xcodeproj">
+            BlueprintIdentifier = "438CAE521B50060D00EA8B00"
+            BuildableName = "ActionKit.framework"
+            BlueprintName = "ActionKit"
+            ReferencedContainer = "container:ActionKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -96,16 +72,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D13A844A1978D6EA0068CA2B"
-            BuildableName = "ActionKitDemo.app"
-            BlueprintName = "ActionKitDemo"
-            ReferencedContainer = "container:ActionKitDemo.xcodeproj">
+            BlueprintIdentifier = "438CAE521B50060D00EA8B00"
+            BuildableName = "ActionKit.framework"
+            BlueprintName = "ActionKit"
+            ReferencedContainer = "container:ActionKit.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -115,16 +90,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D13A844A1978D6EA0068CA2B"
-            BuildableName = "ActionKitDemo.app"
-            BlueprintName = "ActionKitDemo"
-            ReferencedContainer = "container:ActionKitDemo.xcodeproj">
+            BlueprintIdentifier = "438CAE521B50060D00EA8B00"
+            BuildableName = "ActionKit.framework"
+            BlueprintName = "ActionKit"
+            ReferencedContainer = "container:ActionKit.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

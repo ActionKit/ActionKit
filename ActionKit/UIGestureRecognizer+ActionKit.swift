@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-extension UIGestureRecognizer {
+public extension UIGestureRecognizer {
     
     convenience init(name: String = "", closure: () -> ()) {
         self.init(target: ActionKitSingleton.sharedInstance, action: Selector("runGesture:"))
