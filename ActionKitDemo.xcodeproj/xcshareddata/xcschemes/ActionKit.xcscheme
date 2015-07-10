@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D13A844A1978D6EA0068CA2B"
-               BuildableName = "ActionKit.app"
-               BlueprintName = "ActionKit"
-               ReferencedContainer = "container:ActionKit.xcodeproj">
+               BuildableName = "ActionKitDemo.app"
+               BlueprintName = "ActionKitDemo"
+               ReferencedContainer = "container:ActionKitDemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "D13A845C1978D6EA0068CA2B"
                BuildableName = "ActionKitTests.xctest"
                BlueprintName = "ActionKitTests"
-               ReferencedContainer = "container:ActionKit.xcodeproj">
+               ReferencedContainer = "container:ActionKitDemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -49,7 +49,7 @@
                BlueprintIdentifier = "D13A845C1978D6EA0068CA2B"
                BuildableName = "ActionKitTests.xctest"
                BlueprintName = "ActionKitTests"
-               ReferencedContainer = "container:ActionKit.xcodeproj">
+               ReferencedContainer = "container:ActionKitDemo.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D13A844A1978D6EA0068CA2B"
-            BuildableName = "ActionKit.app"
-            BlueprintName = "ActionKit"
-            ReferencedContainer = "container:ActionKit.xcodeproj">
+            BuildableName = "ActionKitDemo.app"
+            BlueprintName = "ActionKitDemo"
+            ReferencedContainer = "container:ActionKitDemo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -77,9 +77,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D13A844A1978D6EA0068CA2B"
-            BuildableName = "ActionKit.app"
-            BlueprintName = "ActionKit"
-            ReferencedContainer = "container:ActionKit.xcodeproj">
+            BuildableName = "ActionKitDemo.app"
+            BlueprintName = "ActionKitDemo"
+            ReferencedContainer = "container:ActionKitDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -96,9 +96,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D13A844A1978D6EA0068CA2B"
-            BuildableName = "ActionKit.app"
-            BlueprintName = "ActionKit"
-            ReferencedContainer = "container:ActionKit.xcodeproj">
+            BuildableName = "ActionKitDemo.app"
+            BlueprintName = "ActionKitDemo"
+            ReferencedContainer = "container:ActionKitDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

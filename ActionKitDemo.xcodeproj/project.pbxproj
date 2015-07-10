@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B20967821978E226004A9273 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B20967801978E226004A9273 /* Main.storyboard */; };
+		438CAE221B50048200EA8B00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 438CAE201B50048200EA8B00 /* Main.storyboard */; };
 		D11D2DCD1978DB2D00328A72 /* ActionKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13A84811978D9EF0068CA2B /* ActionKit.swift */; };
 		D11D2DCE1978DB2D00328A72 /* UIControl+ActionKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13A84821978D9EF0068CA2B /* UIControl+ActionKit.swift */; };
 		D11D2DCF1978DB2D00328A72 /* UIGestureRecognizer+ActionKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13A84831978D9EF0068CA2B /* UIGestureRecognizer+ActionKit.swift */; };
@@ -55,18 +55,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B20967811978E226004A9273 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ActionKit/ActionKitDemo/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D13A844B1978D6EA0068CA2B /* ActionKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActionKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		438CAE211B50048200EA8B00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Demo/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D13A844B1978D6EA0068CA2B /* ActionKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActionKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D13A845D1978D6EA0068CA2B /* ActionKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActionKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D13A84621978D6EA0068CA2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D13A84631978D6EA0068CA2B /* ActionKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionKitTests.swift; sourceTree = "<group>"; };
-		D13A84741978D9AF0068CA2B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ActionKit/ActionKitDemo/AppDelegate.swift; sourceTree = "<group>"; };
-		D13A84781978D9AF0068CA2B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ActionKit/ActionKitDemo/Images.xcassets; sourceTree = "<group>"; };
-		D13A847A1978D9AF0068CA2B /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ActionKit/ActionKitDemo/ViewController.swift; sourceTree = "<group>"; };
-		D13A84811978D9EF0068CA2B /* ActionKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActionKit.swift; path = ActionKit/ActionKit/ActionKit.swift; sourceTree = "<group>"; };
-		D13A84821978D9EF0068CA2B /* UIControl+ActionKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIControl+ActionKit.swift"; path = "ActionKit/ActionKit/UIControl+ActionKit.swift"; sourceTree = "<group>"; };
-		D13A84831978D9EF0068CA2B /* UIGestureRecognizer+ActionKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIGestureRecognizer+ActionKit.swift"; path = "ActionKit/ActionKit/UIGestureRecognizer+ActionKit.swift"; sourceTree = "<group>"; };
-		D13A84871978DA0C0068CA2B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ActionKitDemo/Info.plist; sourceTree = "<group>"; };
+		D13A84621978D6EA0068CA2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Tests/Info.plist; sourceTree = "<group>"; };
+		D13A84631978D6EA0068CA2B /* ActionKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ActionKitTests.swift; path = ../Tests/ActionKitTests.swift; sourceTree = "<group>"; };
+		D13A84741978D9AF0068CA2B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Demo/AppDelegate.swift; sourceTree = "<group>"; };
+		D13A84781978D9AF0068CA2B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Demo/Images.xcassets; sourceTree = "<group>"; };
+		D13A847A1978D9AF0068CA2B /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = Demo/ViewController.swift; sourceTree = "<group>"; };
+		D13A84811978D9EF0068CA2B /* ActionKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ActionKit.swift; path = Source/ActionKit.swift; sourceTree = "<group>"; };
+		D13A84821978D9EF0068CA2B /* UIControl+ActionKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIControl+ActionKit.swift"; path = "Source/UIControl+ActionKit.swift"; sourceTree = "<group>"; };
+		D13A84831978D9EF0068CA2B /* UIGestureRecognizer+ActionKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIGestureRecognizer+ActionKit.swift"; path = "Source/UIGestureRecognizer+ActionKit.swift"; sourceTree = "<group>"; };
+		D13A84871978DA0C0068CA2B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Demo/Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,9 +90,9 @@
 		D13A84421978D6EA0068CA2B = {
 			isa = PBXGroup;
 			children = (
-				D13A84801978D9DD0068CA2B /* ActionKit */,
+				D13A84801978D9DD0068CA2B /* Source */,
 				D13A84731978D7980068CA2B /* ActionKitDemo */,
-				D13A84601978D6EA0068CA2B /* ActionKitTests */,
+				D13A84601978D6EA0068CA2B /* Tests */,
 				D13A844C1978D6EA0068CA2B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -100,7 +100,7 @@
 		D13A844C1978D6EA0068CA2B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D13A844B1978D6EA0068CA2B /* ActionKit.app */,
+				D13A844B1978D6EA0068CA2B /* ActionKitDemo.app */,
 				D13A845D1978D6EA0068CA2B /* ActionKitTests.xctest */,
 			);
 			name = Products;
@@ -115,12 +115,13 @@
 			path = ActionKit;
 			sourceTree = "<group>";
 		};
-		D13A84601978D6EA0068CA2B /* ActionKitTests */ = {
+		D13A84601978D6EA0068CA2B /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				D13A84631978D6EA0068CA2B /* ActionKitTests.swift */,
 				D13A84611978D6EA0068CA2B /* Supporting Files */,
 			);
+			name = Tests;
 			path = ActionKitTests;
 			sourceTree = "<group>";
 		};
@@ -135,7 +136,7 @@
 		D13A84731978D7980068CA2B /* ActionKitDemo */ = {
 			isa = PBXGroup;
 			children = (
-				B20967801978E226004A9273 /* Main.storyboard */,
+				438CAE201B50048200EA8B00 /* Main.storyboard */,
 				D13A84741978D9AF0068CA2B /* AppDelegate.swift */,
 				D13A847A1978D9AF0068CA2B /* ViewController.swift */,
 				D13A84781978D9AF0068CA2B /* Images.xcassets */,
@@ -144,22 +145,22 @@
 			name = ActionKitDemo;
 			sourceTree = "<group>";
 		};
-		D13A84801978D9DD0068CA2B /* ActionKit */ = {
+		D13A84801978D9DD0068CA2B /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				D13A84811978D9EF0068CA2B /* ActionKit.swift */,
 				D13A84821978D9EF0068CA2B /* UIControl+ActionKit.swift */,
 				D13A84831978D9EF0068CA2B /* UIGestureRecognizer+ActionKit.swift */,
 			);
-			name = ActionKit;
+			name = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D13A844A1978D6EA0068CA2B /* ActionKit */ = {
+		D13A844A1978D6EA0068CA2B /* ActionKitDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D13A84671978D6EA0068CA2B /* Build configuration list for PBXNativeTarget "ActionKit" */;
+			buildConfigurationList = D13A84671978D6EA0068CA2B /* Build configuration list for PBXNativeTarget "ActionKitDemo" */;
 			buildPhases = (
 				D13A84471978D6EA0068CA2B /* Sources */,
 				D13A84481978D6EA0068CA2B /* Frameworks */,
@@ -169,9 +170,9 @@
 			);
 			dependencies = (
 			);
-			name = ActionKit;
+			name = ActionKitDemo;
 			productName = ActionKit;
-			productReference = D13A844B1978D6EA0068CA2B /* ActionKit.app */;
+			productReference = D13A844B1978D6EA0068CA2B /* ActionKitDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D13A845C1978D6EA0068CA2B /* ActionKitTests */ = {
@@ -214,7 +215,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D13A84461978D6EA0068CA2B /* Build configuration list for PBXProject "ActionKit" */;
+			buildConfigurationList = D13A84461978D6EA0068CA2B /* Build configuration list for PBXProject "ActionKitDemo" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -227,7 +228,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D13A844A1978D6EA0068CA2B /* ActionKit */,
+				D13A844A1978D6EA0068CA2B /* ActionKitDemo */,
 				D13A845C1978D6EA0068CA2B /* ActionKitTests */,
 			);
 		};
@@ -238,7 +239,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B20967821978E226004A9273 /* Main.storyboard in Resources */,
+				438CAE221B50048200EA8B00 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,36 +278,36 @@
 /* Begin PBXTargetDependency section */
 		D13A845F1978D6EA0068CA2B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D13A844A1978D6EA0068CA2B /* ActionKit */;
+			target = D13A844A1978D6EA0068CA2B /* ActionKitDemo */;
 			targetProxy = D13A845E1978D6EA0068CA2B /* PBXContainerItemProxy */;
 		};
 		D13A848A1978DA870068CA2B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D13A844A1978D6EA0068CA2B /* ActionKit */;
+			target = D13A844A1978D6EA0068CA2B /* ActionKitDemo */;
 			targetProxy = D13A84891978DA870068CA2B /* PBXContainerItemProxy */;
 		};
 		D13A848C1978DA880068CA2B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D13A844A1978D6EA0068CA2B /* ActionKit */;
+			target = D13A844A1978D6EA0068CA2B /* ActionKitDemo */;
 			targetProxy = D13A848B1978DA880068CA2B /* PBXContainerItemProxy */;
 		};
 		D13A848E1978DAD30068CA2B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D13A844A1978D6EA0068CA2B /* ActionKit */;
+			target = D13A844A1978D6EA0068CA2B /* ActionKitDemo */;
 			targetProxy = D13A848D1978DAD30068CA2B /* PBXContainerItemProxy */;
 		};
 		D13A84901978DAD40068CA2B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D13A844A1978D6EA0068CA2B /* ActionKit */;
+			target = D13A844A1978D6EA0068CA2B /* ActionKitDemo */;
 			targetProxy = D13A848F1978DAD40068CA2B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		B20967801978E226004A9273 /* Main.storyboard */ = {
+		438CAE201B50048200EA8B00 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				B20967811978E226004A9273 /* Base */,
+				438CAE211B50048200EA8B00 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -398,7 +399,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "$(SRCROOT)/ActionKit/ActionKitDemo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ActionKitDemo;
 			};
 			name = Debug;
 		};
@@ -409,7 +410,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "$(SRCROOT)/ActionKit/ActionKitDemo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ActionKitDemo;
 			};
 			name = Release;
 		};
@@ -450,7 +451,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D13A84461978D6EA0068CA2B /* Build configuration list for PBXProject "ActionKit" */ = {
+		D13A84461978D6EA0068CA2B /* Build configuration list for PBXProject "ActionKitDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D13A84651978D6EA0068CA2B /* Debug */,
@@ -459,7 +460,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D13A84671978D6EA0068CA2B /* Build configuration list for PBXNativeTarget "ActionKit" */ = {
+		D13A84671978D6EA0068CA2B /* Build configuration list for PBXNativeTarget "ActionKitDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D13A84681978D6EA0068CA2B /* Debug */,
