@@ -11,7 +11,7 @@ import UIKit
 
 extension UIGestureRecognizer {
     
-    convenience init(name: String, closure: () -> ()) {
+    convenience init(name: String = "", closure: () -> ()) {
         self.init(target: ActionKitSingleton.sharedInstance, action: Selector("runGesture:"))
         ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: closure)
     }
