@@ -11,12 +11,12 @@ import UIKit
 class ViewController: UIViewController {
     
     // Test buttons used for our implementation of target action
-    @IBOutlet var testButton: UIButton
-    @IBOutlet var testButton2: UIButton
+    @IBOutlet var testButton: UIButton!
+    @IBOutlet var testButton2: UIButton!
     
     // Test buttons used for a regular usage of target action without ActionKit
-    @IBOutlet var oldTestButton: UIButton
-    @IBOutlet var oldTestButton2: UIButton
+    @IBOutlet var oldTestButton: UIButton!
+    @IBOutlet var oldTestButton2: UIButton!
     
     // Part of making old test button changed to tapped. This is what ActionKit tries to avoid doing
     // by removing the need to explicitly declare selector functions when a closure is all that's needed
