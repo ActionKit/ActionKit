@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		438CAE761B50079700EA8B00 /* ActionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 438CAE751B50079700EA8B00 /* ActionKit.framework */; };
 		438CAE771B500AB900EA8B00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 438CAE201B50048200EA8B00 /* Main.storyboard */; };
 		438CAE811B50198F00EA8B00 /* ActionKitDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438CAE801B50198F00EA8B00 /* ActionKitDemoTests.swift */; };
 		D11D2DD01978DB2D00328A72 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13A84741978D9AF0068CA2B /* AppDelegate.swift */; };
@@ -22,14 +21,35 @@
 			remoteGlobalIDString = D13A844A1978D6EA0068CA2B;
 			remoteInfo = ActionKitDemo;
 		};
+		43A8BBC51B62581F00530463 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 43A8BBC01B62581F00530463 /* ActionKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 438CAE531B50060D00EA8B00;
+			remoteInfo = ActionKit;
+		};
+		43A8BBC71B62581F00530463 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 43A8BBC01B62581F00530463 /* ActionKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 438CAE5E1B50060D00EA8B00;
+			remoteInfo = ActionKitTests;
+		};
+		43A8BBC91B62583D00530463 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 43A8BBC01B62581F00530463 /* ActionKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 438CAE521B50060D00EA8B00;
+			remoteInfo = ActionKit;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		438CAE211B50048200EA8B00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Demo/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		438CAE751B50079700EA8B00 /* ActionKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ActionKit.framework; path = "../../../../Library/Developer/Xcode/DerivedData/ActionKit-ejumxwtxaafbgsangkrfejmxdrxl/Build/Products/Debug-iphoneos/ActionKit.framework"; sourceTree = "<group>"; };
 		438CAE7C1B50198F00EA8B00 /* ActionKitDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ActionKitDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		438CAE7F1B50198F00EA8B00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		438CAE801B50198F00EA8B00 /* ActionKitDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionKitDemoTests.swift; sourceTree = "<group>"; };
+		43A8BBC01B62581F00530463 /* ActionKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = ActionKit.xcodeproj; sourceTree = "<group>"; };
 		D13A844B1978D6EA0068CA2B /* ActionKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ActionKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D13A84741978D9AF0068CA2B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Demo/AppDelegate.swift; sourceTree = "<group>"; };
 		D13A84781978D9AF0068CA2B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Demo/Images.xcassets; sourceTree = "<group>"; };
@@ -49,7 +69,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				438CAE761B50079700EA8B00 /* ActionKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,13 +92,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		43A8BBC11B62581F00530463 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				43A8BBC61B62581F00530463 /* ActionKit.framework */,
+				43A8BBC81B62581F00530463 /* ActionKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D13A84421978D6EA0068CA2B = {
 			isa = PBXGroup;
 			children = (
-				438CAE751B50079700EA8B00 /* ActionKit.framework */,
 				D13A84731978D7980068CA2B /* ActionKitDemo */,
 				438CAE7D1B50198F00EA8B00 /* ActionKitDemoTests */,
 				D13A844C1978D6EA0068CA2B /* Products */,
+				43A8BBC01B62581F00530463 /* ActionKit.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -145,6 +173,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				43A8BBCA1B62583D00530463 /* PBXTargetDependency */,
 			);
 			name = ActionKitDemo;
 			productName = ActionKit;
@@ -180,6 +209,12 @@
 			mainGroup = D13A84421978D6EA0068CA2B;
 			productRefGroup = D13A844C1978D6EA0068CA2B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 43A8BBC11B62581F00530463 /* Products */;
+					ProjectRef = 43A8BBC01B62581F00530463 /* ActionKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				D13A844A1978D6EA0068CA2B /* ActionKitDemo */,
@@ -187,6 +222,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		43A8BBC61B62581F00530463 /* ActionKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ActionKit.framework;
+			remoteRef = 43A8BBC51B62581F00530463 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		43A8BBC81B62581F00530463 /* ActionKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ActionKitTests.xctest;
+			remoteRef = 43A8BBC71B62581F00530463 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		438CAE7A1B50198F00EA8B00 /* Resources */ = {
@@ -231,6 +283,11 @@
 			isa = PBXTargetDependency;
 			target = D13A844A1978D6EA0068CA2B /* ActionKitDemo */;
 			targetProxy = 438CAE821B50198F00EA8B00 /* PBXContainerItemProxy */;
+		};
+		43A8BBCA1B62583D00530463 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ActionKit;
+			targetProxy = 43A8BBC91B62583D00530463 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
