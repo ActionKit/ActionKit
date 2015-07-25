@@ -15,54 +15,54 @@ func ==(lhs: ActionKitUIControlEventsStruct, rhs: ActionKitUIControlEventsStruct
 struct ActionKitUIControlEventsStruct : Hashable {
     var value: UIControlEvents
     var hashValue:Int {
-    get {
-        switch self.value {
-        case UIControlEvents.TouchDown:
-            return 1
-        case UIControlEvents.TouchDownRepeat:
-            return 2
-        case UIControlEvents.TouchDragInside:
-            return 3
-        case UIControlEvents.TouchDragOutside:
-            return 4
-        case UIControlEvents.TouchDragEnter:
-            return 5
-        case UIControlEvents.TouchDragExit:
-            return 6
-        case UIControlEvents.TouchUpInside:
-            return 7
-        case UIControlEvents.TouchUpOutside:
-            return 8
-        case UIControlEvents.TouchCancel:
-            return 9
-        case UIControlEvents.ValueChanged:
-            return 10
-        case UIControlEvents.EditingDidBegin:
-            return 11
-        case UIControlEvents.EditingChanged:
-            return 12
-        case UIControlEvents.EditingDidEnd:
-            return 13
-        case UIControlEvents.EditingDidEndOnExit:
-            return 14
-        case UIControlEvents.AllTouchEvents:
-            return 15
-        case UIControlEvents.AllEditingEvents:
-            return 16
-        case UIControlEvents.ApplicationReserved:
-            return 17
-        case UIControlEvents.SystemReserved:
-            return 18
-        case UIControlEvents.AllEvents:
-            return 19
-        default:
-            return 20
-        }
-    }
+		get {
+			switch self.value {
+			case UIControlEvents.TouchDown:
+				return 1
+			case UIControlEvents.TouchDownRepeat:
+				return 2
+			case UIControlEvents.TouchDragInside:
+				return 3
+			case UIControlEvents.TouchDragOutside:
+				return 4
+			case UIControlEvents.TouchDragEnter:
+				return 5
+			case UIControlEvents.TouchDragExit:
+				return 6
+			case UIControlEvents.TouchUpInside:
+				return 7
+			case UIControlEvents.TouchUpOutside:
+				return 8
+			case UIControlEvents.TouchCancel:
+				return 9
+			case UIControlEvents.ValueChanged:
+				return 10
+			case UIControlEvents.EditingDidBegin:
+				return 11
+			case UIControlEvents.EditingChanged:
+				return 12
+			case UIControlEvents.EditingDidEnd:
+				return 13
+			case UIControlEvents.EditingDidEndOnExit:
+				return 14
+			case UIControlEvents.AllTouchEvents:
+				return 15
+			case UIControlEvents.AllEditingEvents:
+				return 16
+			case UIControlEvents.ApplicationReserved:
+				return 17
+			case UIControlEvents.SystemReserved:
+				return 18
+			case UIControlEvents.AllEvents:
+				return 19
+			default:
+				return 20
+			}
+		}
     }
 }
 
-extension UIControl {
+public extension UIControl {
     
     func removeControlEvent(controlEvents: UIControlEvents) {
         switch controlEvents {
