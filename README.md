@@ -1,3 +1,5 @@
+<img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" align="right" vspace="2px">
+
 # ActionKit
 ActionKit is a experimental, light-weight, easy to use framework that wraps the target-action design paradigm into a less verbose, cleaner format. It shortens target-action method calls by removing the target and replacing the selector with a closure.
 
@@ -75,3 +77,12 @@ ActionKit extends target-action functionality by providing easy to use methods t
 - Adding and removing multiple actions for a single UIGestureRecognizer
 - Adding and removing multiple actions for a single UIControl
 - Better manage stored closures
+
+## Installation
+
+### Carthage
+
+1. Add the following to your *Cartfile*:
+  <br> `github "ActionKit/ActionKit"`
+2. Run `carthage update`
+3. Add the framework as described in [Carthage Readme](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application)
