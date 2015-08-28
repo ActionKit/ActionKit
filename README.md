@@ -3,6 +3,8 @@
 # ActionKit
 ActionKit is a experimental, light-weight, easy to use framework that wraps the target-action design paradigm into a less verbose, cleaner format. It shortens target-action method calls by removing the target and replacing the selector with a closure.
 
+Licensed under the terms of the MIT license
+
 ## Target-action example without ActionKit
 ```swift
 button.addTarget(self, action: Selector("buttonWasTapped:"), forControlEvents: .TouchUpInside)
