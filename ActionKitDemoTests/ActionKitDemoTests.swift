@@ -3,7 +3,7 @@
 //  ActionKitDemoTests
 //
 //  Created by Dirk van Oosterbosch on 10/07/15.
-//  Copyright (c) 2015 ActionKit. All rights reserved.
+//  Licensed under the terms of the MIT license
 //
 
 import UIKit

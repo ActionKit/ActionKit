@@ -3,7 +3,7 @@
 //  ActionKitTests
 //
 //  Created by Dirk van Oosterbosch on 10/07/15.
-//  Copyright (c) 2015 Dirk van Oosterbosch. All rights reserved.
+//  Licensed under the terms of the MIT license
 //
 
 import UIKit

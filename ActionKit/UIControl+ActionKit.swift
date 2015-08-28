@@ -3,7 +3,7 @@
 //  ActionKit
 //
 //  Created by Kevin Choi, Benjamin Hendricks on 7/17/14.
-//  Copyright (c) 2014 ActionKit. All rights reserved.
+//  Licensed under the terms of the MIT license
 //
 
 import Foundation
