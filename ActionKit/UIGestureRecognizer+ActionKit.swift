@@ -23,7 +23,7 @@ public extension UIGestureRecognizer {
     
     func removeClosure(name: String) {
         if !ActionKitSingleton.sharedInstance.canRemoveGesture(self) {
-            println("can remove a gesture closure")
+            print("can remove a gesture closure")
             ActionKitSingleton.sharedInstance.removeGesture(self, name: name)
         } else {
             ActionKitSingleton.sharedInstance.removeGesture(self, name: name)

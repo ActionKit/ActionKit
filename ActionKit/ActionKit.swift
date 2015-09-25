@@ -77,7 +77,7 @@ class ActionKitSingleton {
 //        gestureDict.removeValueForKey(gesture)
         if var gestureArray = gestureDict[gesture] {
             var x: Int = 0
-            for (index, gestureTuple) in enumerate(gestureArray) {
+            for (index, gestureTuple) in gestureArray.enumerate() {
                 if gestureTuple.0 == name {
                     x = index
                 }
