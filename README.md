@@ -82,6 +82,13 @@ ActionKit extends target-action functionality by providing easy to use methods t
 
 ## Installation
 
+
+### Cocoapods
+ ActionKit is available through [CocoaPods](http://cocoapods.org). To install
+ it, simply add the following line to your Podfile:
+ 
+    pod 'ActionKit', '~> 1.0'
+
 ### Carthage
 
 1. Add the following to your *Cartfile*:
