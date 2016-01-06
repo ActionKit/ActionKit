@@ -34,7 +34,7 @@ let runClosureAllEvents = "runClosureAllEvents:"
 
 
 class ActionKitSingleton {
-    var controlAndEventsDict: Dictionary<UIControl, Dictionary<ActionKitUIControlEventsStruct, () -> Void>> = Dictionary()
+    var controlAndEventsDict: Dictionary<UIControl, Dictionary<UIControlEvents, () -> Void>> = Dictionary()
     var gestureDict: Dictionary<UIGestureRecognizer, [(String,()->Void)]> = Dictionary()
 
     class var sharedInstance : ActionKitSingleton {
@@ -43,11 +43,12 @@ class ActionKitSingleton {
         }
         return ActionKit.instance
     }
-    
+}
 //
 //  GESTURE ACTIONS
 //
     
+extension ActionKitSingleton {
     func addGestureClosure(gesture: UIGestureRecognizer, name: String, closure: () -> ()) {
 //        gestureDict[gesture] = closure
         if var gestureArr = gestureDict[gesture] {
@@ -99,27 +100,27 @@ class ActionKitSingleton {
         }
     }
     
+}
+
 //
 // CLOSURE ACTIONS
 //
-    
+extension ActionKitSingleton {
     func removeAction(control: UIControl, controlEvent: UIControlEvents) {
-        let controlStruct = ActionKitUIControlEventsStruct(value: controlEvent)
         if var innerDict = controlAndEventsDict[control] {
-            innerDict.removeValueForKey(controlStruct);
+            innerDict.removeValueForKey(controlEvent);
         }
     }
     
     func addAction(control: UIControl, controlEvent: UIControlEvents, closure: () -> ())
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: controlEvent)
         if var innerDict = controlAndEventsDict[control] {
-            innerDict[controlStruct] = closure
+            innerDict[controlEvent] = closure
             controlAndEventsDict[control] = innerDict
         }
         else {
-            var newDict = Dictionary<ActionKitUIControlEventsStruct, () -> Void>()
-            newDict[controlStruct] = closure
+            var newDict = Dictionary<UIControlEvents, () -> Void>()
+            newDict[controlEvent] = closure
             controlAndEventsDict[control] = newDict
         }
     }
@@ -128,208 +129,122 @@ class ActionKitSingleton {
     @objc(runClosureTouchDown:)
     func runClosureTouchDown(control: UIControl)
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.TouchDown)
-        if let innerDict = controlAndEventsDict[control] {
-            if let possibleClosure = innerDict[controlStruct] {
-                possibleClosure()
-            }
-        }
+        runAllClosures(control, event: .TouchDown)
     }
     
     @objc(runClosureTouchDownRepeat:)
     func runClosureTouchDownRepeat(control: UIControl)
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.TouchDownRepeat)
-        if let innerDict = controlAndEventsDict[control] {
-            if let possibleClosure = innerDict[controlStruct] {
-                possibleClosure()
-            }
-        }
+        runAllClosures(control, event: .TouchDownRepeat)
     }
     
     @objc(runClosureTouchDragInside:)
     func runClosureTouchDragInside(control: UIControl)
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.TouchDragInside)
-        if let innerDict = controlAndEventsDict[control] {
-            if let possibleClosure = innerDict[controlStruct] {
-                possibleClosure()
-            }
-        }
+        runAllClosures(control, event: .TouchDragInside)
     }
     
     @objc(runClosureTouchDragOutside:)
     func runClosureTouchDragOutside(control: UIControl)
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.TouchDragOutside)
-        if let innerDict = controlAndEventsDict[control] {
-            if let possibleClosure = innerDict[controlStruct] {
-                possibleClosure()
-            }
-        }
+        runAllClosures(control, event: .TouchDragOutside)
     }
     
     @objc(runClosureTouchDragEnter:)
     func runClosureTouchDragEnter(control: UIControl)
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.TouchDragEnter)
-        if let innerDict = controlAndEventsDict[control] {
-            if let possibleClosure = innerDict[controlStruct] {
-                possibleClosure()
-            }
-        }
+        runAllClosures(control, event: .TouchDragEnter)
     }
     
     @objc(runClosureTouchDragExit:)
     func runClosureTouchDragExit(control: UIControl)
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.TouchDragExit)
-        if let innerDict = controlAndEventsDict[control] {
-            if let possibleClosure = innerDict[controlStruct] {
-                possibleClosure()
-            }
-        }
+        runAllClosures(control, event: .TouchDragExit)
     }
     
     @objc(runClosureTouchUpInside:)
     func runClosureTouchUpInside(control: UIControl)
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.TouchUpInside)
-        if let innerDict = controlAndEventsDict[control] {
-            if let possibleClosure = innerDict[controlStruct] {
-                possibleClosure()
-            }
-        }
+        runAllClosures(control, event: .TouchUpInside)
     }
     
     @objc(runClosureTouchUpOutside:)
     func runClosureTouchUpOutside(control: UIControl)
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.TouchUpOutside)
-        if let innerDict = controlAndEventsDict[control] {
-            if let possibleClosure = innerDict[controlStruct] {
-                possibleClosure()
-            }
-        }
+        runAllClosures(control, event: .TouchUpOutside)
     }
     
     @objc(runClosureTouchCancel:)
     func runClosureTouchCancel(control: UIControl)
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.TouchCancel)
-        if let innerDict = controlAndEventsDict[control] {
-            if let possibleClosure = innerDict[controlStruct] {
-                possibleClosure()
-            }
-        }
+        runAllClosures(control, event: .TouchCancel)
     }
     
     @objc(runClosureValueChanged:)
     func runClosureValueChanged(control: UIControl)
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.ValueChanged)
-        if let innerDict = controlAndEventsDict[control] {
-            if let possibleClosure = innerDict[controlStruct] {
-                possibleClosure()
-            }
-        }
+        runAllClosures(control, event: .ValueChanged)
     }
     
     @objc(runClosureEditingDidBegin:)
     func runClosureEditingDidBegin(control: UIControl)
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.EditingDidBegin)
-        if let innerDict = controlAndEventsDict[control] {
-            if let possibleClosure = innerDict[controlStruct] {
-                possibleClosure()
-            }
-        }
+        runAllClosures(control, event: .EditingDidBegin)
     }
     
     @objc(runClosureEditingChanged:)
     func runClosureEditingChanged(control: UIControl)
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.EditingChanged)
-        if let innerDict = controlAndEventsDict[control] {
-            if let possibleClosure = innerDict[controlStruct] {
-                possibleClosure()
-            }
-        }
+        runAllClosures(control, event: .EditingChanged)
     }
     
     @objc(runClosureEditingDidEnd:)
     func runClosureEditingDidEnd(control: UIControl)
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.EditingDidEnd)
-        if let innerDict = controlAndEventsDict[control] {
-            if let possibleClosure = innerDict[controlStruct] {
-                possibleClosure()
-            }
-        }
+        runAllClosures(control, event: .EditingDidEnd)
     }
     
     @objc(runClosureEditingDidEndOnExit:)
     func runClosureEditingDidEndOnExit(control: UIControl)
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.EditingDidEndOnExit)
-        if let innerDict = controlAndEventsDict[control] {
-            if let possibleClosure = innerDict[controlStruct] {
-                possibleClosure()
-            }
-        }
+        runAllClosures(control, event: .EditingDidEndOnExit)
     }
     
     @objc(runClosureAllTouchEvents:)
     func runClosureAllTouchEvents(control: UIControl)
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.AllTouchEvents)
-        if let innerDict = controlAndEventsDict[control] {
-            if let possibleClosure = innerDict[controlStruct] {
-                possibleClosure()
-            }
-        }
+        runAllClosures(control, event: .AllTouchEvents)
     }
     
     @objc(runClosureAllEditingEvents:)
     func runClosureAllEditingEvents(control: UIControl)
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.AllEditingEvents)
-        if let innerDict = controlAndEventsDict[control] {
-            if let possibleClosure = innerDict[controlStruct] {
-                possibleClosure()
-            }
-        }
+        runAllClosures(control, event: .AllEditingEvents)
     }
     
     @objc(runClosureApplicationReserved:)
     func runClosureApplicationReserved(control: UIControl)
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.ApplicationReserved)
-        if let innerDict = controlAndEventsDict[control] {
-            if let possibleClosure = innerDict[controlStruct] {
-                possibleClosure()
-            }
-        }
+        runAllClosures(control, event: .ApplicationReserved)
     }
     
     @objc(runClosureSystemReserved:)
     func runClosureSystemReserved(control: UIControl)
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.SystemReserved)
-        if let innerDict = controlAndEventsDict[control] {
-            if let possibleClosure = innerDict[controlStruct] {
-                possibleClosure()
-            }
-        }
+        runAllClosures(control, event: .SystemReserved)
     }
     
     @objc(runClosureAllEvents:)
     func runClosureAllEvents(control: UIControl)
     {
-        let controlStruct = ActionKitUIControlEventsStruct(value: UIControlEvents.AllEvents)
-        if let innerDict = controlAndEventsDict[control] {
-            if let possibleClosure = innerDict[controlStruct] {
-                possibleClosure()
+        runAllClosures(control, event: .AllEvents)
+    }
+    
+    
+    private func runAllClosures(control: UIControl, event: UIControlEvents) {
+        if let possibleClosures = controlAndEventsDict[control]?.filter({ $0.0.contains(event) }).map({ $0.1 }) {
+            for closure in possibleClosures {
+                closure()
             }
         }
     }
