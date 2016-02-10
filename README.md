@@ -83,7 +83,7 @@ ActionKit extends target-action functionality by providing easy to use methods t
 ## Installation
 
 
-### Cocoapods
+### CocoaPods
  ActionKit is available through [CocoaPods](http://cocoapods.org). To install
  it, simply add the following line to your Podfile:
  
