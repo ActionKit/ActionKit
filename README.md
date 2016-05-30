@@ -5,7 +5,7 @@ ActionKit is a experimental, light-weight, easy to use framework that wraps the 
 
 Licensed under the terms of the MIT license
 
-## Target-action example without ActionKit
+## Target-action example without ActionKit (prior to Swift 2.2)
 ```swift
 button.addTarget(self, action: Selector("buttonWasTapped:"), forControlEvents: .TouchUpInside)
 ```
@@ -19,9 +19,27 @@ func buttonWasTapped(sender: UIButton!) {
 }
 ```
 
+## Target-action example without ActionKit with Swift 2.2
+```swift
+button.addTarget(self, action: #selector(ViewController.buttonWasTapped(_:)), forControlEvents: .TouchUpInside)
+```
+
+
+```swift
+func buttonWasTapped(sender: UIButton!) {
+
+    self.button.setTitle("Button was tapped!", forState: .Normal)
+    
+}
+```
+
 ## Target-action example with ActionKit
 ```swift
-button.addControlEvent(.TouchUpInside) { self.button.setTitle("Button was tapped!", forState: .Normal) }
+button.addControlEvent(.TouchUpInside) {
+  
+  self.button.setTitle("Button was tapped!", forState: .Normal)
+
+}
 ```
 
 ## Methods
@@ -32,7 +50,11 @@ button.addControlEvent(.TouchUpInside) { self.button.setTitle("Button was tapped
 ```
 ##### Example
 ```swift
-button.addControlEvent(.TouchUpInside) { self.button.setTitle("Button was tapped!", forState: .Normal) }
+button.addControlEvent(.TouchUpInside) {
+  
+  self.button.setTitle("Button was tapped!", forState: .Normal)
+
+}
 ```
 #### Removing an action closure for a control event
 ```swift
@@ -49,7 +71,11 @@ button.removeControlEvent(.TouchUpInside)
 ```
 ##### Example
 ```swift
-var singleTapGestureRecognizer = UITapGestureRecognizer() { self.view.backgroundColor = UIColor.redColor() }
+var singleTapGestureRecognizer = UITapGestureRecognizer() {
+  
+  self.view.backgroundColor = UIColor.redColor()
+
+}
 ```
 #### Adding an action closure to a gesture recognizer
 ```swift
@@ -57,7 +83,11 @@ var singleTapGestureRecognizer = UITapGestureRecognizer() { self.view.background
 ```
 ##### Example
 ```swift
-singleTapGestureRecognizer.addActionClosure() { self.view.backgroundColor = UIColor.blueColor() }
+singleTapGestureRecognizer.addActionClosure() {
+  
+  self.view.backgroundColor = UIColor.blueColor()
+
+}
 ```
 #### Removing an action closure for a control event
 ```swift
@@ -87,11 +117,15 @@ ActionKit extends target-action functionality by providing easy to use methods t
  ActionKit is available through [CocoaPods](http://cocoapods.org). To install
  it, simply add the following line to your Podfile:
  
-    pod 'ActionKit', '~> 1.0'
+    pod 'ActionKit', '~> 1.0.1'
 
 ### Carthage
 
-1. Add the following to your *Cartfile*:
-  <br> `github "ActionKit/ActionKit"`
-2. Run `carthage update`
-3. Add the framework as described in [Carthage Readme](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application)
+- 1. Add the following to your *Cartfile*:
+
+```
+    github "ActionKit/ActionKit" == 1.0.1
+``` 
+   
+- 2. Run `carthage update`
+- 3. Add the framework as described in [Carthage Readme](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application)
