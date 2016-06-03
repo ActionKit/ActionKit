@@ -9,15 +9,20 @@
 import Foundation
 import UIKit
 
+private extension Selector {
+    
+    static let runGesture = #selector(ActionKitSingleton.runGesture(_:))
+    
+}
+
 public extension UIGestureRecognizer {
     
     convenience init(name: String = "", closure: () -> ()) {
-        self.init(target: ActionKitSingleton.sharedInstance, action: Selector("runGesture:"))
+        self.init(target: ActionKitSingleton.sharedInstance, action: .runGesture)
         ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: closure)
     }
     
     func addClosure(name: String, closure: () -> ()) {
-//        self.addTarget(ActionKitSingleton.sharedInstance, action: Selector("runGesture:"))
         ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: closure)
     }
     
@@ -27,7 +32,7 @@ public extension UIGestureRecognizer {
             ActionKitSingleton.sharedInstance.removeGesture(self, name: name)
         } else {
             ActionKitSingleton.sharedInstance.removeGesture(self, name: name)
-            self.removeTarget(ActionKitSingleton.sharedInstance, action: Selector("runGesture:"))
+            self.removeTarget(ActionKitSingleton.sharedInstance, action: .runGesture)
         }
     }
 }
