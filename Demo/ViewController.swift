@@ -44,8 +44,9 @@ class ViewController: UIViewController {
             self.testButton.setTitle("tapped once on the screen!", forState: .Normal)
         }
         
-        let dtgr = UITapGestureRecognizer(name: "setYellow") {
+        let dtgr = UITapGestureRecognizer(name: "setYellow") { (gesture: UIGestureRecognizer) in
             self.view.backgroundColor = UIColor.yellowColor()
+            print(gesture.locationInView(self.view))
         }
         
         
@@ -63,6 +64,12 @@ class ViewController: UIViewController {
         // This shows that you can remove a control event that has been set. Originally, tapping the first button on the screen
         // would set the text to tapped! (line 31), but this removes that.
         testButton.removeControlEvent(.TouchUpInside);
+        
+        oldTestButton2.addControlEvent(.TouchUpInside) { (control: UIControl) in
+            if let button = control as? UIButton {
+                button.setTitle("Tapped3!", forState: .Normal)
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
