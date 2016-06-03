@@ -9,29 +9,6 @@
 import Foundation
 import UIKit
 
-// All 19 UIControlEvents
-let runClosureTouchDown = "runClosureTouchDown:"
-let runClosureTouchDownRepeat = "runClosureTouchDownRepeat:"
-let runClosureTouchDragInside = "runClosureTouchDragInside:"
-let runClosureTouchDragOutside = "runClosureTouchDragOutside:"
-let runClosureTouchDragEnter = "runClosureTouchDragEnter:"
-let runClosureTouchDragExit = "runClosureTouchDragExit:"
-let runClosureTouchUpInside = "runClosureTouchUpInside:"
-let runClosureTouchUpOutside = "runClosureTouchUpOutside:"
-let runClosureTouchCancel = "runClosureTouchCancel:"
-let runClosureValueChanged = "runClosureValueChanged:"
-let runClosureEditingDidBegin = "runClosureEditingDidBegin:"
-let runClosureEditingChanged = "runClosureEditingChanged:"
-let runClosureEditingDidEnd = "runClosureEditingDidEnd:"
-let runClosureEditingDidEndOnExit = "runClosureEditingDidEndOnExit:"
-let runClosureAllTouchEvents = "runClosureAllTouchEvents:"
-let runClosureAllEditingEvents = "runClosureAllEditingEvents:"
-let runClosureApplicationReserved = "runClosureApplicationReserved:"
-let runClosureSystemReserved = "runClosureSystemReserved:"
-let runClosureAllEvents = "runClosureAllEvents:"
-
-
-
 
 class ActionKitSingleton {
     var controlAndEventsDict: Dictionary<UIControl, Dictionary<UIControlEvents, () -> Void>> = Dictionary()
