@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "ActionKit"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "ActionKit is a easy to use framework that wraps the target-action design paradigm into a closure design."
   s.description  = <<-DESC
                     ActionKit is a experimental, light-weight, easy to use framework that wraps the target-action design paradigm into a less verbose, cleaner format. It shortens target-action method calls by removing the target and replacing the selector with a closure.
