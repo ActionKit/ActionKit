@@ -31,8 +31,8 @@ public extension UIGestureRecognizer {
         ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: .NoParameters(closure))
     }
 
-    func addClosureWithGesture(name: String, closure: (UIGestureRecognizer) -> ()) {
-        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: .WithGestureParameter(closure))
+    func addClosure(name: String, closureWithGesture: (UIGestureRecognizer) -> ()) {
+        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: .WithGestureParameter(closureWithGesture))
     }
 
     func removeClosure(name: String) {
