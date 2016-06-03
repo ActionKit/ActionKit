@@ -19,13 +19,22 @@ public extension UIGestureRecognizer {
     
     convenience init(name: String = "", closure: () -> ()) {
         self.init(target: ActionKitSingleton.sharedInstance, action: .runGesture)
-        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: closure)
+        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: .NoParameters(closure))
     }
-    
+
+    convenience init(name: String = "", closureWithGesture: (UIGestureRecognizer) -> ()) {
+        self.init(target: ActionKitSingleton.sharedInstance, action: .runGesture)
+        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: .WithGestureParameter(closureWithGesture))
+    }
+
     func addClosure(name: String, closure: () -> ()) {
-        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: closure)
+        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: .NoParameters(closure))
     }
-    
+
+    func addClosureWithGesture(name: String, closure: (UIGestureRecognizer) -> ()) {
+        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: .WithGestureParameter(closure))
+    }
+
     func removeClosure(name: String) {
         if !ActionKitSingleton.sharedInstance.canRemoveGesture(self) {
             print("can remove a gesture closure")

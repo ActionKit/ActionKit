@@ -9,10 +9,19 @@
 import Foundation
 import UIKit
 
+typealias ActionKitVoidClosure = () -> Void
+typealias ActionKitControlClosure = (UIControl) -> Void
+typealias ActionKitGestureClosure = (UIGestureRecognizer) -> Void
+
+enum ActionKitClosure {
+    case NoParameters(ActionKitVoidClosure)
+    case WithControlParameter(ActionKitControlClosure)
+    case WithGestureParameter(ActionKitGestureClosure)
+}
 
 class ActionKitSingleton {
-    var controlAndEventsDict: Dictionary<UIControl, Dictionary<UIControlEvents, () -> Void>> = Dictionary()
-    var gestureDict: Dictionary<UIGestureRecognizer, [(String,()->Void)]> = Dictionary()
+    var controlAndEventsDict: Dictionary<UIControl, Dictionary<UIControlEvents, ActionKitClosure>> = Dictionary()
+    var gestureDict: Dictionary<UIGestureRecognizer, [(String, ActionKitClosure)]> = Dictionary()
 
     class var sharedInstance : ActionKitSingleton {
     struct ActionKit {
@@ -26,13 +35,14 @@ class ActionKitSingleton {
 //
     
 extension ActionKitSingleton {
-    func addGestureClosure(gesture: UIGestureRecognizer, name: String, closure: () -> ()) {
+    
+    func addGestureClosure(gesture: UIGestureRecognizer, name: String, closure: ActionKitClosure) {
 //        gestureDict[gesture] = closure
         if var gestureArr = gestureDict[gesture] {
             gestureArr.append(name, closure)
             gestureDict[gesture] = gestureArr
         } else {
-            var newGestureArr = Array<(String, ()->Void)>()
+            var newGestureArr = Array<(String, ActionKitClosure)>()
             newGestureArr.append(name, closure)
             gestureDict[gesture] = newGestureArr
         }
@@ -72,7 +82,17 @@ extension ActionKitSingleton {
         if let gestureArray = gestureDict[gesture] {
             for possibleClosureTuple in gestureArray {
                 // println("running closure named: \(possibleClosureTuple.0)")
-                (possibleClosureTuple.1)()
+                switch possibleClosureTuple.1 {
+                case .NoParameters(let closure):
+                    closure()
+                    break
+                case .WithGestureParameter(let closure):
+                    closure(gesture)
+                    break
+                default:
+                    // It shouldn't be a ControlClosure
+                    break
+                }
             }
         }
     }
@@ -89,14 +109,14 @@ extension ActionKitSingleton {
         }
     }
     
-    func addAction(control: UIControl, controlEvent: UIControlEvents, closure: () -> ())
+    func addAction(control: UIControl, controlEvent: UIControlEvents, closure: ActionKitClosure)
     {
         if var innerDict = controlAndEventsDict[control] {
             innerDict[controlEvent] = closure
             controlAndEventsDict[control] = innerDict
         }
         else {
-            var newDict = Dictionary<UIControlEvents, () -> Void>()
+            var newDict = Dictionary<UIControlEvents, ActionKitClosure>()
             newDict[controlEvent] = closure
             controlAndEventsDict[control] = newDict
         }
@@ -220,8 +240,18 @@ extension ActionKitSingleton {
     
     private func runAllClosures(control: UIControl, event: UIControlEvents) {
         if let possibleClosures = controlAndEventsDict[control]?.filter({ $0.0.contains(event) }).map({ $0.1 }) {
-            for closure in possibleClosures {
-                closure()
+            for actionKitClosure in possibleClosures {
+                switch actionKitClosure {
+                case .NoParameters(let closure):
+                    closure()
+                    break
+                case .WithControlParameter(let closure):
+                    closure(control)
+                    break
+                default:
+                    // It shouldn't be a ControlClosure
+                    break
+                }
             }
         }
     }

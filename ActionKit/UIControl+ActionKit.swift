@@ -89,8 +89,17 @@ public extension UIControl {
         ActionKitSingleton.sharedInstance.removeAction(self, controlEvent: controlEvents)
         
     }
+    
     func addControlEvent(controlEvents: UIControlEvents, closure: () -> ()) {
-        
+        self.addControlEvent(controlEvents, actionKitClosure: .NoParameters(closure))
+    }
+    
+    func addControlEvent(controlEvents: UIControlEvents, closureWithControl: (UIControl) -> ()) {
+        self.addControlEvent(controlEvents, actionKitClosure: .WithControlParameter(closureWithControl))
+    }
+    
+    private func addControlEvent(controlEvents: UIControlEvents, actionKitClosure: ActionKitClosure) {
+
         switch controlEvents {
         case let x where x.contains(.TouchDown):
             self.addTarget(ActionKitSingleton.sharedInstance, action: .runClosureTouchDown, forControlEvents: controlEvents)
@@ -134,6 +143,6 @@ public extension UIControl {
             self.addTarget(ActionKitSingleton.sharedInstance, action: .runClosureTouchUpInside, forControlEvents: controlEvents)
         }
         
-        ActionKitSingleton.sharedInstance.addAction(self, controlEvent: controlEvents, closure: closure)
+        ActionKitSingleton.sharedInstance.addAction(self, controlEvent: controlEvents, closure: actionKitClosure)
     }
 }
