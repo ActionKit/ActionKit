@@ -83,8 +83,8 @@ import UIKit
 
 
 typealias ActionKitVoidClosure = () -> Void
-typealias ActionKitControlClosure = (UIControl) -> Void
-typealias ActionKitGestureClosure = (UIGestureRecognizer) -> Void
+public typealias ActionKitControlClosure = (UIControl) -> Void
+public typealias ActionKitGestureClosure = (UIGestureRecognizer) -> Void
 
 enum ActionKitClosure {
     case NoParameters(ActionKitVoidClosure)

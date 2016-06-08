@@ -49,10 +49,8 @@ class ViewController: UIViewController {
 
         //: This adds a closure, which receives the UIControl as input parameter, to the third button.
         //: It shows how the UIControl can be mapped to the UIButton, in order to have its title changed.
-        testButton3.addControlEvent(.TouchUpInside) { (control: UIControl) in
-            if let button = control as? UIButton {
-                button.setTitle("Tapped3!", forState: .Normal)
-            }
+        testButton3.addControlEvent(.TouchUpInside) { (button: UIButton) in
+            button.setTitle("Tapped3!", forState: .Normal)
         }
 
         //: The following shows that you can remove a control event that has been set.
@@ -93,7 +91,7 @@ class ViewController: UIViewController {
         //: The following adds a long press gesture recognizer to the background view.
         //: It also shows it is not necessary to keep a reference to the gesture recognizer
         //: when you only need it inside the closure
-        view.addGestureRecognizer(UILongPressGestureRecognizer() { (gesture: UIGestureRecognizer) in
+        view.addGestureRecognizer(UILongPressGestureRecognizer() { (gesture: UILongPressGestureRecognizer) in
             if gesture.state == .Began {
                 let locInView = gesture.locationInView(self.view)
                 self.testButton2.setTitle("\(locInView)", forState: .Normal)

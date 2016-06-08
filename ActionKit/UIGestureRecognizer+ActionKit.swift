@@ -15,6 +15,26 @@ private extension Selector {
     
 }
 
+public protocol ActionKitGestureRecognizer {}
+
+public extension ActionKitGestureRecognizer where Self: UIGestureRecognizer {
+
+    typealias SpecificGestureClosure = (Self) -> ()
+    
+    init(name: String = "", closureWithGesture: SpecificGestureClosure) {
+        self.init(target: ActionKitSingleton.sharedInstance, action: .runGesture)
+        let akClosure = ActionKitClosure.WithGestureParameter(closureWithGesture as! ActionKitGestureClosure)
+        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: akClosure)
+    }
+
+    func addClosure(name: String, closureWithGesture: SpecificGestureClosure) {
+        let akClosure = ActionKitClosure.WithGestureParameter(closureWithGesture as! ActionKitGestureClosure)
+        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: akClosure)
+    }
+}
+
+extension UIGestureRecognizer: ActionKitGestureRecognizer {}
+
 public extension UIGestureRecognizer {
     
     convenience init(name: String = "", closure: () -> ()) {
@@ -22,17 +42,8 @@ public extension UIGestureRecognizer {
         ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: .NoParameters(closure))
     }
 
-    convenience init(name: String = "", closureWithGesture: (UIGestureRecognizer) -> ()) {
-        self.init(target: ActionKitSingleton.sharedInstance, action: .runGesture)
-        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: .WithGestureParameter(closureWithGesture))
-    }
-
     func addClosure(name: String, closure: () -> ()) {
         ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: .NoParameters(closure))
-    }
-
-    func addClosure(name: String, closureWithGesture: (UIGestureRecognizer) -> ()) {
-        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: .WithGestureParameter(closureWithGesture))
     }
 
     func removeClosure(name: String) {

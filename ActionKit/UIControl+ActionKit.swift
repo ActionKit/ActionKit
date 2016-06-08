@@ -40,6 +40,21 @@ private extension Selector {
 
 }
 
+public protocol ActionKitControl {}
+
+public extension ActionKitControl where Self: UIControl {
+    
+    typealias SpecificGestureClosure = (Self) -> ()
+
+    func addControlEvent(controlEvents: UIControlEvents, closureWithControl: SpecificGestureClosure) {
+        let akClosure = ActionKitClosure.WithControlParameter(closureWithControl as! ActionKitControlClosure)
+        self.addControlEvent(controlEvents, actionKitClosure: akClosure)
+    }
+
+}
+
+extension UIControl: ActionKitControl {}
+
 public extension UIControl {
     
     func removeControlEvent(controlEvents: UIControlEvents) {
@@ -92,10 +107,6 @@ public extension UIControl {
     
     func addControlEvent(controlEvents: UIControlEvents, closure: () -> ()) {
         self.addControlEvent(controlEvents, actionKitClosure: .NoParameters(closure))
-    }
-    
-    func addControlEvent(controlEvents: UIControlEvents, closureWithControl: (UIControl) -> ()) {
-        self.addControlEvent(controlEvents, actionKitClosure: .WithControlParameter(closureWithControl))
     }
     
     private func addControlEvent(controlEvents: UIControlEvents, actionKitClosure: ActionKitClosure) {
