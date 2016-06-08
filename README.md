@@ -46,11 +46,9 @@ button.addControlEvent(.TouchUpInside) {
 ## Target-action example with ActionKit with closure parameter
 
 ```swift
-button.addControlEvent(.TouchUpInside) { (control: UIControl) in
+button.addControlEvent(.TouchUpInside) { (button: UIButton) in
   
-  if let theButton = control as? UIButton {
-    theButton.setTitle("Button was tapped!", forState: .Normal)
-  }
+  button.setTitle("Button was tapped!", forState: .Normal)
 
 }
 ```
@@ -78,11 +76,9 @@ button.addControlEvent(.TouchUpInside) {
 ```
 
 ```swift
-button.addControlEvent(.TouchUpInside) { (control: UIControl) in
+button.addControlEvent(.TouchUpInside) { (button: UIButton) in
   
-  if let theButton = control as? UIButton {
-    theButton.setTitle("Button was tapped!", forState: .Normal)
-  }
+    button.setTitle("Button was tapped!", forState: .Normal)
 
 }
 ```
@@ -120,7 +116,7 @@ var singleTapGestureRecognizer = UITapGestureRecognizer() {
 ```
 
 ```swift
-var singleTapGestureRecognizer = UITapGestureRecognizer() { (gesture: UIGestureRecognizer) in
+var singleTapGestureRecognizer = UITapGestureRecognizer() { (gesture: UITapGestureRecognizer) in
   
   if gesture.state == .Began {
       let locInView = gesture.locationInView(self.view)
