@@ -13,6 +13,7 @@ import UIKit
 class ActionKitSingleton {
     var controlAndEventsDict: Dictionary<UIControl, Dictionary<UIControlEvents, () -> Void>> = Dictionary()
     var gestureDict: Dictionary<UIGestureRecognizer, [(String,()->Void)]> = Dictionary()
+	var barButtonItemDict: Dictionary<UIBarButtonItem, () -> Void> = Dictionary()
 
     class var sharedInstance : ActionKitSingleton {
     struct ActionKit {
@@ -227,3 +228,19 @@ extension ActionKitSingleton {
     }
 }
 
+//
+// UIBARBUTTONITEM ACTIONS
+//
+extension ActionKitSingleton {
+	func addBarButtonItemClosure(barButtonItem: UIBarButtonItem, closure: () -> ()) {
+		barButtonItemDict[barButtonItem] = closure
+	}
+	
+	@objc(runBarButtonItem:)
+	func runBarButtonItem(item: UIBarButtonItem)
+	{
+		if let closure = barButtonItemDict[item] {
+			closure()
+		}
+	}
+}

@@ -12,6 +12,7 @@
 		438CAE721B5006EA00EA8B00 /* ActionKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438CAE6F1B5006EA00EA8B00 /* ActionKit.swift */; };
 		438CAE731B5006EA00EA8B00 /* UIControl+ActionKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438CAE701B5006EA00EA8B00 /* UIControl+ActionKit.swift */; };
 		438CAE741B5006EA00EA8B00 /* UIGestureRecognizer+ActionKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438CAE711B5006EA00EA8B00 /* UIGestureRecognizer+ActionKit.swift */; };
+		72AB3FCE1D256D68009A6411 /* UIBarButtonItem+ActionKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AB3FCD1D256D68009A6411 /* UIBarButtonItem+ActionKit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +34,7 @@
 		438CAE6F1B5006EA00EA8B00 /* ActionKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionKit.swift; sourceTree = "<group>"; };
 		438CAE701B5006EA00EA8B00 /* UIControl+ActionKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+ActionKit.swift"; sourceTree = "<group>"; };
 		438CAE711B5006EA00EA8B00 /* UIGestureRecognizer+ActionKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+ActionKit.swift"; sourceTree = "<group>"; };
+		72AB3FCD1D256D68009A6411 /* UIBarButtonItem+ActionKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+ActionKit.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				438CAE6F1B5006EA00EA8B00 /* ActionKit.swift */,
 				438CAE701B5006EA00EA8B00 /* UIControl+ActionKit.swift */,
 				438CAE711B5006EA00EA8B00 /* UIGestureRecognizer+ActionKit.swift */,
+				72AB3FCD1D256D68009A6411 /* UIBarButtonItem+ActionKit.swift */,
 				438CAE561B50060D00EA8B00 /* Supporting Files */,
 			);
 			path = ActionKit;
@@ -217,6 +220,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				438CAE731B5006EA00EA8B00 /* UIControl+ActionKit.swift in Sources */,
+				72AB3FCE1D256D68009A6411 /* UIBarButtonItem+ActionKit.swift in Sources */,
 				438CAE741B5006EA00EA8B00 /* UIGestureRecognizer+ActionKit.swift in Sources */,
 				438CAE721B5006EA00EA8B00 /* ActionKit.swift in Sources */,
 			);

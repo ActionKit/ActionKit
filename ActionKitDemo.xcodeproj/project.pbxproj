@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		438CAE771B500AB900EA8B00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 438CAE201B50048200EA8B00 /* Main.storyboard */; };
 		438CAE811B50198F00EA8B00 /* ActionKitDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438CAE801B50198F00EA8B00 /* ActionKitDemoTests.swift */; };
+		72DE38BE1D25730100E3C176 /* ActionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A8BBC61B62581F00530463 /* ActionKit.framework */; };
+		72DE38BF1D25730100E3C176 /* ActionKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 43A8BBC61B62581F00530463 /* ActionKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		72DE38C31D25758700E3C176 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D13A84781978D9AF0068CA2B /* Images.xcassets */; };
 		D11D2DD01978DB2D00328A72 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13A84741978D9AF0068CA2B /* AppDelegate.swift */; };
 		D11D2DD11978DB2D00328A72 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13A847A1978D9AF0068CA2B /* ViewController.swift */; };
 /* End PBXBuildFile section */
@@ -42,7 +45,28 @@
 			remoteGlobalIDString = 438CAE521B50060D00EA8B00;
 			remoteInfo = ActionKit;
 		};
+		72DE38C01D25730100E3C176 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 43A8BBC01B62581F00530463 /* ActionKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 438CAE521B50060D00EA8B00;
+			remoteInfo = ActionKit;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		72DE38C21D25730100E3C176 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				72DE38BF1D25730100E3C176 /* ActionKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		438CAE211B50048200EA8B00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Demo/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -69,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72DE38BE1D25730100E3C176 /* ActionKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,11 +194,13 @@
 				D13A84471978D6EA0068CA2B /* Sources */,
 				D13A84481978D6EA0068CA2B /* Frameworks */,
 				D13A84491978D6EA0068CA2B /* Resources */,
+				72DE38C21D25730100E3C176 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				43A8BBCA1B62583D00530463 /* PBXTargetDependency */,
+				72DE38C11D25730100E3C176 /* PBXTargetDependency */,
 			);
 			name = ActionKitDemo;
 			productName = ActionKit;
@@ -254,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				438CAE771B500AB900EA8B00 /* Main.storyboard in Resources */,
+				72DE38C31D25758700E3C176 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +317,11 @@
 			isa = PBXTargetDependency;
 			name = ActionKit;
 			targetProxy = 43A8BBC91B62583D00530463 /* PBXContainerItemProxy */;
+		};
+		72DE38C11D25730100E3C176 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ActionKit;
+			targetProxy = 72DE38C01D25730100E3C176 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -416,6 +449,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ActionKit.${PRODUCT_NAME:rfc1034identifier}";
@@ -428,6 +462,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "ActionKit.${PRODUCT_NAME:rfc1034identifier}";
