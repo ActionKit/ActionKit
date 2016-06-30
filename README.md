@@ -98,6 +98,54 @@ singleTapGestureRecognizer.addActionClosure() {
 singleTapGestureRecognizer.removeActionClosure()
 ```
 
+### UIBarButtonItem
+#### Initializing a bar button item with an action closure.
+
+```
+// Init with image
+- init(image: UIImage, landscapeImagePhone: UIImage? = nil, style: UIBarButtonItemStyle = .Plain, actionClosure: () -> Void)
+
+// Init with title
+- init(title: String, style: UIBarButtonItemStyle = .Plain, actionClosure: () -> Void)
+
+// Init with barButtonSystemInit
+- init(barButtonSystemItem systemItem: UIBarButtonSystemItem, actionClosure: () -> Void) 
+```
+
+##### Examples
+```
+let titleItem = UIBarButtonItem(title: "Press me") { 
+	print("Title item pressed")
+}
+		
+let imageItem = UIBarButtonItem(image: UIImage(named: "alert")!) {
+	print("Image item pressed")
+}
+		
+let systemItem = UIBarButtonItem(barButtonSystemItem: .Action) { 
+	print("System item pressed")
+}
+```
+
+#### Adding an action closure for a bar button item
+```
+- addActionClosure(actionClosure: () -> ())
+```
+##### Example
+```
+titleItem.addActionClosure {
+	print("new action")
+}
+```
+#### Removing an action closure for a bar button item 
+```
+- removeActionClosure()
+```
+##### Example
+```
+titleItem.removeActionClosure()
+```
+
 ## How it works
 ActionKit extends target-action functionality by providing easy to use methods that take closures instead of a selector. ActionKit uses a singleton which stores the closures and acts as the target. Closures capture and store references to any constants and variables from their context, so the user is free to use variables from the context in which the closure was defined in.
 
