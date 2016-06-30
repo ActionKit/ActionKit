@@ -24,10 +24,10 @@ public extension UIBarButtonItem {
 	- parameter image: The images displayed on the bar are derived from this image. If this image is too large to fit on the bar, it is scaled to fit. Typically, the size of a toolbar and navigation bar image is 20 x 20 points. The alpha values in the source image are used to create the images—opaque values are ignored.
 	- parameter landscapeImagePhone: The style of the item. One of the constants defined in UIBarButtonItemStyle. nil by default
 	- parameter style: The style of the item. One of the constants defined in UIBarButtonItemStyle. (.Plain by default)
-	- parameter closure: The closure to be called when the button is tapped
+	- parameter actionClosure: The closure to be called when the button is tapped
 	- returns: Newly initialized item with the specified properties.
 	*/
-	convenience init(image: UIImage, landscapeImagePhone: UIImage? = nil, style: UIBarButtonItemStyle = .Plain, closure: () -> Void) {
+	convenience init(image: UIImage, landscapeImagePhone: UIImage? = nil, style: UIBarButtonItemStyle = .Plain, actionClosure: () -> Void) {
 		
 		self.init(image: image,
 		          landscapeImagePhone: landscapeImagePhone,
@@ -35,7 +35,7 @@ public extension UIBarButtonItem {
 		          target: ActionKitSingleton.sharedInstance,
 		          action: .runBarButtonItem)
 		
-		ActionKitSingleton.sharedInstance.addBarButtonItemClosure(self, closure: closure)
+		addActionClosure(actionClosure)
 	}
 	
 	/**
@@ -43,50 +43,45 @@ public extension UIBarButtonItem {
 	
 	- parameter title: The item’s title.
 	- parameter style: The style of the item. One of the constants defined in UIBarButtonItemStyle. (.Plain by default)
-	- parameter closure: The closure to be called when the button is tapped
+	- parameter actionClosure: The closure to be called when the button is tapped
 	- returns: Newly initialized item with the specified properties.
 	*/
-	convenience init(title: String, style: UIBarButtonItemStyle = .Plain, closure: () -> Void) {
+	convenience init(title: String, style: UIBarButtonItemStyle = .Plain, actionClosure: () -> Void) {
 		self.init(title: title,
 		          style: style,
 		          target: ActionKitSingleton.sharedInstance,
 		          action: .runBarButtonItem)
 		
-		ActionKitSingleton.sharedInstance.addBarButtonItemClosure(self, closure: closure)
+		addActionClosure(actionClosure)
 	}
 	
 	/**
 	Initializes a new item containing the specified system item.
 	
 	- parameter systemItem: The system item to use as the first item on the bar. One of the constants defined in UIBarButtonSystemItem.
-	- parameter closure: The closure to be called when the button is tapped
+	- parameter actionClosure: The closure to be called when the button is tapped
 	- returns: Newly initialized item with the specified properties.
 	*/
-	convenience init(barButtonSystemItem systemItem: UIBarButtonSystemItem, closure: () -> Void) {
+	convenience init(barButtonSystemItem systemItem: UIBarButtonSystemItem, actionClosure: () -> Void) {
 		self.init(barButtonSystemItem: systemItem,
 		          target: ActionKitSingleton.sharedInstance,
 		          action: .runBarButtonItem)
 		
-		ActionKitSingleton.sharedInstance.addBarButtonItemClosure(self, closure: closure)
+		addActionClosure(actionClosure)
 	}
 	
 	/** 
-	The closure to be called when the button is tapped.
+	Set a new closure to be called when the button is tapped. 
+	**NOTE**: The old closure will be removed and not called anymore
 	*/
-	var closure: (() -> Void)? {
-		get {
-			return ActionKitSingleton.sharedInstance.barButtonItemClosure(self)
-		}
-		
-		set {
-			if let closure = newValue {
-				ActionKitSingleton.sharedInstance.addBarButtonItemClosure(self, closure: closure)
-			}
-			
-			else {
-				ActionKitSingleton.sharedInstance.removeBarButtonItemClosure(self)
-			}
-		}
+	func addActionClosure(actionClosure: () -> Void) {
+		ActionKitSingleton.sharedInstance.addBarButtonItemClosure(self, closure: actionClosure)
 	}
 	
+	/**
+	Remove the closure.
+	*/
+	func removeActionClosure() {
+		ActionKitSingleton.sharedInstance.removeBarButtonItemClosure(self)
+	}
 }
