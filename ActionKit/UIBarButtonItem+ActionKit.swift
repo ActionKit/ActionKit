@@ -43,4 +43,20 @@ public extension UIBarButtonItem {
 		ActionKitSingleton.sharedInstance.addBarButtonItemClosure(self, closure: closure)
 	}
 	
+	var closure: (() -> Void)? {
+		get {
+			return ActionKitSingleton.sharedInstance.barButtonItemClosure(self)
+		}
+		
+		set {
+			if let closure = newValue {
+				ActionKitSingleton.sharedInstance.addBarButtonItemClosure(self, closure: closure)
+			}
+			
+			else {
+				ActionKitSingleton.sharedInstance.removeBarButtonItemClosure(self)
+			}
+		}
+	}
+	
 }

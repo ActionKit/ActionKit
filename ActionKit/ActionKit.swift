@@ -232,8 +232,16 @@ extension ActionKitSingleton {
 // UIBARBUTTONITEM ACTIONS
 //
 extension ActionKitSingleton {
-	func addBarButtonItemClosure(barButtonItem: UIBarButtonItem, closure: () -> ()) {
+	func addBarButtonItemClosure(barButtonItem: UIBarButtonItem, closure: () -> Void) {
 		barButtonItemDict[barButtonItem] = closure
+	}
+	
+	func removeBarButtonItemClosure(barButtonItem: UIBarButtonItem) {
+		barButtonItemDict[barButtonItem] = nil
+	}
+	
+	func barButtonItemClosure(barButtonItem: UIBarButtonItem) -> (() -> Void)? {
+		return barButtonItemDict[barButtonItem]
 	}
 	
 	@objc(runBarButtonItem:)
