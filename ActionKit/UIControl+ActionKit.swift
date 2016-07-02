@@ -40,6 +40,26 @@ private extension Selector {
 
 }
 
+public protocol ActionKitControl {}
+
+public extension ActionKitControl where Self: UIControl {
+    
+    typealias SpecificControlClosure = (Self) -> ()
+
+    internal func castedActionKitControlClosure(control: Self, closure: SpecificControlClosure) -> ActionKitClosure {
+        return ActionKitClosure.WithControlParameter( { (ctrl: UIControl) in
+            closure(control)
+        })
+    }
+    
+    func addControlEvent(controlEvents: UIControlEvents, closureWithControl: SpecificControlClosure) {
+        let akClosure = castedActionKitControlClosure(self, closure: closureWithControl)
+        self.addControlEvent(controlEvents, actionKitClosure: akClosure)
+    }
+}
+
+extension UIControl: ActionKitControl {}
+
 public extension UIControl {
     
     func removeControlEvent(controlEvents: UIControlEvents) {
@@ -89,8 +109,13 @@ public extension UIControl {
         ActionKitSingleton.sharedInstance.removeAction(self, controlEvent: controlEvents)
         
     }
+    
     func addControlEvent(controlEvents: UIControlEvents, closure: () -> ()) {
-        
+        self.addControlEvent(controlEvents, actionKitClosure: .NoParameters(closure))
+    }
+    
+    private func addControlEvent(controlEvents: UIControlEvents, actionKitClosure: ActionKitClosure) {
+
         switch controlEvents {
         case let x where x.contains(.TouchDown):
             self.addTarget(ActionKitSingleton.sharedInstance, action: .runClosureTouchDown, forControlEvents: controlEvents)
@@ -134,6 +159,6 @@ public extension UIControl {
             self.addTarget(ActionKitSingleton.sharedInstance, action: .runClosureTouchUpInside, forControlEvents: controlEvents)
         }
         
-        ActionKitSingleton.sharedInstance.addAction(self, controlEvent: controlEvents, closure: closure)
+        ActionKitSingleton.sharedInstance.addAction(self, controlEvent: controlEvents, closure: actionKitClosure)
     }
 }
