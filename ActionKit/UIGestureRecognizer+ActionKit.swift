@@ -15,17 +15,43 @@ private extension Selector {
     
 }
 
+public protocol ActionKitGestureRecognizer {}
+
+public extension ActionKitGestureRecognizer where Self: UIGestureRecognizer {
+
+    typealias SpecificGestureClosure = (Self) -> ()
+    
+    internal func castedActionKitGestureClosure(gesture: Self, closure: SpecificGestureClosure) -> ActionKitClosure {
+        return ActionKitClosure.WithGestureParameter( { (gestr: UIGestureRecognizer) in
+            closure(gesture)
+        })
+    }
+    
+    init(name: String = "", closureWithGesture: SpecificGestureClosure) {
+        self.init(target: ActionKitSingleton.sharedInstance, action: .runGesture)
+        let akClosure = castedActionKitGestureClosure(self, closure: closureWithGesture)
+        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: akClosure)
+    }
+
+    func addClosure(name: String, closureWithGesture: SpecificGestureClosure) {
+        let akClosure = castedActionKitGestureClosure(self, closure: closureWithGesture)
+        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: akClosure)
+    }
+}
+
+extension UIGestureRecognizer: ActionKitGestureRecognizer {}
+
 public extension UIGestureRecognizer {
     
     convenience init(name: String = "", closure: () -> ()) {
         self.init(target: ActionKitSingleton.sharedInstance, action: .runGesture)
-        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: closure)
+        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: .NoParameters(closure))
     }
-    
+
     func addClosure(name: String, closure: () -> ()) {
-        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: closure)
+        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: .NoParameters(closure))
     }
-    
+
     func removeClosure(name: String) {
         if !ActionKitSingleton.sharedInstance.canRemoveGesture(self) {
             print("can remove a gesture closure")
