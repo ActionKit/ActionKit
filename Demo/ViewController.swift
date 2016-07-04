@@ -97,7 +97,31 @@ class ViewController: UIViewController {
                 self.testButton2.setTitle("\(locInView)", forState: .Normal)
             }
         })
+		
+        // This adds a closure to the second button on the screen to change the text to Tapped2! when being tapped
+        testButton2.addControlEvent(.TouchUpInside, closure: {
+            self.testButton2.setTitle("Tapped2!", forState: .Normal)
+            })
         
+        // This shows that you can remove a control event that has been set. Originally, tapping the first button on the screen
+        // would set the text to tapped! (line 31), but this removes that.
+        testButton.removeControlEvent(.TouchUpInside);
+		
+		// UIBarButton item
+		let titleItem = UIBarButtonItem(title: "Press me") { 
+			print("Title item pressed")
+		}
+		
+		let image = UIImage(named: "alert")!
+		let imageItem = UIBarButtonItem(image: image) { (item: UIBarButtonItem) in
+			print("Item \(item) pressed")
+		}
+	
+		let systemItem = UIBarButtonItem(barButtonSystemItem: .Action) { 
+			print("System item pressed")
+		}
+		
+		self.navigationItem.rightBarButtonItems = [titleItem, imageItem, systemItem]
     }
 
     override func didReceiveMemoryWarning() {
