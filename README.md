@@ -158,7 +158,8 @@ singleTapGestureRecognizer.removeActionClosure()
 ### UIBarButtonItem
 #### Initializing a bar button item with an action closure.
 
-```
+##### Closure without parameters
+```swift
 // Init with image
 - init(image: UIImage, landscapeImagePhone: UIImage? = nil, style: UIBarButtonItemStyle = .Plain, actionClosure: () -> Void)
 
@@ -169,14 +170,27 @@ singleTapGestureRecognizer.removeActionClosure()
 - init(barButtonSystemItem systemItem: UIBarButtonSystemItem, actionClosure: () -> Void) 
 ```
 
-##### Examples
+##### Closure with parameters
+```swift
+// Init with image
+- init(image: UIImage, landscapeImagePhone: UIImage? = nil, style: UIBarButtonItemStyle = .Plain, actionWithItem: UIBarButtonItem -> Void)
+
+// Init with title
+- init(title: String, style: UIBarButtonItemStyle = .Plain, actionWithItem: UIBarButtonItem -> Void)
+
+// Init with barButtonSystemInit
+- init(barButtonSystemItem systemItem: UIBarButtonSystemItem, actionWithItem: UIBarButtonItem -> Void) 
 ```
+
+##### Examples
+```swift
 let titleItem = UIBarButtonItem(title: "Press me") { 
 	print("Title item pressed")
 }
 		
-let imageItem = UIBarButtonItem(image: UIImage(named: "alert")!) {
-	print("Image item pressed")
+let image = UIImage(named: "alert")!
+let imageItem = UIBarButtonItem(image: image) { (item: UIBarButtonItem) in
+	print("Item \(item) pressed")
 }
 		
 let systemItem = UIBarButtonItem(barButtonSystemItem: .Action) { 
