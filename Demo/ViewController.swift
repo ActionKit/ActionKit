@@ -113,10 +113,10 @@ class ViewController: UIViewController {
 		}
 		
 		let image = UIImage(named: "alert")!
-		let imageItem = UIBarButtonItem(image: image) {
-			print("Image item pressed")
+		let imageItem = UIBarButtonItem(image: image) { (item: UIBarButtonItem) in
+			print("Item \(item) pressed")
 		}
-		
+	
 		let systemItem = UIBarButtonItem(barButtonSystemItem: .Action) { 
 			print("System item pressed")
 		}
