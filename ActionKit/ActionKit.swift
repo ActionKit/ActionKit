@@ -140,15 +140,15 @@ extension ActionKitSingleton {
 	func removeGesture(gesture: UIGestureRecognizer, name: String) {
 		if var gestureArray = gestureDict[gesture] {
 			var x: Int = 0
-			for (index, gestureTuple) in gestureArray.enumerate() {
+			for (index, gestureTuple) in gestureArray.enumerated() {
 				if gestureTuple.0 == name {
 					x = index
 				}
 			}
-			gestureArray.removeAtIndex(x)
+			gestureArray.remove(at: x)
 			gestureDict[gesture] = gestureArray
 		} else {
-			gestureDict.removeValueForKey(gesture)
+			gestureDict.removeValue(forKey: gesture)
 		}
 	}
 	
@@ -181,7 +181,7 @@ extension ActionKitSingleton {
 extension ActionKitSingleton {
 	func removeAction(control: UIControl, controlEvent: UIControlEvents) {
 		if var innerDict = controlAndEventsDict[control] {
-			innerDict.removeValueForKey(controlEvent);
+			innerDict.removeValue(forKey: controlEvent);
 		}
 	}
 	
@@ -203,115 +203,115 @@ extension ActionKitSingleton {
 	@objc(runClosureTouchDown:)
 	func runClosureTouchDown(control: UIControl)
 	{
-		runAllClosures(control, event: .TouchDown)
+		runAllClosures(control: control, event: .touchDown)
 	}
 	
 	@objc(runClosureTouchDownRepeat:)
 	func runClosureTouchDownRepeat(control: UIControl)
 	{
-		runAllClosures(control, event: .TouchDownRepeat)
+		runAllClosures(control: control, event: .touchDownRepeat)
 	}
 	
 	@objc(runClosureTouchDragInside:)
 	func runClosureTouchDragInside(control: UIControl)
 	{
-		runAllClosures(control, event: .TouchDragInside)
+		runAllClosures(control: control, event: .touchDragInside)
 	}
 	
 	@objc(runClosureTouchDragOutside:)
 	func runClosureTouchDragOutside(control: UIControl)
 	{
-		runAllClosures(control, event: .TouchDragOutside)
+		runAllClosures(control: control, event: .touchDragOutside)
 	}
 	
 	@objc(runClosureTouchDragEnter:)
 	func runClosureTouchDragEnter(control: UIControl)
 	{
-		runAllClosures(control, event: .TouchDragEnter)
+		runAllClosures(control: control, event: .touchDragEnter)
 	}
 	
 	@objc(runClosureTouchDragExit:)
 	func runClosureTouchDragExit(control: UIControl)
 	{
-		runAllClosures(control, event: .TouchDragExit)
+		runAllClosures(control: control, event: .touchDragExit)
 	}
 	
 	@objc(runClosureTouchUpInside:)
 	func runClosureTouchUpInside(control: UIControl)
 	{
-		runAllClosures(control, event: .TouchUpInside)
+		runAllClosures(control: control, event: .touchUpInside)
 	}
 	
 	@objc(runClosureTouchUpOutside:)
 	func runClosureTouchUpOutside(control: UIControl)
 	{
-		runAllClosures(control, event: .TouchUpOutside)
+		runAllClosures(control: control, event: .touchUpOutside)
 	}
 	
 	@objc(runClosureTouchCancel:)
 	func runClosureTouchCancel(control: UIControl)
 	{
-		runAllClosures(control, event: .TouchCancel)
+		runAllClosures(control: control, event: .touchCancel)
 	}
 	
 	@objc(runClosureValueChanged:)
 	func runClosureValueChanged(control: UIControl)
 	{
-		runAllClosures(control, event: .ValueChanged)
+		runAllClosures(control: control, event: .valueChanged)
 	}
 	
 	@objc(runClosureEditingDidBegin:)
 	func runClosureEditingDidBegin(control: UIControl)
 	{
-		runAllClosures(control, event: .EditingDidBegin)
+		runAllClosures(control: control, event: .editingDidBegin)
 	}
 	
 	@objc(runClosureEditingChanged:)
 	func runClosureEditingChanged(control: UIControl)
 	{
-		runAllClosures(control, event: .EditingChanged)
+		runAllClosures(control: control, event: .editingChanged)
 	}
 	
 	@objc(runClosureEditingDidEnd:)
 	func runClosureEditingDidEnd(control: UIControl)
 	{
-		runAllClosures(control, event: .EditingDidEnd)
+		runAllClosures(control: control, event: .editingDidEnd)
 	}
 	
 	@objc(runClosureEditingDidEndOnExit:)
 	func runClosureEditingDidEndOnExit(control: UIControl)
 	{
-		runAllClosures(control, event: .EditingDidEndOnExit)
+		runAllClosures(control: control, event: .editingDidEndOnExit)
 	}
 	
 	@objc(runClosureAllTouchEvents:)
 	func runClosureAllTouchEvents(control: UIControl)
 	{
-		runAllClosures(control, event: .AllTouchEvents)
+		runAllClosures(control: control, event: .allTouchEvents)
 	}
 	
 	@objc(runClosureAllEditingEvents:)
 	func runClosureAllEditingEvents(control: UIControl)
 	{
-		runAllClosures(control, event: .AllEditingEvents)
+		runAllClosures(control: control, event: .allEditingEvents)
 	}
 	
 	@objc(runClosureApplicationReserved:)
 	func runClosureApplicationReserved(control: UIControl)
 	{
-		runAllClosures(control, event: .ApplicationReserved)
+		runAllClosures(control: control, event: .applicationReserved)
 	}
 	
 	@objc(runClosureSystemReserved:)
 	func runClosureSystemReserved(control: UIControl)
 	{
-		runAllClosures(control, event: .SystemReserved)
+		runAllClosures(control: control, event: .systemReserved)
 	}
 	
 	@objc(runClosureAllEvents:)
 	func runClosureAllEvents(control: UIControl)
 	{
-		runAllClosures(control, event: .AllEvents)
+		runAllClosures(control: control, event: .allEvents)
 	}
 	
 	
