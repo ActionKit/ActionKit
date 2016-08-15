@@ -44,7 +44,7 @@ public protocol ActionKitControl {}
 
 public extension ActionKitControl where Self: UIControl {
     
-    typealias SpecificControlClosure = (Self) -> ()
+    typealias SpecificControlClosure = @escaping (Self) -> ()
 
     internal func castedActionKitControlClosure(control: Self, closure: SpecificControlClosure) -> ActionKitClosure {
         return ActionKitClosure.WithControlParameter( { (ctrl: UIControl) in
@@ -110,11 +110,11 @@ public extension UIControl {
         
     }
     
-    func addControlEvent(controlEvents: UIControlEvents, closure: () -> ()) {
+    func addControlEvent(controlEvents: UIControlEvents, closure: @escaping () -> ()) {
         self.addControlEvent(controlEvents: controlEvents, actionKitClosure: .NoParameters(closure))
     }
     
-    private func addControlEvent(controlEvents: UIControlEvents, actionKitClosure: ActionKitClosure) {
+    fileprivate func addControlEvent(controlEvents: UIControlEvents, actionKitClosure: ActionKitClosure) {
 
         switch controlEvents {
         case let x where x.contains(.touchDown):

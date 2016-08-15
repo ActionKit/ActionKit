@@ -43,12 +43,12 @@ extension UIGestureRecognizer: ActionKitGestureRecognizer {}
 
 public extension UIGestureRecognizer {
     
-    convenience init(name: String = "", closure: () -> ()) {
+    convenience init(name: String = "", closure: @escaping () -> ()) {
         self.init(target: ActionKitSingleton.sharedInstance, action: .runGesture)
         ActionKitSingleton.sharedInstance.addGestureClosure(gesture: self, name: name, closure: .NoParameters(closure))
     }
 
-    func addClosure(name: String, closure: () -> ()) {
+    func addClosure(name: String, closure: @escaping () -> ()) {
         ActionKitSingleton.sharedInstance.addGestureClosure(gesture: self, name: name, closure: .NoParameters(closure))
     }
 
