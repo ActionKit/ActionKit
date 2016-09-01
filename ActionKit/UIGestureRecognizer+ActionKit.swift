@@ -9,56 +9,54 @@
 import Foundation
 import UIKit
 
-private extension Selector {
-    
-    static let runGesture = #selector(ActionKitSingleton.runGesture(_:))
-    
-}
-
 public protocol ActionKitGestureRecognizer {}
 
 public extension ActionKitGestureRecognizer where Self: UIGestureRecognizer {
-
-    typealias SpecificGestureClosure = (Self) -> ()
-    
-    internal func castedActionKitGestureClosure(gesture: Self, closure: SpecificGestureClosure) -> ActionKitClosure {
-        return ActionKitClosure.WithGestureParameter( { (gestr: UIGestureRecognizer) in
-            closure(gesture)
-        })
+    init(closure: () -> ()) {
+        self.init()
+        _addControlEvent(closure: closure)
     }
     
-    init(name: String = "", closureWithGesture: SpecificGestureClosure) {
-        self.init(target: ActionKitSingleton.sharedInstance, action: .runGesture)
-        let akClosure = castedActionKitGestureClosure(self, closure: closureWithGesture)
-        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: akClosure)
+    init(closureWithControl: (Self) -> ()) {
+        self.init()
+        addClosure(closureWithControl)
     }
-
-    func addClosure(name: String, closureWithGesture: SpecificGestureClosure) {
-        let akClosure = castedActionKitGestureClosure(self, closure: closureWithGesture)
-        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: akClosure)
+    
+    func addClosure(closureWithControl: (Self) -> ()) {
+        _addControlEvent(closure: { [weak self] (UIControl) -> () in
+            guard let strongSelf = self else { return }
+            closureWithControl(strongSelf)
+            })
+    }
+    
+    func addClosure(closure: () -> ()) {
+        _addControlEvent(closure: closure)
     }
 }
 
 extension UIGestureRecognizer: ActionKitGestureRecognizer {}
 
 public extension UIGestureRecognizer {
+    private struct AssociatedKeys {
+        static var ActionClosure = 0
+    }
     
-    convenience init(name: String = "", closure: () -> ()) {
-        self.init(target: ActionKitSingleton.sharedInstance, action: .runGesture)
-        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: .NoParameters(closure))
+    private var ActionClosure: ActionKitVoidClosure? {
+        get { return (objc_getAssociatedObject(self, &AssociatedKeys.ActionClosure) as? ActionKitVoidClosureWrapper)?.closure }
+        set { objc_setAssociatedObject(self, &AssociatedKeys.ActionClosure, ActionKitVoidClosureWrapper(newValue), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)}
     }
-
-    func addClosure(name: String, closure: () -> ()) {
-        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: .NoParameters(closure))
+    
+    @objc private func runActionKitVoidClosure() {
+        ActionClosure?()
     }
-
-    func removeClosure(name: String) {
-        if !ActionKitSingleton.sharedInstance.canRemoveGesture(self) {
-            print("can remove a gesture closure")
-            ActionKitSingleton.sharedInstance.removeGesture(self, name: name)
-        } else {
-            ActionKitSingleton.sharedInstance.removeGesture(self, name: name)
-            self.removeTarget(ActionKitSingleton.sharedInstance, action: .runGesture)
-        }
+    
+    private func _addControlEvent(closure closure: () -> ()) {
+        ActionClosure = closure
+        self.addTarget(self, action: #selector(UIGestureRecognizer.runActionKitVoidClosure))
+    }
+    
+    func removeClosure() {
+        ActionClosure = nil
+        self.removeTarget(self, action: #selector(UIGestureRecognizer.runActionKitVoidClosure))
     }
 }
