@@ -21,19 +21,19 @@ public extension ActionKitGestureRecognizer where Self: UIGestureRecognizer {
 
     typealias SpecificGestureClosure = (Self) -> ()
     
-    internal func castedActionKitGestureClosure(gesture: Self, closure: SpecificGestureClosure) -> ActionKitClosure {
+    internal func castedActionKitGestureClosure(gesture: Self, closure: @escaping SpecificGestureClosure) -> ActionKitClosure {
         return ActionKitClosure.WithGestureParameter( { (gestr: UIGestureRecognizer) in
             closure(gesture)
         })
     }
     
-    init(name: String = "", closureWithGesture: SpecificGestureClosure) {
+    init(name: String = "", closureWithGesture: @escaping SpecificGestureClosure) {
         self.init(target: ActionKitSingleton.sharedInstance, action: .runGesture)
         let akClosure = castedActionKitGestureClosure(gesture: self, closure: closureWithGesture)
         ActionKitSingleton.sharedInstance.addGestureClosure(gesture: self, name: name, closure: akClosure)
     }
 
-    func addClosure(name: String, closureWithGesture: SpecificGestureClosure) {
+    func addClosure(name: String, closureWithGesture: @escaping SpecificGestureClosure) {
         let akClosure = castedActionKitGestureClosure(gesture: self, closure: closureWithGesture)
         ActionKitSingleton.sharedInstance.addGestureClosure(gesture: self, name: name, closure: akClosure)
     }

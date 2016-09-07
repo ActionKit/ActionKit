@@ -44,15 +44,15 @@ public protocol ActionKitControl {}
 
 public extension ActionKitControl where Self: UIControl {
     
-    typealias SpecificControlClosure = @escaping (Self) -> ()
+    typealias SpecificControlClosure = (Self) -> ()
 
-    internal func castedActionKitControlClosure(control: Self, closure: SpecificControlClosure) -> ActionKitClosure {
+    internal func castedActionKitControlClosure(control: Self, closure: @escaping SpecificControlClosure) -> ActionKitClosure {
         return ActionKitClosure.WithControlParameter( { (ctrl: UIControl) in
             closure(control)
         })
     }
     
-    func addControlEvent(controlEvents: UIControlEvents, closureWithControl: SpecificControlClosure) {
+    func addControlEvent(controlEvents: UIControlEvents, closureWithControl: @escaping SpecificControlClosure) {
         let akClosure = castedActionKitControlClosure(control: self, closure: closureWithControl)
         self.addControlEvent(controlEvents: controlEvents, actionKitClosure: akClosure)
     }
