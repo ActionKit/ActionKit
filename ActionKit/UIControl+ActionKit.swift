@@ -46,13 +46,13 @@ public extension ActionKitControl where Self: UIControl {
     
     typealias SpecificControlClosure = (Self) -> ()
 
-    internal func castedActionKitControlClosure(_ control: Self, closure: SpecificControlClosure) -> ActionKitClosure {
+    internal func castedActionKitControlClosure(_ control: Self, closure: @escaping SpecificControlClosure) -> ActionKitClosure {
         return ActionKitClosure.withControlParameter( { (ctrl: UIControl) in
             closure(control)
         })
     }
     
-    func addControlEvent(_ controlEvents: UIControlEvents, closureWithControl: SpecificControlClosure) {
+    func addControlEvent(_ controlEvents: UIControlEvents, closureWithControl: @escaping SpecificControlClosure) {
         let akClosure = castedActionKitControlClosure(self, closure: closureWithControl)
         self.addControlEvent(controlEvents, actionKitClosure: akClosure)
     }
