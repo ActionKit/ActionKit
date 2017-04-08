@@ -9,56 +9,18 @@
 import Foundation
 import UIKit
 
-private extension Selector {
-    
-    static let runGesture = #selector(ActionKitSingleton.runGesture(_:))
-    
-}
-
-public protocol ActionKitGestureRecognizer {}
-
-public extension ActionKitGestureRecognizer where Self: UIGestureRecognizer {
-
-    typealias SpecificGestureClosure = (Self) -> ()
-    
-    internal func castedActionKitGestureClosure(_ gesture: Self, closure: @escaping SpecificGestureClosure) -> ActionKitClosure {
-        return ActionKitClosure.withGestureParameter( { (gestr: UIGestureRecognizer) in
-            closure(gesture)
-        })
+extension UIGestureRecognizer {
+    public func addClosure(_ name: String, closure: @escaping () -> ()) {
+        ActionKitSingleton.shared.addGestureClosure(self, name: name, closure: .noParameters(closure))
     }
     
-    init(name: String = "", closureWithGesture: @escaping SpecificGestureClosure) {
-        self.init(target: ActionKitSingleton.sharedInstance, action: .runGesture)
-        let akClosure = castedActionKitGestureClosure(self, closure: closureWithGesture)
-        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: akClosure)
+    public func addClosure(_ name: String, gestureClosure: @escaping (UIGestureRecognizer) -> ()) {
+        ActionKitSingleton.shared.addGestureClosure(self, name: name, closure: .withGestureParameter(gestureClosure))
     }
-
-    func addClosure(_ name: String, closureWithGesture: @escaping SpecificGestureClosure) {
-        let akClosure = castedActionKitGestureClosure(self, closure: closureWithGesture)
-        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: akClosure)
+    
+    public func removeClosure(_ name: String) {
+        ActionKitSingleton.shared.removeGesture(self, name: name)
     }
 }
 
-extension UIGestureRecognizer: ActionKitGestureRecognizer {}
 
-public extension UIGestureRecognizer {
-    
-    convenience init(name: String = "", closure: @escaping () -> ()) {
-        self.init(target: ActionKitSingleton.sharedInstance, action: .runGesture)
-        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: .noParameters(closure))
-    }
-
-    func addClosure(_ name: String, closure: @escaping () -> ()) {
-        ActionKitSingleton.sharedInstance.addGestureClosure(self, name: name, closure: .noParameters(closure))
-    }
-
-    func removeClosure(_ name: String) {
-        if !ActionKitSingleton.sharedInstance.canRemoveGesture(self) {
-            print("can remove a gesture closure")
-            ActionKitSingleton.sharedInstance.removeGesture(self, name: name)
-        } else {
-            ActionKitSingleton.sharedInstance.removeGesture(self, name: name)
-            self.removeTarget(ActionKitSingleton.sharedInstance, action: .runGesture)
-        }
-    }
-}
