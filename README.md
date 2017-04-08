@@ -1,4 +1,8 @@
-<img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" align="right" vspace="2px">
+[![Version](https://img.shields.io/cocoapods/v/ActionKit.svg?style=flat)](http://cocoadocs.org/docsets/ActionKit)
+[![Carthage](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![License](https://img.shields.io/cocoapods/l/ActionKit.svg?style=flat)](http://cocoadocs.org/docsets/ActionKit)
+[![Platform](https://img.shields.io/cocoapods/p/ActionKit.svg?style=flat)](http://cocoadocs.org/docsets/ActionKit)
+![Swift](https://img.shields.io/badge/%20in-swift%203.0-orange.svg)
 
 # ActionKit
 
@@ -20,7 +24,6 @@ func buttonWasTapped(sender: UIButton!) {
 ```
 
 ## Target-action example without ActionKit with Swift 2.2
-
 ```swift
 button.addTarget(self, action: #selector(ViewController.buttonWasTapped(_:)), forControlEvents: .TouchUpInside)
 ```
@@ -33,10 +36,10 @@ func buttonWasTapped(sender: UIButton!) {
 }
 ```
 
-## Target-action example with ActionKit
+## Target-action example with ActionKit (swift 3.0+)
 
 ```swift
-button.addControlEvent(.TouchUpInside) {
+button.addControlEvent(.touchUpInside) {
   
   self.button.setTitle("Button was tapped!", forState: .Normal)
 
@@ -46,8 +49,10 @@ button.addControlEvent(.TouchUpInside) {
 ## Target-action example with ActionKit with closure parameter
 
 ```swift
-button.addControlEvent(.TouchUpInside) { (button: UIButton) in
-  
+button.addControlEvent(.touchUpInside) { (control: UIControl) in
+  guard let button = control as? UIButton else {
+    return
+  }
   button.setTitle("Button was tapped!", forState: .Normal)
 
 }
@@ -68,7 +73,7 @@ button.addControlEvent(.TouchUpInside) { (button: UIButton) in
 ##### Examples
 
 ```swift
-button.addControlEvent(.TouchUpInside) {
+button.addControlEvent(.touchUpInside) {
   
   self.button.setTitle("Button was tapped!", forState: .Normal)
 
@@ -76,7 +81,7 @@ button.addControlEvent(.TouchUpInside) {
 ```
 
 ```swift
-button.addControlEvent(.TouchUpInside) { (button: UIButton) in
+button.addControlEvent(.touchUpInside) { (button: UIButton) in
   
     button.setTitle("Button was tapped!", forState: .Normal)
 
@@ -92,8 +97,10 @@ button.addControlEvent(.TouchUpInside) { (button: UIButton) in
 ##### Example
 
 ```swift
-button.removeControlEvent(.TouchUpInside)
+button.removeControlEvent(.touchUpInside)
 ```
+
+### Note: when a UIControl with associated actions is removed from it's superview, all associated actions are removed. This behavior can be overriden, but should be done at your own risk since this ensures references to those UIControls aren't kept longer than needed (and therefore causing a memory leak).
 
 ### UIGestureRecognizer
 
@@ -116,7 +123,7 @@ var singleTapGestureRecognizer = UITapGestureRecognizer() {
 ```
 
 ```swift
-var singleTapGestureRecognizer = UITapGestureRecognizer() { (gesture: UITapGestureRecognizer) in
+var singleTapGestureRecognizer = UITapGestureRecognizer() { (gesture: UIGestureRecognizer) in
   
   if gesture.state == .Began {
       let locInView = gesture.locationInView(self.view)
@@ -147,13 +154,15 @@ singleTapGestureRecognizer.addClosure("makeBlue") {
 #### Removing an action closure for a control event
 
 ```swift
-- removeActionClosure()
+- removeClosure(_ name: String)
 ```
 ##### Example
 
 ```swift
-singleTapGestureRecognizer.removeActionClosure()
+singleTapGestureRecognizer.removeClosure("makeBlue")
 ```
+
+### Note: when a UIGestureRecognizer is no longer needed, any references kept in closures added to the gesture need to be removed. Either by calling `removeClosure` as shown above for each named closure, or by simply calling `clearActionKit()` on the gestureRecognizer which will remove all associated named closures for the recognizer.
 
 ### UIBarButtonItem
 #### Initializing a bar button item with an action closure.
@@ -210,11 +219,11 @@ titleItem.addActionClosure {
 ```
 #### Removing an action closure for a bar button item 
 ```
-- removeActionClosure()
+- clearActionKit()
 ```
 ##### Example
 ```
-titleItem.removeActionClosure()
+titleItem.clearActionKit()
 ```
 
 ## How it works
@@ -222,6 +231,17 @@ titleItem.removeActionClosure()
 ActionKit extends target-action functionality by providing easy to use methods that take closures instead of a selector. ActionKit uses a singleton which stores the closures and acts as the target. Closures capture and store references to any constants and variables from their context, so the user is free to use variables from the context in which the closure was defined in.
 
 ## Migration from previous versions
+
+### Version 2.0
+
+Version 2.0 is a full rewrite of the library. As much as possible, backwards compability was kept in mind, and with that said, only a couple things will break:
+- inferred parameter types are more generic, now, and will need to be cast to specific control type within closure (think UIGestureRecognizer to UITapGestureRecognizer, for example)
+- unnecessary parameter names can now be ommitted, and the compiler will likely warn users about this when updating to version 2.
+- memory leaks should now be fixed! Through a couple automatic use cases plus exposing a more clear pattern for clearing references, ActionKit should now be memory leak proof while being fully written for Swift -- no Objective-C associated references!
+
+What's planned:
+- automated build tooling, including adding unit tests to ensure stability of ActionKit
+- bugs -- with a full rewrite, things will likely break...bug reports and issues will be gladly accepted and fixed ASAP. Additionally, PRs for open issues and bug reports are also welcome, but I will also put in more effort into fixing any issues opened.
 
 ### Version 1.1.0
 
@@ -254,26 +274,20 @@ If you're using `_ in` in your code and you get this ambiguous error, migrate by
 - Adding and removing an action to concrete gesture-recognizer objects, eg. UITapGestureRecognizer, UISwipeGestureRecognizer
 - Adding and removing an action for UIControl objects, eg. UIButton, UIView
 
-## In the pipeline
-
-- Adding and removing multiple actions for a single UIGestureRecognizer
-- Adding and removing multiple actions for a single UIControl
-- Better manage stored closures
-
 ## Installation
 
 ### CocoaPods
  ActionKit is available through [CocoaPods](http://cocoapods.org). To install
  it, simply add the following line to your Podfile:
  
-    pod 'ActionKit', '~> 1.1.0'
+    pod 'ActionKit', '~> 2.0'
 
 ### Carthage
 
 - 1. Add the following to your *Cartfile*:
 
 ```
-    github "ActionKit/ActionKit" == 1.1.0
+    github "ActionKit/ActionKit" == 2.0
 ``` 
    
 - 2. Run `carthage update`
