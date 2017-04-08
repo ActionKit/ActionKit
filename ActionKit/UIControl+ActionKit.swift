@@ -41,11 +41,14 @@ extension UIControl {
         ActionKitSingleton.shared.removeAction(self, controlEvent: controlEvent)
     }
     
-    public func addControlEvent(_ controlEvent: UIControlEvents, closure: @escaping () -> ()) {
-        ActionKitSingleton.shared.addAction(self, controlEvent: controlEvent, closure: .noParameters(closure))
-    }
-    
-    public func addControlEvent(_ controlEvent: UIControlEvents, controlClosure: @escaping (UIControl) -> ()) {
+    public func addControlEvent(_ controlEvent: UIControlEvents, _ controlClosure: @escaping ActionKitControlClosure) {
+        self.addTarget(ActionKitSingleton.shared, action: #selector(ActionKitSingleton.runControlEventAction(_:)), for: controlEvent)
         ActionKitSingleton.shared.addAction(self, controlEvent: controlEvent, closure: .withControlParameter(controlClosure))
+    }
+
+    @nonobjc
+    public func addControlEvent(_ controlEvent: UIControlEvents, _ closure: @escaping ActionKitVoidClosure) {
+        self.addTarget(ActionKitSingleton.shared, action: #selector(ActionKitSingleton.runControlEventAction(_:)), for: controlEvent)
+        ActionKitSingleton.shared.addAction(self, controlEvent: controlEvent, closure: .noParameters(closure))
     }
 }

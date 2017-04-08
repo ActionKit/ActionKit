@@ -22,17 +22,17 @@ public enum ActionKitClosure {
 }
 
 public enum ActionKitControlType: Hashable {
-    case control(UIControl)
-    case gestureRecognizer(UIGestureRecognizer)
+    case control(UIControl, UIControlEvents)
+    case gestureRecognizer(UIGestureRecognizer, String)
     case barButtonItem(UIBarButtonItem)
     
     public var hashValue: Int {
         get {
             switch self {
-            case .control(let control):
-                return control.hashValue &* control.actionKitEvent.hashValue
-            case .gestureRecognizer(let recognizer):
-                return recognizer.hashValue &* recognizer.actionKitName.hashValue
+            case .control(let control, let controlEvent):
+                return control.hashValue &* controlEvent.hashValue
+            case .gestureRecognizer(let recognizer, let name):
+                return recognizer.hashValue &* name.hashValue
             case .barButtonItem(let barButtonItem):
                 return barButtonItem.hashValue
             }
@@ -41,34 +41,23 @@ public enum ActionKitControlType: Hashable {
 }
 
 public extension UIControl {
-    var actionKitEvent: UIControlEvents {
-        get {
-            return self.actionKitEvent
-        }
-        set {
-            self.actionKitEvent = newValue
-        }
+    var actionKitEvents: Set<UIControlEvents>? {
+        get { return ActionKitSingleton.shared.controlToControlEvent[self] } set {}
     }
 }
 
 public extension UIGestureRecognizer {
-    var actionKitName: String {
-        get {
-            return self.actionKitName
-            
-        }
-        set {
-            self.actionKitName = newValue
-        }
+    var actionKitNames: Set<String>? {
+        get { return ActionKitSingleton.shared.gestureRecognizerToName[self] } set { }
     }
 }
 
 public func ==(lhs: ActionKitControlType, rhs: ActionKitControlType) -> Bool {
     switch (lhs, rhs) {
-    case (.control(let lhsControl), .control(let rhsControl)):
-        return lhsControl.hashValue == rhsControl.hashValue && lhsControl.actionKitEvent == rhsControl.actionKitEvent
-    case (.gestureRecognizer(let lhsRecognizer), .gestureRecognizer(let rhsRecognizer)):
-        return lhsRecognizer.hashValue == rhsRecognizer.hashValue && lhsRecognizer.actionKitName == rhsRecognizer.actionKitName
+    case (.control(let lhsControl, let lhsControlEvent), .control(let rhsControl, let rhsControlEvent)):
+        return lhsControl.hashValue == rhsControl.hashValue && lhsControlEvent.hashValue == rhsControlEvent.hashValue
+    case (.gestureRecognizer(let lhsRecognizer, let lhsName), .gestureRecognizer(let rhsRecognizer, let rhsName)):
+        return lhsRecognizer.hashValue == rhsRecognizer.hashValue && lhsName == rhsName
     case (.barButtonItem(let lhsBarButtonItem), .barButtonItem(let rhsBarButtonItem)):
         return lhsBarButtonItem.hashValue == rhsBarButtonItem.hashValue
     default:
@@ -81,20 +70,30 @@ public class ActionKitSingleton {
     public static let shared: ActionKitSingleton = ActionKitSingleton()
     private init() {}
     
+    var controlToControlEvent = Dictionary<UIControl, Set<UIControlEvents>>()
+    var gestureRecognizerToName = Dictionary<UIGestureRecognizer, Set<String>>()
     var controlToClosureDictionary = Dictionary<ActionKitControlType, ActionKitClosure>()
+    
 }
 
 // MARK:- UIGestureRecognizer actions
 extension ActionKitSingleton {
     
     func addGestureClosure(_ gesture: UIGestureRecognizer, name: String, closure: ActionKitClosure) {
-        gesture.actionKitName = name
-        let controlType: ActionKitControlType = .gestureRecognizer(gesture)
-        controlToClosureDictionary[controlType] = closure
+        let set: Set<String>? = gestureRecognizerToName[gesture]
+        var newSet: Set<String>
+        if let nonOptSet = set {
+            newSet = nonOptSet
+        } else {
+            newSet = Set<String>()
+        }
+        newSet.insert(name)
+        gestureRecognizerToName[gesture] = newSet
+        controlToClosureDictionary[.gestureRecognizer(gesture, name)] = closure
     }
     
-    func canRemoveGesture(_ gesture: UIGestureRecognizer) -> Bool {
-        if let _ = controlToClosureDictionary[.gestureRecognizer(gesture)] {
+    func canRemoveGesture(_ gesture: UIGestureRecognizer, _ name: String) -> Bool {
+        if let _ = controlToClosureDictionary[.gestureRecognizer(gesture, name)] {
             return true
         } else {
             return false
@@ -102,24 +101,24 @@ extension ActionKitSingleton {
     }
     
     func removeGesture(_ gesture: UIGestureRecognizer, name: String) {
-        gesture.actionKitName = name
-        
-        if canRemoveGesture(gesture) {
-            controlToClosureDictionary[.gestureRecognizer(gesture)] = nil
+        if canRemoveGesture(gesture, name) {
+            controlToClosureDictionary[.gestureRecognizer(gesture, name)] = nil
         }
     }
     
     @objc(runGesture:)
     func runGesture(_ gesture: UIGestureRecognizer) {
-        if let closure = controlToClosureDictionary[.gestureRecognizer(gesture)] {
-            switch closure {
-            case .noParameters(let voidClosure):
-                voidClosure()
-            case .withGestureParameter(let gestureClosure):
-                gestureClosure(gesture)
-            default:
-                assertionFailure("Gesture closure not found, nor void closure")
-                break
+        for gestureName in gestureRecognizerToName[gesture] ?? Set<String>() {
+            if let closure = controlToClosureDictionary[.gestureRecognizer(gesture, gestureName)] {
+                switch closure {
+                case .noParameters(let voidClosure):
+                    voidClosure()
+                case .withGestureParameter(let gestureClosure):
+                    gestureClosure(gesture)
+                default:
+                    assertionFailure("Gesture closure not found, nor void closure")
+                    break
+                }
             }
         }
     }
@@ -128,27 +127,40 @@ extension ActionKitSingleton {
 // MARK:- UIControl actions
 extension ActionKitSingleton {
     func removeAction(_ control: UIControl, controlEvent: UIControlEvents) {
-        control.actionKitEvent = controlEvent
-        controlToClosureDictionary[.control(control)] = nil
+        var eventSet = control.actionKitEvents
+        if eventSet?.contains(controlEvent) ?? false {
+            let _ = eventSet?.remove(controlEvent)
+        }
+        controlToClosureDictionary[.control(control, controlEvent)] = nil
     }
     
     func addAction(_ control: UIControl, controlEvent: UIControlEvents, closure: ActionKitClosure)
     {
-        control.actionKitEvent = controlEvent
-        controlToClosureDictionary[.control(control)] = closure
+        let set: Set<UIControlEvents>? = controlToControlEvent[control]
+        var newSet: Set<UIControlEvents>
+        if let nonOptSet = set {
+            newSet = nonOptSet
+        } else {
+            newSet = Set<UIControlEvents>()
+        }
+        newSet.insert(controlEvent)
+        controlToControlEvent[control] = newSet
+        controlToClosureDictionary[.control(control, controlEvent)] = closure
     }
     
     @objc(runControlEventAction:)
     func runControlEventAction(_ control: UIControl) {
-        if let closure = controlToClosureDictionary[.control(control)] {
-            switch closure {
-            case .noParameters(let voidClosure):
-                voidClosure()
-            case .withControlParameter(let controlClosure):
-                controlClosure(control)
-            default:
-                assertionFailure("Control event closure not found, nor void closure")
-                break
+        for controlEvent in control.actionKitEvents ?? Set<UIControlEvents>() {
+            if let closure = controlToClosureDictionary[.control(control, controlEvent)] {
+                switch closure {
+                case .noParameters(let voidClosure):
+                    voidClosure()
+                case .withControlParameter(let controlClosure):
+                    controlClosure(control)
+                default:
+                    assertionFailure("Control event closure not found, nor void closure")
+                    break
+                }
             }
         }
     }

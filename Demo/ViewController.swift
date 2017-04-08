@@ -43,14 +43,18 @@ class ViewController: UIViewController {
         }
 
         //: This adds a closure to the second button on the screen to change the text to Tapped2! when being tapped
-        testButton2.addControlEvent(.touchUpInside, closure: {
+        testButton2.addControlEvent(.touchUpInside, {
             self.testButton2.setTitle("Tapped2!", for: .normal)
         })
 
         //: This adds a closure, which receives the UIControl as input parameter, to the third button.
         //: It shows how the UIControl can be mapped to the UIButton, in order to have its title changed.
-        testButton3.addControlEvent(.touchUpInside) { (button: UIButton) in
-            button.setTitle("Tapped3!", for: .normal)
+        testButton3.addControlEvent(.touchUpInside) { (control: UIControl) in
+            guard let button = control as? UIButton else {
+                return
+            }
+            let titleString: String? = "Tapped3!"
+            button.setTitle(titleString, for: .normal)
         }
 
         //: The following shows that you can remove a control event that has been set.
@@ -66,7 +70,7 @@ class ViewController: UIViewController {
         //: #Adding GestureRecognizers
         //:
         //: Add a Tap Gesture Recognizer (tgr)
-        let tgr = UITapGestureRecognizer(name: "setRed") {
+        let tgr = UITapGestureRecognizer("setRed") {
             self.view.backgroundColor = UIColor.red
         }
         
@@ -77,7 +81,7 @@ class ViewController: UIViewController {
         }
         
         //: Add a Double Tap Gesture Recognizer (dtgr)
-        let dtgr = UITapGestureRecognizer(name: "setYellow") {
+        let dtgr = UITapGestureRecognizer("setYellow") {
             self.view.backgroundColor = UIColor.yellow
         }
         dtgr.numberOfTapsRequired = 2
@@ -91,7 +95,10 @@ class ViewController: UIViewController {
         //: The following adds a long press gesture recognizer to the background view.
         //: It also shows it is not necessary to keep a reference to the gesture recognizer
         //: when you only need it inside the closure
-        view.addGestureRecognizer(UILongPressGestureRecognizer() { (gesture: UILongPressGestureRecognizer) in
+        view.addGestureRecognizer(UILongPressGestureRecognizer() { (gesture: UIGestureRecognizer) in
+            guard gesture is UILongPressGestureRecognizer else {
+                return
+            }
             if gesture.state == .began {
                 let locInView = gesture.location(in: self.view)
                 self.testButton2.setTitle("\(locInView)", for: .normal)
@@ -99,9 +106,9 @@ class ViewController: UIViewController {
         })
 		
         // This adds a closure to the second button on the screen to change the text to Tapped2! when being tapped
-        testButton2.addControlEvent(.touchUpInside, closure: {
+        testButton2.addControlEvent(.touchUpInside, {
             self.testButton2.setTitle("Tapped2!", for: .normal)
-            })
+        })
         
         // This shows that you can remove a control event that has been set. Originally, tapping the first button on the screen
         // would set the text to tapped! (line 31), but this removes that.
