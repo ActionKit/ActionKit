@@ -17,6 +17,15 @@ extension UIControlEvents: Hashable {
 
 private extension Selector {
     
+    private var controlClosures: [UIControlEvents : ActionKitClosure]? {
+        set {
+            self.controlClosures = newValue
+        }
+        get {
+            return self.controlClosures
+        }
+    }
+    
     // All 19 UIControlEvents
     static let runClosureTouchDown              = #selector(ActionKitSingleton.runClosureTouchDown(_:))
     static let runClosureTouchDownRepeat        = #selector(ActionKitSingleton.runClosureTouchDownRepeat(_:))
@@ -40,7 +49,9 @@ private extension Selector {
 
 }
 
-public protocol ActionKitControl {}
+public protocol ActionKitControl {
+    var controlClosures: [UIControlEvents: ActionKitClosure]? { get set }
+}
 
 public extension ActionKitControl where Self: UIControl {
     
@@ -58,7 +69,27 @@ public extension ActionKitControl where Self: UIControl {
     }
 }
 
-extension UIControl: ActionKitControl {}
+extension UIControl: ActionKitControl {
+    public var controlClosures: [UIControlEvents : ActionKitClosure]? {
+        set {
+            self.controlClosures = newValue
+        }
+        get {
+           return self.controlClosures
+        }
+    }
+    
+    override open func willRemoveSubview(_ subview: UIView) {
+        guard let controlClosures = controlClosures else {
+            // nothing to do
+            return
+        }
+        for controlEvent in controlClosures.keys {
+            self.removeControlEvent(controlEvent)
+        }
+        self.controlClosures = nil
+    }
+}
 
 public extension UIControl {
     
@@ -160,5 +191,8 @@ public extension UIControl {
         }
         
         ActionKitSingleton.sharedInstance.addAction(self, controlEvent: controlEvents, closure: actionKitClosure)
+        var newClosures = [UIControlEvents : ActionKitClosure]()
+        newClosures[controlEvents] = actionKitClosure
+        self.controlClosures = newClosures
     }
 }
