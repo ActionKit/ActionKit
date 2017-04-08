@@ -25,18 +25,19 @@ extension UIControlEvents: Hashable {
 
 extension UIControl {
     
-    open override func willRemoveSubview(_ subview: UIView) {
-        guard subview == self else {
-            super.willRemoveSubview(subview)
-            return
-        }
-        
-        for controlEvent in UIControlEvents.allValues {
-            ActionKitSingleton.shared.removeAction(self, controlEvent: controlEvent)
-        }
-        super.willRemoveSubview(subview)
+    open override func removeFromSuperview() {
+        clearActionKit()
+        super.removeFromSuperview()
     }
 
+    public func clearActionKit() {
+        let controlEvents = ActionKitSingleton.shared.controlToControlEvent[self]
+        ActionKitSingleton.shared.controlToControlEvent[self] = nil
+        for controlEvent in controlEvents ?? Set<UIControlEvents>() {
+            ActionKitSingleton.shared.removeAction(self, controlEvent: controlEvent)
+        }
+    }
+    
     public func removeControlEvent(_ controlEvent: UIControlEvents) {
         ActionKitSingleton.shared.removeAction(self, controlEvent: controlEvent)
     }

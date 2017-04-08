@@ -80,6 +80,7 @@ public class ActionKitSingleton {
 extension ActionKitSingleton {
     
     func addGestureClosure(_ gesture: UIGestureRecognizer, name: String, closure: ActionKitClosure) {
+        print("add gesture")
         let set: Set<String>? = gestureRecognizerToName[gesture]
         var newSet: Set<String>
         if let nonOptSet = set {
@@ -101,6 +102,7 @@ extension ActionKitSingleton {
     }
     
     func removeGesture(_ gesture: UIGestureRecognizer, name: String) {
+        print("remove gesture")
         if canRemoveGesture(gesture, name) {
             controlToClosureDictionary[.gestureRecognizer(gesture, name)] = nil
         }

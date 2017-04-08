@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet var testButton: UIButton!
     @IBOutlet var testButton2: UIButton!
     @IBOutlet var testButton3: UIButton!
+    @IBOutlet weak var tableTestButton: UIButton!
     
     // Test button used for a regular usage of target action without ActionKit
     @IBOutlet var oldTestButton: UIButton!
@@ -136,6 +137,7 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    
 
 }
 

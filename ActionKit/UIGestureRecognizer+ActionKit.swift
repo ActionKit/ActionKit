@@ -10,6 +10,14 @@ import Foundation
 import UIKit
 
 extension UIGestureRecognizer {
+    public func clearActionKit() {
+        let gestureRecognizerNames = ActionKitSingleton.shared.gestureRecognizerToName[self]
+        ActionKitSingleton.shared.gestureRecognizerToName[self] = nil
+        for gestureRecognizerName in gestureRecognizerNames ?? Set<String>() {
+            ActionKitSingleton.shared.removeGesture(self, name: gestureRecognizerName)
+        }
+    }
+    
     public convenience init(_ name: String = "", _ gestureClosure: @escaping ActionKitGestureClosure) {
         self.init(target: ActionKitSingleton.shared, action: #selector(ActionKitSingleton.runGesture(_:)))
         self.addClosure(name, gestureClosure: gestureClosure)

@@ -18,6 +18,10 @@ extension UIBarButtonItem {
         ActionKitSingleton.shared.addBarButtonItemClosure(self, closure: .withBarButtonItemParameter(itemClosure))
     }
     
+    public func clearActionKit() {
+        ActionKitSingleton.shared.removeBarButtonItemClosure(self)
+    }
+    
     public convenience init(image: UIImage, landscapeImagePhone: UIImage? = nil, style: UIBarButtonItemStyle = .plain, actionClosure: @escaping ActionKitVoidClosure) {
         
         self.init(image: image,
