@@ -164,7 +164,7 @@ singleTapGestureRecognizer.addClosure("makeBlue") {
 singleTapGestureRecognizer.removeClosure("makeBlue")
 ```
 
-### Note: when a UIGestureRecognizer is no longer needed, any references kept in closures added to the gesture need to be removed. Either by calling `removeClosure` as shown above for each named closure, or by simply calling `clearActionKit()` on the gestureRecognizer which will remove all associated named closures for the recognizer.
+##### Note: when a UIGestureRecognizer is no longer needed, any references kept in closures added to the gesture need to be removed. Either by calling `removeClosure` as shown above for each named closure, or by simply calling `clearActionKit()` on the gestureRecognizer which will remove all associated named closures for the recognizer.
 
 ### UIBarButtonItem
 #### Initializing a bar button item with an action closure.
