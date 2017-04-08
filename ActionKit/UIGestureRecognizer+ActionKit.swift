@@ -9,6 +9,60 @@
 import Foundation
 import UIKit
 
+// MARK:- UIGestureRecognizer actions
+extension ActionKitSingleton {
+    
+    func addGestureClosure(_ gesture: UIGestureRecognizer, name: String, closure: ActionKitClosure) {
+        let set: Set<String>? = gestureRecognizerToName[gesture]
+        var newSet: Set<String>
+        if let nonOptSet = set {
+            newSet = nonOptSet
+        } else {
+            newSet = Set<String>()
+        }
+        newSet.insert(name)
+        gestureRecognizerToName[gesture] = newSet
+        controlToClosureDictionary[.gestureRecognizer(gesture, name)] = closure
+    }
+    
+    func canRemoveGesture(_ gesture: UIGestureRecognizer, _ name: String) -> Bool {
+        if let _ = controlToClosureDictionary[.gestureRecognizer(gesture, name)] {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func removeGesture(_ gesture: UIGestureRecognizer, name: String) {
+        if canRemoveGesture(gesture, name) {
+            controlToClosureDictionary[.gestureRecognizer(gesture, name)] = nil
+        }
+    }
+    
+    @objc(runGesture:)
+    func runGesture(_ gesture: UIGestureRecognizer) {
+        for gestureName in gestureRecognizerToName[gesture] ?? Set<String>() {
+            if let closure = controlToClosureDictionary[.gestureRecognizer(gesture, gestureName)] {
+                switch closure {
+                case .noParameters(let voidClosure):
+                    voidClosure()
+                case .withGestureParameter(let gestureClosure):
+                    gestureClosure(gesture)
+                default:
+                    assertionFailure("Gesture closure not found, nor void closure")
+                    break
+                }
+            }
+        }
+    }
+}
+
+public extension UIGestureRecognizer {
+    var actionKitNames: Set<String>? {
+        get { return ActionKitSingleton.shared.gestureRecognizerToName[self] } set { }
+    }
+}
+
 extension UIGestureRecognizer {
     public func clearActionKit() {
         let gestureRecognizerNames = ActionKitSingleton.shared.gestureRecognizerToName[self]

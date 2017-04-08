@@ -9,6 +9,32 @@
 import Foundation
 import UIKit
 
+// MARK:- UIBarButtonItem actions
+extension ActionKitSingleton {
+    func addBarButtonItemClosure(_ barButtonItem: UIBarButtonItem, closure: ActionKitClosure) {
+        controlToClosureDictionary[.barButtonItem(barButtonItem)] = closure
+    }
+    
+    func removeBarButtonItemClosure(_ barButtonItem: UIBarButtonItem) {
+        controlToClosureDictionary[.barButtonItem(barButtonItem)] = nil
+    }
+    
+    @objc(runBarButtonItem:)
+    func runBarButtonItem(_ item: UIBarButtonItem) {
+        if let closure = controlToClosureDictionary[.barButtonItem(item)] {
+            switch closure {
+            case .noParameters(let voidClosure):
+                voidClosure()
+            case .withBarButtonItemParameter(let barButtonItemClosure):
+                barButtonItemClosure(item)
+            default:
+                assertionFailure("Bar button item closure not found, nor void closure")
+                break
+            }
+        }
+    }
+}
+
 extension UIBarButtonItem {
     public func addClosure(_ closure: @escaping ActionKitVoidClosure) {
         ActionKitSingleton.shared.addBarButtonItemClosure(self, closure: .noParameters(closure))
