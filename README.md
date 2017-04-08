@@ -65,9 +65,9 @@ button.addControlEvent(.touchUpInside) { (control: UIControl) in
 #### Adding an action closure for a control event
 
 ```swift
-- addControlEvent(controlEvents: UIControlEvents, closure: () -> ())
+- addControlEvent(_ controlEvents: UIControlEvents, _ closure: @escaping () -> ())
 
-- addControlEvent(controlEvents: UIControlEvents, closureWithControl: (UIControl) -> ())
+- addControlEvent(_ controlEvents: UIControlEvents, _ controlClosure: @escaping (UIControl) -> ())
 ```
 
 ##### Examples
@@ -81,8 +81,10 @@ button.addControlEvent(.touchUpInside) {
 ```
 
 ```swift
-button.addControlEvent(.touchUpInside) { (button: UIButton) in
-  
+button.addControlEvent(.touchUpInside) { (control: UIControl) in
+    guard let button = control as? UIButton else {
+      return
+    }
     button.setTitle("Button was tapped!", forState: .Normal)
 
 }
@@ -100,16 +102,16 @@ button.addControlEvent(.touchUpInside) { (button: UIButton) in
 button.removeControlEvent(.touchUpInside)
 ```
 
-### Note: when a UIControl with associated actions is removed from it's superview, all associated actions are removed. This behavior can be overriden, but should be done at your own risk since this ensures references to those UIControls aren't kept longer than needed (and therefore causing a memory leak).
+##### Note: when a UIControl with associated actions is removed from it's superview, all associated actions are removed. This behavior can be overriden, but should be done at your own risk since this ensures references to those UIControls aren't kept longer than needed (and therefore causing a memory leak).
 
 ### UIGestureRecognizer
 
 #### Initializing a gesture recognizer with an action closure
 
 ```swift
-- init(closure: () -> ())
+- init(_ name: String, closure: @escaping () -> ())
 
-- init(closureWithGesture: (UIGestureRecognizer) -> ())
+- init(_ name: String, gestureClosure: @escaping (UIGestureRecognizer) -> ())
 ```
 
 ##### Examples
