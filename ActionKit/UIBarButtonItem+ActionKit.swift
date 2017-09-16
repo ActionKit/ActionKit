@@ -11,11 +11,11 @@ import UIKit
 
 // MARK:- UIBarButtonItem actions
 extension ActionKitSingleton {
-    @objc func addBarButtonItemClosure(_ barButtonItem: UIBarButtonItem, closure: ActionKitClosure) {
+    func addBarButtonItemClosure(_ barButtonItem: UIBarButtonItem, closure: ActionKitClosure) {
         controlToClosureDictionary[.barButtonItem(barButtonItem)] = closure
     }
     
-    @objc func removeBarButtonItemClosure(_ barButtonItem: UIBarButtonItem) {
+    func removeBarButtonItemClosure(_ barButtonItem: UIBarButtonItem) {
         controlToClosureDictionary[.barButtonItem(barButtonItem)] = nil
     }
     

@@ -19,7 +19,7 @@ extension ActionKitSingleton {
         controlToClosureDictionary[.control(control, controlEvent)] = nil
     }
     
-    @objc func addAction(_ control: UIControl, controlEvent: UIControlEvents, closure: ActionKitClosure)
+    func addAction(_ control: UIControl, controlEvent: UIControlEvents, closure: ActionKitClosure)
     {
         let set: Set<UIControlEvents>? = controlToControlEvent[control]
         var newSet: Set<UIControlEvents>

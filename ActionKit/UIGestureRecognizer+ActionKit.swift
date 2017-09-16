@@ -12,7 +12,7 @@ import UIKit
 // MARK:- UIGestureRecognizer actions
 extension ActionKitSingleton {
     
-    @objc func addGestureClosure(_ gesture: UIGestureRecognizer, name: String, closure: ActionKitClosure) {
+    func addGestureClosure(_ gesture: UIGestureRecognizer, name: String, closure: ActionKitClosure) {
         let set: Set<String>? = gestureRecognizerToName[gesture]
         var newSet: Set<String>
         if let nonOptSet = set {
