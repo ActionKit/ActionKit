@@ -11,7 +11,7 @@ import UIKit
 
 // MARK:- UIControl actions
 extension ActionKitSingleton {
-    func removeAction(_ control: UIControl, controlEvent: UIControlEvents) {
+    @objc func removeAction(_ control: UIControl, controlEvent: UIControlEvents) {
         var eventSet = control.actionKitEvents
         if eventSet?.contains(controlEvent) ?? false {
             let _ = eventSet?.remove(controlEvent)
@@ -19,7 +19,7 @@ extension ActionKitSingleton {
         controlToClosureDictionary[.control(control, controlEvent)] = nil
     }
     
-    func addAction(_ control: UIControl, controlEvent: UIControlEvents, closure: ActionKitClosure)
+    @objc func addAction(_ control: UIControl, controlEvent: UIControlEvents, closure: ActionKitClosure)
     {
         let set: Set<UIControlEvents>? = controlToControlEvent[control]
         var newSet: Set<UIControlEvents>
@@ -86,11 +86,11 @@ extension UIControl {
         }
     }
     
-    public func removeControlEvent(_ controlEvent: UIControlEvents) {
+    @objc public func removeControlEvent(_ controlEvent: UIControlEvents) {
         ActionKitSingleton.shared.removeAction(self, controlEvent: controlEvent)
     }
     
-    public func addControlEvent(_ controlEvent: UIControlEvents, _ controlClosure: @escaping ActionKitControlClosure) {
+    @objc public func addControlEvent(_ controlEvent: UIControlEvents, _ controlClosure: @escaping ActionKitControlClosure) {
         self.addTarget(ActionKitSingleton.shared, action: #selector(ActionKitSingleton.runControlEventAction(_:)), for: controlEvent)
         ActionKitSingleton.shared.addAction(self, controlEvent: controlEvent, closure: .withControlParameter(controlClosure))
     }

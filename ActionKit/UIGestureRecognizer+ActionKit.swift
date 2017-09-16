@@ -12,7 +12,7 @@ import UIKit
 // MARK:- UIGestureRecognizer actions
 extension ActionKitSingleton {
     
-    func addGestureClosure(_ gesture: UIGestureRecognizer, name: String, closure: ActionKitClosure) {
+    @objc func addGestureClosure(_ gesture: UIGestureRecognizer, name: String, closure: ActionKitClosure) {
         let set: Set<String>? = gestureRecognizerToName[gesture]
         var newSet: Set<String>
         if let nonOptSet = set {
@@ -72,7 +72,7 @@ extension UIGestureRecognizer {
         }
     }
     
-    public convenience init(_ name: String = "", _ gestureClosure: @escaping ActionKitGestureClosure) {
+    @objc public convenience init(_ name: String = "", _ gestureClosure: @escaping ActionKitGestureClosure) {
         self.init(target: ActionKitSingleton.shared, action: #selector(ActionKitSingleton.runGesture(_:)))
         self.addClosure(name, gestureClosure: gestureClosure)
     }

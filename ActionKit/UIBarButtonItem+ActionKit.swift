@@ -11,11 +11,11 @@ import UIKit
 
 // MARK:- UIBarButtonItem actions
 extension ActionKitSingleton {
-    func addBarButtonItemClosure(_ barButtonItem: UIBarButtonItem, closure: ActionKitClosure) {
+    @objc func addBarButtonItemClosure(_ barButtonItem: UIBarButtonItem, closure: ActionKitClosure) {
         controlToClosureDictionary[.barButtonItem(barButtonItem)] = closure
     }
     
-    func removeBarButtonItemClosure(_ barButtonItem: UIBarButtonItem) {
+    @objc func removeBarButtonItemClosure(_ barButtonItem: UIBarButtonItem) {
         controlToClosureDictionary[.barButtonItem(barButtonItem)] = nil
     }
     
@@ -48,7 +48,7 @@ extension UIBarButtonItem {
         ActionKitSingleton.shared.removeBarButtonItemClosure(self)
     }
     
-    public convenience init(image: UIImage, landscapeImagePhone: UIImage? = nil, style: UIBarButtonItemStyle = .plain, actionClosure: @escaping ActionKitVoidClosure) {
+    @objc public convenience init(image: UIImage, landscapeImagePhone: UIImage? = nil, style: UIBarButtonItemStyle = .plain, actionClosure: @escaping ActionKitVoidClosure) {
         
         self.init(image: image,
                   landscapeImagePhone: landscapeImagePhone,
@@ -59,7 +59,7 @@ extension UIBarButtonItem {
         addClosure(actionClosure)
     }
     
-    public convenience init(title: String, style: UIBarButtonItemStyle = .plain, actionClosure: @escaping ActionKitVoidClosure) {
+    @objc public convenience init(title: String, style: UIBarButtonItemStyle = .plain, actionClosure: @escaping ActionKitVoidClosure) {
         self.init(title: title,
                   style: style,
                   target: ActionKitSingleton.shared,
@@ -68,7 +68,7 @@ extension UIBarButtonItem {
         addClosure(actionClosure)
     }
     
-    public convenience init(barButtonSystemItem systemItem: UIBarButtonSystemItem, actionClosure: @escaping ActionKitVoidClosure) {
+    @objc public convenience init(barButtonSystemItem systemItem: UIBarButtonSystemItem, actionClosure: @escaping ActionKitVoidClosure) {
         self.init(barButtonSystemItem: systemItem,
                   target: ActionKitSingleton.shared,
                   action: #selector(ActionKitSingleton.runBarButtonItem(_:)))
