@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     
     // Part of making old test button changed to tapped. This is what ActionKit tries to avoid doing
     // by removing the need to explicitly declare selector functions when a closure is all that's needed
-    func tappedSelector(_ sender: UIButton!) {
+    @objc func tappedSelector(_ sender: UIButton!) {
         self.oldTestButton.setTitle("Old Tapped!", for: UIControlState())
     }
     

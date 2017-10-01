@@ -72,7 +72,7 @@ extension UIGestureRecognizer {
         }
     }
     
-    public convenience init(_ name: String = "", _ gestureClosure: @escaping ActionKitGestureClosure) {
+    @objc public convenience init(_ name: String = "", _ gestureClosure: @escaping ActionKitGestureClosure) {
         self.init(target: ActionKitSingleton.shared, action: #selector(ActionKitSingleton.runGesture(_:)))
         self.addClosure(name, gestureClosure: gestureClosure)
     }
