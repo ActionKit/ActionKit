@@ -297,4 +297,4 @@ titleItem.clearActionKit()
 
 ## License
 
-Licensed under the terms of the MIT license
+Licensed under the terms of the MIT license. See [LICENSE](LICENSE) file
