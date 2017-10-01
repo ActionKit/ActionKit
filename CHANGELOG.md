@@ -1,5 +1,9 @@
 ## Changelog
 
+### 2.1.1 -- patched on October 1st, 2017
+
+Heavy documentation edits, updating to latest information.
+
 ### 2.1 -- Released October 1st, 2017
 
 Thank you @brandons for the Swift 4 PR! 
