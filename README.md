@@ -12,7 +12,10 @@ ActionKit is a light-weight, easy to use framework that wraps the target-action 
 ### Target-action example without ActionKit (Swift 3.0+)
 ```swift
 button.addTarget(self, action: #selector(MyViewController.buttonWasTapped(_:)), forControlEvents: .TouchUpInside)
+```
 
+#### and somewhere else...
+```
 func buttonWasTapped(sender: Any) {
   self.button.setTitle("Button was tapped!", forState: .Normal)
 }
