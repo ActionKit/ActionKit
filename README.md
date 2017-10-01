@@ -7,48 +7,25 @@
 
 # ActionKit
 
-ActionKit is a experimental, light-weight, easy to use framework that wraps the target-action design paradigm into a less verbose, cleaner format. It shortens target-action method calls by removing the target and replacing the selector with a closure.
+ActionKit is a light-weight, easy to use framework that wraps the target-action design paradigm into a less verbose, cleaner format. It shortens target-action method calls by removing the target and replacing the selector with a closure.
 
-Licensed under the terms of the MIT license
-
-## Target-action example without ActionKit (prior to Swift 2.2)
+## Target-action example without ActionKit (Swift 3.0+)
 ```swift
-button.addTarget(self, action: Selector("buttonWasTapped:"), forControlEvents: .TouchUpInside)
-```
+button.addTarget(self, action: #selector(MyViewController.buttonWasTapped(_:)), forControlEvents: .TouchUpInside)
 
-```swift
-func buttonWasTapped(sender: UIButton!) {
-
-    self.button.setTitle("Button was tapped!", forState: .Normal)
-    
+func buttonWasTapped(sender: Any) {
+  self.button.setTitle("Button was tapped!", forState: .Normal)
 }
 ```
 
-## Target-action example without ActionKit with Swift 2.2
-```swift
-button.addTarget(self, action: #selector(ViewController.buttonWasTapped(_:)), forControlEvents: .TouchUpInside)
-```
-
-```swift
-func buttonWasTapped(sender: UIButton!) {
-
-    self.button.setTitle("Button was tapped!", forState: .Normal)
-    
-}
-```
-
-## Target-action example with ActionKit (swift 3.0+)
-
+## Target-action example with ActionKit (Swift 3.0+)
 ```swift
 button.addControlEvent(.touchUpInside) {
-  
   self.button.setTitle("Button was tapped!", forState: .Normal)
-
 }
 ```
 
-## Target-action example with ActionKit with closure parameter
-
+## Target-action example with ActionKit with closure parameter (Swift 3.0+)
 ```swift
 button.addControlEvent(.touchUpInside) { (control: UIControl) in
   guard let button = control as? UIButton else {
@@ -59,11 +36,41 @@ button.addControlEvent(.touchUpInside) { (control: UIControl) in
 }
 ```
 
-## Methods
+## Installation
 
-### UIControl
+### CocoaPods
+ ActionKit is available through [CocoaPods](http://cocoapods.org). To install
+ it, simply add the following line to your Podfile:
+ 
+    pod 'ActionKit', '~> 2.1'
 
-#### Adding an action closure for a control event
+### Carthage
+
+- 1. Add the following to your *Cartfile*:
+
+```
+    github "ActionKit/ActionKit" == 2.1
+``` 
+   
+- 2. Run `carthage update`
+- 3. Add the framework as described in [Carthage Readme](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application)
+
+## How it works
+
+ActionKit extends target-action functionality by providing easy to use methods that take closures instead of a selector. ActionKit uses a singleton which stores the closures and acts as the target. Closures capture and store references to any constants and variables from their context, so the user is free to use variables from the context in which the closure was defined in.
+
+## Features
+
+* Add an action based closure to any `UIGestureRecognizer` subclass (eg. `UITapGestureRecognizer`, `UIPanGestureRecognizer`...) instead of needing to use the target-action mechanism
+* Remove actions added to `UIGestureRecognizer` subclasses
+* Add an action based closure to any `UIControl` subclass (eg: `UIButton`, `UIView`, `UISwitch`...) instead of needing to use the target-action mechanism
+* Remove actions added to `UIControl` subclasses
+* Add an action based closure to any `UIBarButtonItem`, instead of needing target-action
+* Remove actions added to `UIBarButtonItem`s
+
+## Methods: `UIControl`
+
+### Adding an action closure for a control event
 
 ```swift
 - addControlEvent(_ controlEvents: UIControlEvents, _ closure: @escaping () -> ())
@@ -71,8 +78,13 @@ button.addControlEvent(.touchUpInside) { (control: UIControl) in
 - addControlEvent(_ controlEvents: UIControlEvents, _ controlClosure: @escaping (UIControl) -> ())
 ```
 
-##### Examples
+### Examples
+#### addControlEvent, empty closure
+```swift
+- addControlEvent(_ controlEvents: UIControlEvents, _ closure: @escaping () -> ())
+```
 
+#### usable for `UIButton`
 ```swift
 button.addControlEvent(.touchUpInside) {
   
@@ -81,6 +93,23 @@ button.addControlEvent(.touchUpInside) {
 }
 ```
 
+#### or any `UIControl`
+```swift
+switch.addControlEvent(.valueChanged) {
+  [weak self]
+  self?.demoLabel.text = "Switch value changed!"
+}
+```
+
+#### Notes
+When no closure parameter is given, be aware that any references to the original control are by default a strong reference to that object. However, as shown in the second example by adding the `[weak self]` annotation, this is instead a weak reference and will not risk causing a retain cycle.
+
+#### addControlEvent, `UIControl` closure
+```swift
+- addControlEvent(_ controlEvents: UIControlEvents, _ controlClosure: @escaping (UIControl) -> ())
+```
+
+#### usable for `UIButton`
 ```swift
 button.addControlEvent(.touchUpInside) { (control: UIControl) in
     guard let button = control as? UIButton else {
@@ -91,23 +120,40 @@ button.addControlEvent(.touchUpInside) { (control: UIControl) in
 }
 ```
 
-#### Removing an action closure for a control event
+#### or any `UIControl`
+```swift
+switch.addControlEvent(.valueChanged) { (control: UIControl) in
+  [weak self]
+  guard let switch = control as? UISwitch,
+        let strongSelf = self else {
+          return
+  }
+  strongSelf.demoLabel.text = "Switch value changed!"
+  switch.backgroundColor.toggle()
+}
+```
+
+#### Notes
+With a closure parameter, there can still be strong references to the parent class. This example shows how to use a `guard` to unwrap the `weak self`, and otherwise abort the closure. Once unwrapped, further optional chaining is unneeded, a nice syntactic outcome.
+
+### Removing an action closure for a control event
 
 ```swift
 - removeControlEvent(controlEvents: UIControlEvents)
 ```
 
-##### Example
+#### Example
 
 ```swift
 button.removeControlEvent(.touchUpInside)
 ```
 
-##### Note: when a UIControl with associated actions is removed from it's superview, all associated actions are removed. This behavior can be overriden, but should be done at your own risk since this ensures references to those UIControls aren't kept longer than needed (and therefore causing a memory leak).
+#### Notes 
+When a `UIControl` with associated actions is removed from it's superview, all associated actions are removed. This behavior can be overriden, but should be done at your own risk. This behavior currently ensures references to `UIControl`s aren't kept longer than needed (and therefore causing a memory leak through a reference cycle).
 
-### UIGestureRecognizer
+## Methods: `UIGestureRecognizer`
 
-#### Initializing a gesture recognizer with an action closure
+### Initializing a gesture recognizer with an action closure
 
 ```swift
 - init(_ name: String, closure: @escaping () -> ())
@@ -115,62 +161,82 @@ button.removeControlEvent(.touchUpInside)
 - init(_ name: String, gestureClosure: @escaping (UIGestureRecognizer) -> ())
 ```
 
-##### Examples
+### Examples
 
+#### init, empty closure
+```swift
+- init(_ name: String, closure: @escaping () -> ())
+```
+
+#### usable for `UITapGestureRecognizer`
 ```swift
 var singleTapGestureRecognizer = UITapGestureRecognizer() {
-  
   self.view.backgroundColor = UIColor.redColor()
-
 }
 ```
 
+#### or any other `UIGestureRecognizer` subclass
+```swift
+var panGestureRecognizer = UIPanGestureRecognizer() {
+  [weak self]
+  self?.view.backgroundColor = UIColor.redColor()
+}
+```
+
+#### init, `UIGestureRecognizer` in closure
+```swift
+- init(_ name: String, gestureClosure: @escaping (UIGestureRecognizer) -> ())
+```
+
+#### usable for `UITapGestureRecognizer`
 ```swift
 var singleTapGestureRecognizer = UITapGestureRecognizer() { (gesture: UIGestureRecognizer) in
-  
   if gesture.state == .Began {
       let locInView = gesture.locationInView(self.view)
       ...
   }
-
 }
 ```
 
-#### Adding an action closure to a gesture recognizer
+#### or any other `UIGestureRecognizer` subclass
+```swift
+var panGestureRecognizer = UIPanGestureRecognizer() { (gesture: UIGestureRecognizer) in
+  if gesture.state == .Cancelled || gesture.state == .Ended  {
+      let locInView = gesture.locationInView(self.view)
+      ...
+  }
+}
+```
 
+### Adding an action closure to a gesture recognizer
 ```swift
 - addClosure(name: String, closure: () -> ())
 
 - addClosure(name: String, closureWithGesture: (UIGestureRecognizer) -> ())
 ```
-
-##### Example
-
+#### Example
 ```swift
 singleTapGestureRecognizer.addClosure("makeBlue") {
-  
   self.view.backgroundColor = UIColor.blueColor()
-
 }
 ```
 
-#### Removing an action closure for a control event
-
+### Removing an action closure for a control event
 ```swift
 - removeClosure(_ name: String)
 ```
-##### Example
-
+#### Example
 ```swift
 singleTapGestureRecognizer.removeClosure("makeBlue")
 ```
 
-##### Note: when a UIGestureRecognizer is no longer needed, any references kept in closures added to the gesture need to be removed. Either by calling `removeClosure` as shown above for each named closure, or by simply calling `clearActionKit()` on the gestureRecognizer which will remove all associated named closures for the recognizer.
+#### Notes 
+When a `UIGestureRecognizer` is no longer needed, any references kept in closures added to the gesture need to be removed. Either by calling `removeClosure` as shown above for each named closure, or by simply calling `clearActionKit()` on the gestureRecognizer which will remove all associated named closures for the recognizer.
 
-### UIBarButtonItem
-#### Initializing a bar button item with an action closure.
+## Methods: `UIBarButtonItem`
+### Initializing a bar button item with an action closure.
 
-##### Closure without parameters
+#### without parameters:
 ```swift
 // Init with image
 - init(image: UIImage, landscapeImagePhone: UIImage? = nil, style: UIBarButtonItemStyle = .Plain, actionClosure: () -> Void)
@@ -182,7 +248,7 @@ singleTapGestureRecognizer.removeClosure("makeBlue")
 - init(barButtonSystemItem systemItem: UIBarButtonSystemItem, actionClosure: () -> Void) 
 ```
 
-##### Closure with parameters
+#### with parameters:
 ```swift
 // Init with image
 - init(image: UIImage, landscapeImagePhone: UIImage? = nil, style: UIBarButtonItemStyle = .Plain, actionWithItem: UIBarButtonItem -> Void)
@@ -194,7 +260,7 @@ singleTapGestureRecognizer.removeClosure("makeBlue")
 - init(barButtonSystemItem systemItem: UIBarButtonSystemItem, actionWithItem: UIBarButtonItem -> Void) 
 ```
 
-##### Examples
+#### Examples
 ```swift
 let titleItem = UIBarButtonItem(title: "Press me") { 
 	print("Title item pressed")
@@ -210,88 +276,27 @@ let systemItem = UIBarButtonItem(barButtonSystemItem: .Action) {
 }
 ```
 
-#### Adding an action closure for a bar button item
+### Adding an action closure for a bar button item
 ```
 - addActionClosure(actionClosure: () -> ())
 ```
-##### Example
+
+#### Example
 ```
 titleItem.addActionClosure {
 	print("new action")
 }
 ```
-#### Removing an action closure for a bar button item 
+
+### Removing an action closure for a bar button item 
 ```
 - clearActionKit()
 ```
-##### Example
+#### Example
 ```
 titleItem.clearActionKit()
 ```
 
-## How it works
+## License
 
-ActionKit extends target-action functionality by providing easy to use methods that take closures instead of a selector. ActionKit uses a singleton which stores the closures and acts as the target. Closures capture and store references to any constants and variables from their context, so the user is free to use variables from the context in which the closure was defined in.
-
-## Migration from previous versions
-
-### Version 2.0
-
-Version 2.0 is a full rewrite of the library. As much as possible, backwards compability was kept in mind, and with that said, only a couple things will break:
-- inferred parameter types are more generic, now, and will need to be cast to specific control type within closure (think UIGestureRecognizer to UITapGestureRecognizer, for example)
-- unnecessary parameter names can now be ommitted, and the compiler will likely warn users about this when updating to version 2.
-- memory leaks should now be fixed! Through a couple automatic use cases plus exposing a more clear pattern for clearing references, ActionKit should now be memory leak proof while being fully written for Swift -- no Objective-C associated references!
-
-What's planned:
-- automated build tooling, including adding unit tests to ensure stability of ActionKit
-- bugs -- with a full rewrite, things will likely break...bug reports and issues will be gladly accepted and fixed ASAP. Additionally, PRs for open issues and bug reports are also welcome, but I will also put in more effort into fixing any issues opened.
-
-### Version 1.1.0
-
-Version 1.1.0 adds an *optional* `UIControl` or `UIGestureRecognizer` to the closure. This might lead to possible backwards-incompatibility.
-
-We made sure you can still call the closures without any parameters, like the following:
-
-```swift
-button.addControlEvent(.TouchUpInside) {
-    print("the button was tapped")
-}
-```
-
-However, with previous versions of ActionKit, due to the peculiarity of Swift, it was also possible to call the closure with an unused parameter:
-
-```swift
-button.addControlEvent(.TouchUpInside) { _ in
-    print("the button was tapped")
-}
-```
-
-In this example the `_` refers to the empty input tuple `()`.  
-
-Now, with these extra closure parameters, the above is no longer valid, as it is **ambiguous** which method is being called: `addControlEvent` *without* closure parameters *or with* a `UIControl` as closure parameter. When you have this Xcode will report: **Ambiguous use of 'addControlEvent'**.
-
-If you're using `_ in` in your code and you get this ambiguous error, migrate by *either* removing the `_ in` all together *or* by replacing it with `(control: UIControl) in`. (For gesture recognizers use `(gesture: UIGestureRecognizer) in`.)
-
-## Supported
-
-- Adding and removing an action to concrete gesture-recognizer objects, eg. UITapGestureRecognizer, UISwipeGestureRecognizer
-- Adding and removing an action for UIControl objects, eg. UIButton, UIView
-
-## Installation
-
-### CocoaPods
- ActionKit is available through [CocoaPods](http://cocoapods.org). To install
- it, simply add the following line to your Podfile:
- 
-    pod 'ActionKit', '~> 2.0'
-
-### Carthage
-
-- 1. Add the following to your *Cartfile*:
-
-```
-    github "ActionKit/ActionKit" == 2.0
-``` 
-   
-- 2. Run `carthage update`
-- 3. Add the framework as described in [Carthage Readme](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application)
+Licensed under the terms of the MIT license
