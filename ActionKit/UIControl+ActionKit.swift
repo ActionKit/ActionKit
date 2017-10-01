@@ -86,11 +86,11 @@ extension UIControl {
         }
     }
     
-    public func removeControlEvent(_ controlEvent: UIControlEvents) {
+    @objc public func removeControlEvent(_ controlEvent: UIControlEvents) {
         ActionKitSingleton.shared.removeAction(self, controlEvent: controlEvent)
     }
     
-    public func addControlEvent(_ controlEvent: UIControlEvents, _ controlClosure: @escaping ActionKitControlClosure) {
+    @objc public func addControlEvent(_ controlEvent: UIControlEvents, _ controlClosure: @escaping ActionKitControlClosure) {
         self.addTarget(ActionKitSingleton.shared, action: #selector(ActionKitSingleton.runControlEventAction(_:)), for: controlEvent)
         ActionKitSingleton.shared.addAction(self, controlEvent: controlEvent, closure: .withControlParameter(controlClosure))
     }
