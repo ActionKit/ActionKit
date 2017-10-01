@@ -1,8 +1,9 @@
 ## Changelog
 
-### 2.1.1 -- patched on October 1st, 2017
+### 2.2.0 -- Released October 1st, 2017
 
-Heavy documentation edits, updating to latest information.
+Heavy documentation edits, updating to latest information. 
+Adding patch for semantic versioning
 
 ### 2.1 -- Released October 1st, 2017
 
