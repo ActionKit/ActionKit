@@ -9,7 +9,7 @@
 
 ActionKit is a light-weight, easy to use framework that wraps the target-action design paradigm into a less verbose, cleaner format. It shortens target-action method calls by removing the target and replacing the selector with a closure.
 
-### Target-action example without ActionKit (Swift 3.0+)
+### Example of target-action *without* ActionKit
 ```swift
 button.addTarget(self, action: #selector(MyViewController.buttonWasTapped(_:)), forControlEvents: .TouchUpInside)
 ```
@@ -17,18 +17,13 @@ button.addTarget(self, action: #selector(MyViewController.buttonWasTapped(_:)), 
 #### and somewhere else...
 ```
 func buttonWasTapped(sender: Any) {
-  self.button.setTitle("Button was tapped!", forState: .Normal)
+  if let button = sender as? UIButton {
+    button.setTitle("Button was tapped!", forState: .Normal)
+  } 
 }
 ```
 
-### Target-action example with ActionKit (Swift 3.0+)
-```swift
-button.addControlEvent(.touchUpInside) {
-  self.button.setTitle("Button was tapped!", forState: .Normal)
-}
-```
-
-### Target-action example with ActionKit with closure parameter (Swift 3.0+)
+### Or *with* ActionKit, all in one place
 ```swift
 button.addControlEvent(.touchUpInside) { (control: UIControl) in
   guard let button = control as? UIButton else {
