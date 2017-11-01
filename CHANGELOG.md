@@ -1,5 +1,10 @@
 ## Changelog
 
+### 2.3.0 -- Released November 1st, 2017
+
+Fix for https://github.com/ActionKit/ActionKit/issues/31
+Thanks for reporting, screenshots always help!
+
 ### 2.2.0 -- Released October 1st, 2017
 
 Heavy documentation edits, updating to latest information. 
