@@ -4,6 +4,8 @@
 
 ActionKit is a light-weight, easy to use framework that wraps the target-action design paradigm into a less verbose, cleaner format. It shortens target-action method calls by removing the target and replacing the selector with a closure.
 
+Back to [main readme](README.md)
+
 ## Methods: `UIControl`
 
 ### Adding an action closure for a control event

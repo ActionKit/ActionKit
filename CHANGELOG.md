@@ -1,5 +1,11 @@
 ## Changelog
 
+Back to [main readme](README.md)
+
+### 2.3.1 -- Released November 30th, 2017
+This is purely a bump to update documentation regarding using 
+Xcode's new build system
+
 ### 2.3 -- Released November 1st, 2017
 
 Where did 2.2 go? Well, it was in the middle there without much change.
