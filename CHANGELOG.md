@@ -2,7 +2,12 @@
 
 Back to [main readme](README.md)
 
+### 2.3.2 -- Released December 1st, 2017
+
+This is a small bump for podspec change to specify .swift files
+
 ### 2.3.1 -- Released November 30th, 2017
+
 This is purely a bump to update documentation regarding using 
 Xcode's new build system
 
