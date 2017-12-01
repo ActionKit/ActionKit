@@ -70,12 +70,6 @@ ActionKit extends target-action functionality by providing easy to use methods t
 
 See the [examples wiki](EXAMPLES.md)
 
-## FAQ
-
-#### Does ActionKit work with Xcode 9's new build system?
-
-Yes, but you need to do 1 extra step. Thank you @phucnm for the help, he said he only removed Info.plist from Compile Sources in Build Phases settings, and that allowed ActionKit to function on the new build system.
-
 ## Changelog
 
 See the [changelog here](CHANGELOG.md)
