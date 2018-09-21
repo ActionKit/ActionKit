@@ -11,7 +11,7 @@ import UIKit
 
 // MARK:- UIControl actions
 extension ActionKitSingleton {
-    func removeAction(_ control: UIControl, controlEvent: UIControlEvents) {
+    func removeAction(_ control: UIControl, controlEvent: UIControl.Event) {
         var eventSet = control.actionKitEvents
         if eventSet?.contains(controlEvent) ?? false {
             let _ = eventSet?.remove(controlEvent)
@@ -19,14 +19,14 @@ extension ActionKitSingleton {
         controlToClosureDictionary[.control(control, controlEvent)] = nil
     }
     
-    func addAction(_ control: UIControl, controlEvent: UIControlEvents, closure: ActionKitClosure)
+    func addAction(_ control: UIControl, controlEvent: UIControl.Event, closure: ActionKitClosure)
     {
-        let set: Set<UIControlEvents>? = controlToControlEvent[control]
-        var newSet: Set<UIControlEvents>
+        let set: Set<UIControl.Event>? = controlToControlEvent[control]
+        var newSet: Set<UIControl.Event>
         if let nonOptSet = set {
             newSet = nonOptSet
         } else {
-            newSet = Set<UIControlEvents>()
+            newSet = Set<UIControl.Event>()
         }
         newSet.insert(controlEvent)
         controlToControlEvent[control] = newSet
@@ -35,7 +35,7 @@ extension ActionKitSingleton {
     
     @objc(runControlEventAction:)
     func runControlEventAction(_ control: UIControl) {
-        for controlEvent in control.actionKitEvents ?? Set<UIControlEvents>() {
+        for controlEvent in control.actionKitEvents ?? Set<UIControl.Event>() {
             if let closure = controlToClosureDictionary[.control(control, controlEvent)] {
                 switch closure {
                 case .noParameters(let voidClosure):
@@ -52,17 +52,17 @@ extension ActionKitSingleton {
 }
 
 public extension UIControl {
-    var actionKitEvents: Set<UIControlEvents>? {
+    var actionKitEvents: Set<UIControl.Event>? {
         get { return ActionKitSingleton.shared.controlToControlEvent[self] } set {}
     }
 }
 
-extension UIControlEvents: Hashable {
+extension UIControl.Event: Hashable {
     public var hashValue: Int {
         return Int(rawValue)
     }
     
-    public static var allValues: [UIControlEvents] {
+    public static var allValues: [UIControl.Event] {
         return [.touchDown, .touchDownRepeat, .touchDragInside, .touchDragOutside, .touchDragEnter,
                 .touchDragExit, .touchUpInside, .touchUpOutside, .touchCancel, .valueChanged,
                 .primaryActionTriggered, .editingDidBegin, .editingChanged, .editingDidEnd,
@@ -81,22 +81,22 @@ extension UIControl {
     public func clearActionKit() {
         let controlEvents = ActionKitSingleton.shared.controlToControlEvent[self]
         ActionKitSingleton.shared.controlToControlEvent[self] = nil
-        for controlEvent in controlEvents ?? Set<UIControlEvents>() {
+        for controlEvent in controlEvents ?? Set<UIControl.Event>() {
             ActionKitSingleton.shared.removeAction(self, controlEvent: controlEvent)
         }
     }
     
-    @objc public func removeControlEvent(_ controlEvent: UIControlEvents) {
+    @objc public func removeControlEvent(_ controlEvent: UIControl.Event) {
         ActionKitSingleton.shared.removeAction(self, controlEvent: controlEvent)
     }
     
-    @objc public func addControlEvent(_ controlEvent: UIControlEvents, _ controlClosure: @escaping ActionKitControlClosure) {
+    @objc public func addControlEvent(_ controlEvent: UIControl.Event, _ controlClosure: @escaping ActionKitControlClosure) {
         self.addTarget(ActionKitSingleton.shared, action: #selector(ActionKitSingleton.runControlEventAction(_:)), for: controlEvent)
         ActionKitSingleton.shared.addAction(self, controlEvent: controlEvent, closure: .withControlParameter(controlClosure))
     }
 
     @nonobjc
-    public func addControlEvent(_ controlEvent: UIControlEvents, _ closure: @escaping ActionKitVoidClosure) {
+    public func addControlEvent(_ controlEvent: UIControl.Event, _ closure: @escaping ActionKitVoidClosure) {
         self.addTarget(ActionKitSingleton.shared, action: #selector(ActionKitSingleton.runControlEventAction(_:)), for: controlEvent)
         ActionKitSingleton.shared.addAction(self, controlEvent: controlEvent, closure: .noParameters(closure))
     }

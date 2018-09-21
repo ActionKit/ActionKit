@@ -48,7 +48,7 @@ extension UIBarButtonItem {
         ActionKitSingleton.shared.removeBarButtonItemClosure(self)
     }
     
-    @objc public convenience init(image: UIImage, landscapeImagePhone: UIImage? = nil, style: UIBarButtonItemStyle = .plain, actionClosure: @escaping ActionKitVoidClosure) {
+    @objc public convenience init(image: UIImage, landscapeImagePhone: UIImage? = nil, style: UIBarButtonItem.Style = .plain, actionClosure: @escaping ActionKitVoidClosure) {
         
         self.init(image: image,
                   landscapeImagePhone: landscapeImagePhone,
@@ -59,7 +59,7 @@ extension UIBarButtonItem {
         addClosure(actionClosure)
     }
     
-    @objc public convenience init(title: String, style: UIBarButtonItemStyle = .plain, actionClosure: @escaping ActionKitVoidClosure) {
+    @objc public convenience init(title: String, style: UIBarButtonItem.Style = .plain, actionClosure: @escaping ActionKitVoidClosure) {
         self.init(title: title,
                   style: style,
                   target: ActionKitSingleton.shared,
@@ -68,7 +68,7 @@ extension UIBarButtonItem {
         addClosure(actionClosure)
     }
     
-    @objc public convenience init(barButtonSystemItem systemItem: UIBarButtonSystemItem, actionClosure: @escaping ActionKitVoidClosure) {
+    @objc public convenience init(barButtonSystemItem systemItem: UIBarButtonItem.SystemItem, actionClosure: @escaping ActionKitVoidClosure) {
         self.init(barButtonSystemItem: systemItem,
                   target: ActionKitSingleton.shared,
                   action: #selector(ActionKitSingleton.runBarButtonItem(_:)))
@@ -77,7 +77,7 @@ extension UIBarButtonItem {
     }
     
     @nonobjc
-    public convenience init(image: UIImage, landscapeImagePhone: UIImage? = nil, style: UIBarButtonItemStyle = .plain, actionClosure: @escaping ActionKitBarButtonItemClosure) {
+    public convenience init(image: UIImage, landscapeImagePhone: UIImage? = nil, style: UIBarButtonItem.Style = .plain, actionClosure: @escaping ActionKitBarButtonItemClosure) {
         
         self.init(image: image,
                   landscapeImagePhone: landscapeImagePhone,
@@ -89,7 +89,7 @@ extension UIBarButtonItem {
     }
     
     @nonobjc
-    public convenience init(title: String, style: UIBarButtonItemStyle = .plain, actionClosure: @escaping ActionKitBarButtonItemClosure) {
+    public convenience init(title: String, style: UIBarButtonItem.Style = .plain, actionClosure: @escaping ActionKitBarButtonItemClosure) {
         self.init(title: title,
                   style: style,
                   target: ActionKitSingleton.shared,
@@ -99,7 +99,7 @@ extension UIBarButtonItem {
     }
     
     @nonobjc
-    public convenience init(barButtonSystemItem systemItem: UIBarButtonSystemItem, actionClosure: @escaping ActionKitBarButtonItemClosure) {
+    public convenience init(barButtonSystemItem systemItem: UIBarButtonItem.SystemItem, actionClosure: @escaping ActionKitBarButtonItemClosure) {
         self.init(barButtonSystemItem: systemItem,
                   target: ActionKitSingleton.shared,
                   action: #selector(ActionKitSingleton.runBarButtonItem(_:)))

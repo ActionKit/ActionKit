@@ -22,7 +22,7 @@ public enum ActionKitClosure {
 }
 
 public enum ActionKitControlType: Hashable {
-    case control(UIControl, UIControlEvents)
+    case control(UIControl, UIControl.Event)
     case gestureRecognizer(UIGestureRecognizer, String)
     case barButtonItem(UIBarButtonItem)
     
@@ -58,7 +58,7 @@ public class ActionKitSingleton {
     public static let shared: ActionKitSingleton = ActionKitSingleton()
     private init() {}
     
-    var controlToControlEvent = Dictionary<UIControl, Set<UIControlEvents>>()
+    var controlToControlEvent = Dictionary<UIControl, Set<UIControl.Event>>()
     var gestureRecognizerToName = Dictionary<UIGestureRecognizer, Set<String>>()
     var controlToClosureDictionary = Dictionary<ActionKitControlType, ActionKitClosure>()
     
