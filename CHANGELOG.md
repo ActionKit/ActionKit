@@ -2,6 +2,11 @@
 
 Back to [main readme](README.md)
 
+### 2.4.0 -- Released September 21st, 2018
+
+Version 2.4 is all about supporting Swift 4.2.
+Please use the `swift4` branch to continue using Swift 4 APIs.
+
 ### 2.3.2 -- Released December 1st, 2017
 
 This is a small bump for podspec change to specify .swift files
