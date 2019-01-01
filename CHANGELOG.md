@@ -2,6 +2,12 @@
 
 Back to [main readme](README.md)
 
+### 2.5.0 -- Released January 1st, 2019
+
+Happy 2019! Version 2.5 is a big bug fix to allow for actions for multiple `controlEvent` types for a single `UIControl`.
+The bug would trigger all actions for any controlEvent, but this is no longer the case! Thanks @marcusbuffett for reporting this :)
+Along with this release, I've also removed the `swift4` branch. Once Swift 5 is out, the `swift3.2` branch will also be cleaned up, and we'll have a Swift 4.x branch left open. 
+
 ### 2.4.0 -- Released September 21st, 2018
 
 Version 2.4 is all about supporting Swift 4.2.
