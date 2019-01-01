@@ -42,6 +42,8 @@ switch.addControlEvent(.valueChanged) {
 #### Notes
 When no closure parameter is given, be aware that any references to the original control are by default a strong reference to that object. However, as shown in the second example by adding the `[weak self]` annotation, this is instead a weak reference and will not risk causing a retain cycle.
 
+For any given control, you can assign an action per controlEvent type. You cannot, however, assign multiple actions to `touchUpInside` -- the same controlEvent type.
+
 #### addControlEvent, `UIControl` closure
 ```swift
 - addControlEvent(_ controlEvents: UIControlEvents, _ controlClosure: @escaping (UIControl) -> ())

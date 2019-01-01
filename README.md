@@ -40,14 +40,14 @@ button.addControlEvent(.touchUpInside) { (control: UIControl) in
  ActionKit is available through [CocoaPods](http://cocoapods.org). To install
  it, simply add the following line to your Podfile:
  
-    pod 'ActionKit', '~> 2.4.0'
+    pod 'ActionKit', '~> 2.5.0'
 
 ### Carthage
 
 - 1. Add the following to your *Cartfile*:
 
 ```
-    github "ActionKit/ActionKit" == 2.4.0
+    github "ActionKit/ActionKit" == 2.5.0
 ``` 
    
 - 2. Run `carthage update`
@@ -62,6 +62,7 @@ ActionKit extends target-action functionality by providing easy to use methods t
 * Add an action based closure to any `UIGestureRecognizer` subclass (eg. `UITapGestureRecognizer`, `UIPanGestureRecognizer`...) instead of needing to use the target-action mechanism
 * Remove actions added to `UIGestureRecognizer` subclasses
 * Add an action based closure to any `UIControl` subclass (eg: `UIButton`, `UIView`, `UISwitch`...) instead of needing to use the target-action mechanism
+* For `UIControl`s, add an action for any number of `controlEvent`s
 * Remove actions added to `UIControl` subclasses
 * Add an action based closure to any `UIBarButtonItem`, instead of needing target-action
 * Remove actions added to `UIBarButtonItem`s
