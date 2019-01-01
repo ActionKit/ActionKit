@@ -58,7 +58,6 @@ public class ActionKitSingleton {
     public static let shared: ActionKitSingleton = ActionKitSingleton()
     private init() {}
     
-    var controlToControlEvent = Dictionary<UIControl, Set<UIControl.Event>>()
     var gestureRecognizerToName = Dictionary<UIGestureRecognizer, Set<String>>()
     var controlToClosureDictionary = Dictionary<ActionKitControlType, ActionKitClosure>()
     

@@ -42,6 +42,14 @@ class ViewController: UIViewController {
         testButton.addControlEvent(.touchUpInside) {
             self.testButton.setTitle("Tapped!", for: .normal)
         }
+        // Let's add a few more control events to this button to show they all get fired
+        testButton.addControlEvent(.touchDown) {
+            print("Test button transitioned through touchDown state")
+            self.testButton.setTitle("DOWNED!", for: .normal)
+        }
+        testButton.addControlEvent(.touchCancel) {
+            self.testButton.setTitle("Cancelled!", for: .normal)
+        }
 
         //: This adds a closure to the second button on the screen to change the text to Tapped2! when being tapped
         testButton2.addControlEvent(.touchUpInside, {
@@ -112,8 +120,8 @@ class ViewController: UIViewController {
         })
         
         // This shows that you can remove a control event that has been set. Originally, tapping the first button on the screen
-        // would set the text to tapped! (line 31), but this removes that.
-        testButton.removeControlEvent(.touchUpInside);
+        // would set the text to tapped! (line ~50), but this removes that.
+        testButton.removeControlEvent(.touchCancel);
 		
 		// UIBarButton item
 		let titleItem = UIBarButtonItem(title: "Press me") { 
