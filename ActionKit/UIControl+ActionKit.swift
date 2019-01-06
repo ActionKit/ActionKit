@@ -188,10 +188,11 @@ extension ActionKitSingleton {
 }
 
 extension UIControl.Event: Hashable {
-    public var hashValue: Int {
-        return Int(rawValue)
-    }
     
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(rawValue)
+    }
+ 
     public static var allValues: [UIControl.Event] {
         return [.touchDown, .touchDownRepeat, .touchDragInside, .touchDragOutside, .touchDragEnter,
                 .touchDragExit, .touchUpInside, .touchUpOutside, .touchCancel, .valueChanged,
