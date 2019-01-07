@@ -2,6 +2,11 @@
 
 Back to [main readme](README.md)
 
+### 2.5.1 -- Released January 6th, 2019
+
+Thanks @RomanPodymov for this release! This bumps the swift-version to 4.2 correctly, removing the deprecated .swift-version file. 
+It also adopts the updated Hashable APIs.
+
 ### 2.5.0 -- Released January 1st, 2019
 
 Happy 2019! Version 2.5 is a big bug fix to allow for actions for multiple `controlEvent` types for a single `UIControl`.
