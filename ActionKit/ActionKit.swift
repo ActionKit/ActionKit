@@ -25,17 +25,17 @@ public enum ActionKitControlType: Hashable {
     case control(UIControl, UIControl.Event)
     case gestureRecognizer(UIGestureRecognizer, String)
     case barButtonItem(UIBarButtonItem)
-    
-    public var hashValue: Int {
-        get {
-            switch self {
-            case .control(let control, let controlEvent):
-                return control.hashValue &* controlEvent.hashValue
-            case .gestureRecognizer(let recognizer, let name):
-                return recognizer.hashValue &* name.hashValue
-            case .barButtonItem(let barButtonItem):
-                return barButtonItem.hashValue
-            }
+
+    public func hash(into hasher: inout Hasher) {
+        switch self {
+        case .control(let control, let controlEvent):
+            hasher.combine(control)
+            hasher.combine(controlEvent)
+        case .gestureRecognizer(let recognizer, let name):
+            hasher.combine(recognizer)
+            hasher.combine(name)
+        case .barButtonItem(let barButtonItem):
+            hasher.combine(barButtonItem)
         }
     }
 }
