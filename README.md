@@ -40,14 +40,14 @@ button.addControlEvent(.touchUpInside) { (control: UIControl) in
  ActionKit is available through [CocoaPods](http://cocoapods.org). To install
  it, simply add the following line to your Podfile:
  
-    pod 'ActionKit', '~> 2.5.1'
+    pod 'ActionKit', '~> 2.5.2'
 
 ### Carthage
 
 - 1. Add the following to your *Cartfile*:
 
 ```
-    github "ActionKit/ActionKit" == 2.5.1
+    github "ActionKit/ActionKit" == 2.5.2
 ``` 
    
 - 2. Run `carthage update`
