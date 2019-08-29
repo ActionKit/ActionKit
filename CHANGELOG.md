@@ -2,6 +2,10 @@
 
 Back to [main readme](README.md)
 
+### 2.5.3 -- Released August 28th, 2019
+
+Thanks again @MingYuLiang for this release! This bumps the swift version to 5.0.
+
 ### 2.5.2 -- Released May 3rd, 2019
 
 Thanks again @RomanPodymov for this release! This adds tvos support to ActionKit.
