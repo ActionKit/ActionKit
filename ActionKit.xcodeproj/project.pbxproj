@@ -178,6 +178,7 @@
 					438CAE5D1B50060D00EA8B00 = {
 						CreatedOnToolsVersion = 6.4;
 						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1110;
 					};
 				};
 			};
